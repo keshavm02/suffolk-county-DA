@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="EWy-pd-TbW">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="EWy-pd-TbW">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,13 +10,13 @@
         <!--View Controller-->
         <scene sceneID="z15-4h-ygg">
             <objects>
-                <viewController id="EWy-pd-TbW" customClass="ViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="EWy-pd-TbW" customClass="ViewController" customModule="SCDAO_OCR" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bOq-dN-PwZ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SCDAO OCR Scanner" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jx7-xi-DDQ">
-                                <rect key="frame" x="23.5" y="12.5" width="328" height="42"/>
+                                <rect key="frame" x="23.666666666666657" y="85" width="328" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
@@ -25,7 +25,7 @@
                                 </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bge-vR-phx">
-                                <rect key="frame" x="75.5" y="384.5" width="224" height="48"/>
+                                <rect key="frame" x="75.666666666666686" y="457" width="224" height="48"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="30"/>
                                 <state key="normal" title="Access Database">
                                     <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -35,7 +35,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pIs-qg-RCH">
-                                <rect key="frame" x="77" y="309.5" width="221" height="48"/>
+                                <rect key="frame" x="77" y="382" width="221" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Scan Documents">
                                     <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -45,7 +45,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Logo-SCDAO" translatesAutoresizingMaskIntoConstraints="NO" id="j7c-kM-Vkw">
-                                <rect key="frame" x="87.5" y="458.5" width="200" height="200"/>
+                                <rect key="frame" x="87.666666666666686" y="531" width="200" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="Kau-ky-g7i"/>
                                     <constraint firstAttribute="height" constant="200" id="euY-rw-vxK"/>
@@ -74,9 +74,9 @@
         <!--Title-->
         <scene sceneID="Lpy-t9-stX">
             <objects>
-                <viewController id="04Y-kl-RKr" customClass="ViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="04Y-kl-RKr" customClass="ViewController" customModule="SCDAO_OCR" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="67K-5Z-BuB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="arrow.left" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="rmR-2X-0vx">
@@ -85,7 +85,7 @@
                                 <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KbM-lx-URn">
-                                <rect key="frame" x="92.5" y="309.5" width="190" height="48"/>
+                                <rect key="frame" x="92.666666666666686" y="382" width="190" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Capture Image">
                                     <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -95,7 +95,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1R6-Pu-Dh6">
-                                <rect key="frame" x="92.5" y="359.5" width="190" height="48"/>
+                                <rect key="frame" x="92.666666666666686" y="432" width="190" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Access Library">
                                     <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -105,7 +105,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="waf-pW-W8W">
-                                <rect key="frame" x="111.5" y="559.5" width="152" height="48"/>
+                                <rect key="frame" x="111.66666666666669" y="632" width="152" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Scan Image">
                                     <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -123,7 +123,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="STJ-ph-bhO">
-                                <rect key="frame" x="27.5" y="63.5" width="320" height="240"/>
+                                <rect key="frame" x="27.666666666666657" y="136" width="320" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="grD-nF-cqQ">
                                         <variation key="heightClass=regular-widthClass=regular" constant="640"/>
@@ -134,7 +134,7 @@
                                 </constraints>
                             </imageView>
                             <pickerView contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="prL-z5-xT2">
-                                <rect key="frame" x="59.5" y="408.5" width="256" height="150"/>
+                                <rect key="frame" x="59.666666666666657" y="481" width="255.99999999999997" height="150"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="1024" id="74z-EP-6Kl">
@@ -146,7 +146,7 @@
                                 </constraints>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label shows up here" textAlignment="natural" lineBreakMode="wordWrap" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6x-6d-cua">
-                                <rect key="frame" x="27.5" y="626" width="320" height="115"/>
+                                <rect key="frame" x="27.666666666666657" y="698.66666666666663" width="320" height="115"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="115" id="9EB-Zc-hXN"/>
                                     <constraint firstAttribute="width" constant="320" id="gKu-a2-8oY"/>
@@ -197,14 +197,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tjV-dO-ma3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1685.5072463768117" y="409.82142857142856"/>
+            <point key="canvasLocation" x="1972" y="-330"/>
         </scene>
         <!--Title-->
         <scene sceneID="LGY-4t-fSZ">
             <objects>
-                <viewController id="raA-Ru-Uvk" customClass="ViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="raA-Ru-Uvk" customClass="ViewController" customModule="SCDAO_OCR" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Bc4-wF-eYa">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="df7-8l-LqU">
@@ -220,7 +220,7 @@
                                 <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Khg-bf-DcL">
-                                <rect key="frame" x="50" y="200" width="275" height="267"/>
+                                <rect key="frame" x="50" y="234" width="275" height="344"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -243,7 +243,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ge-U0-EZ6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2412.9496402877699" y="411.5577889447236"/>
+            <point key="canvasLocation" x="3132" y="-330"/>
         </scene>
     </scenes>
     <resources>
@@ -251,7 +251,8 @@
         <image name="arrow.left" catalog="system" width="64" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uss-HT-h67"/>
+        <segue reference="yvJ-8C-Auu"/>
+        <segue reference="OTp-XB-0QK"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
 </document>
