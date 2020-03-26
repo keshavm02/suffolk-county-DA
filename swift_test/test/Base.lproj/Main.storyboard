@@ -57,7 +57,7 @@
                                     <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 </state>
                                 <connections>
-                                    <segue destination="04Y-kl-RKr" kind="presentation" modalPresentationStyle="fullScreen" id="uss-HT-h67"/>
+                                    <segue destination="04Y-kl-RKr" kind="show" id="ak7-ZS-VpN"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Logo-SCDAO" translatesAutoresizingMaskIntoConstraints="NO" id="j7c-kM-Vkw">
@@ -123,7 +123,9 @@
                                 </state>
                                 <connections>
                                     <action selector="uploadWithSender:" destination="04Y-kl-RKr" eventType="touchUpInside" id="ox1-Ua-q9A"/>
-                                    <segue destination="raA-Ru-Uvk" kind="presentation" identifier="showDoc" modalPresentationStyle="fullScreen" id="yvJ-8C-Auu"/>
+                                    <segue destination="raA-Ru-Uvk" kind="popoverPresentation" popoverAnchorView="waf-pW-W8W" id="usi-fA-1WQ">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="STJ-ph-bhO">
@@ -208,11 +210,11 @@
             <objects>
                 <viewController id="raA-Ru-Uvk" customClass="ViewController" customModule="SCDAO_OCR" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Bc4-wF-eYa">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Khg-bf-DcL">
-                                <rect key="frame" x="50" y="234" width="275" height="344"/>
+                                <rect key="frame" x="50" y="234" width="275" height="290"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
