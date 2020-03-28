@@ -26,7 +26,7 @@
         <!--View Controller-->
         <scene sceneID="z15-4h-ygg">
             <objects>
-                <viewController id="EWy-pd-TbW" customClass="ViewController" customModule="SCDAO_OCR" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="EWy-pd-TbW" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bOq-dN-PwZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -90,7 +90,7 @@
         <!--Title-->
         <scene sceneID="Lpy-t9-stX">
             <objects>
-                <viewController id="04Y-kl-RKr" customClass="ViewController" customModule="SCDAO_OCR" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="04Y-kl-RKr" customClass="MainViewController" customModule="SCDAO_OCR" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="67K-5Z-BuB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -208,7 +208,7 @@
         <!--Title-->
         <scene sceneID="LGY-4t-fSZ">
             <objects>
-                <viewController id="raA-Ru-Uvk" customClass="ViewController" customModule="SCDAO_OCR" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="raA-Ru-Uvk" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Bc4-wF-eYa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
