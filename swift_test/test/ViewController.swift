@@ -13,9 +13,7 @@ UINavigationControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource,
     
     
     @IBOutlet var cameraView : UIImageView!
-    
-    @IBOutlet weak var resultLabel: UILabel!
-    
+        
     @IBOutlet weak var mylabel: UILabel?
     //    Dropdown menu for document types
     @IBOutlet weak var documentType: UIPickerView?
