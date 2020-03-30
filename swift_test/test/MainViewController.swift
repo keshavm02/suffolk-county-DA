@@ -53,6 +53,10 @@ UINavigationControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource,
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
