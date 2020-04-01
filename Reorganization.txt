@@ -18,6 +18,7 @@ Step 2 Shallow cleanup of backend files:
     Created a __init__.py file:
         "This file initializes your application and brings together all of the various components."
         Database initialization was moved from app.py to init.py
+        https://timothybramlett.com/How_to_create_a_Python_Package_with___init__py.html
     
     Noticed a file called a standalone test file for arrest_booking that showed the logic for code. In the end, decided to delete that since the logic was shown to be correct and was no longer needed.
     This makes sense especially since we have an actual test for the arrest_booking form now. 
@@ -30,19 +31,29 @@ Step 2 Shallow cleanup of backend files:
     It mentioned a possible error that in order to get it running, setup.py is needed as well as some enviormental variables, so look at article. 
 
 
-
 Step 3 Indepth cleanup of app.py code: 
 
     The remaining code in app.py is mainly views. It is all routes. The previous article mentioned a views.py file.
     After some research, found some documentation on views.py. 
         https://flask.palletsprojects.com/en/1.1.x/tutorial/views/
+        " Views.py handle the requests and return responses"
+
     
         Mentioned blueprints. When I have more time, will look on how to refactor our code into blueprints. 
 
     Need to add correct import statements to views.py, app.py, config.py, and __init__.py to make sure the app can run. 
-
     Some code in app.py uses config.py, so look at that as well. 
 
     Got confused on the difference on app.py vs views.py. Looked at this article and will try to implement. 
     https://exploreflask.com/en/latest/views.html 
     It shows examples of both files. 
+
+    In the end, the project looks much neater overall. 
+
+    
+    Note: When we switch to SQL, we might need a models.py and migrations folder. 
+        "models.py is the place where we are going to store our data models and the entities and relationships between the data will be specified."
+        "Migrations’ folder stores database and it’s specific information as it relates to the models."
+        https://medium.com/datadriveninvestor/python-django-views-templates-models-f0844a00db70
+
+            Some code in app.py uses config.py, so look at that as well. 

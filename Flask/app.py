@@ -1,12 +1,18 @@
 import os #allows interaction with operating system and pathing files
 import json #allows python dictionaries to be formatted into JSON and vice versa JSON to string
 from bson import ObjectId #allows MongoDB to format data
-from pymongo import MongoClient
 from extract_text.extract_text import *
 from extract_text.extract_fields import *
 from flask import Flask, request, redirect, url_for, flash, render_template
 from werkzeug.utils import secure_filename #secure file name given file name
 from PIL import Image #package that allows you to give functionality to images
+from config import *
+from views import *
+
+
+IMPORT STATEMENTS
+
+
 
 
 #allowed_file adapted from http://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/

@@ -1,6 +1,11 @@
 from flask import Flask
+from pymongo import MongoClient
+from app import *
+
 app = Flask(__name__) 
 
+
+IMPORT STATEMENTS
 import app.py
 
 
