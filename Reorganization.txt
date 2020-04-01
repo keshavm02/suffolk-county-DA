@@ -24,6 +24,25 @@ Step 2 Shallow cleanup of backend files:
     
     It looks much neater now 
 
-Step 3 Indepth cleanup of app.py code: 
-    
+    Stumbled upon this https://flask.palletsprojects.com/en/1.1.x/patterns/packages/ guide
+    Will proceed to follow it. 
 
+    It mentioned a possible error that in order to get it running, setup.py is needed as well as some enviormental variables, so look at article. 
+
+
+
+Step 3 Indepth cleanup of app.py code: 
+
+    The remaining code in app.py is mainly views. It is all routes. The previous article mentioned a views.py file.
+    After some research, found some documentation on views.py. 
+        https://flask.palletsprojects.com/en/1.1.x/tutorial/views/
+    
+        Mentioned blueprints. When I have more time, will look on how to refactor our code into blueprints. 
+
+    Need to add correct import statements to views.py, app.py, config.py, and __init__.py to make sure the app can run. 
+
+    Some code in app.py uses config.py, so look at that as well. 
+
+    Got confused on the difference on app.py vs views.py. Looked at this article and will try to implement. 
+    https://exploreflask.com/en/latest/views.html 
+    It shows examples of both files. 
