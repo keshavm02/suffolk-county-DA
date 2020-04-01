@@ -6,15 +6,13 @@
 import UIKit
 import SafariServices
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate,
+class MainViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource,
     SFSafariViewControllerDelegate,UITextFieldDelegate
 {
     
     
     @IBOutlet var cameraView : UIImageView!
-    
-    @IBOutlet weak var resultLabel: UILabel!
     
     @IBOutlet weak var mylabel: UILabel?
     //    Dropdown menu for document types
@@ -48,25 +46,15 @@ UINavigationControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource,
         documentType?.delegate = self
         documentType?.dataSource = self
         
-//        textView?.isSelectable = true
-//        textView?.isEditable = false
-        
-        
-//        listenforchange()
-//        if respondJSON != "" {
-//            textView?.text = respondJSON
-//        }
-//        else{
-//            textView?.text = "Loading..."
-//        }
-        
-        resultLabel?.text = "Completed!"
-        
         // Input the data into the array
         pickerData = ["-","Application for Criminal Complaint (Court)", "Application for Criminal Complaint (Justice Department)", "Police Department Arrest Booking Form", "Arrest Report", "Offense/Incident Report", "Supplemental Report", "Criminal Complaint", "Incident Report", "Court Activity Record Information"]
         
         
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -184,7 +172,7 @@ UINavigationControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource,
             UIImageWriteToSavedPhotosAlbum(
                 image,
                 self,
-                #selector(ViewController.image(_:didFinishSavingWithError:contextInfo:)),
+                #selector(MainViewController.image(_:didFinishSavingWithError:contextInfo:)),
                 nil)
         }
         else{
@@ -378,17 +366,4 @@ UINavigationControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource,
         
         
     }
-    
-    
-//    func listenforchange() {
-//        print("listening...")
-//        DispatchQueue.main.async {
-//            if self.respondJSON != "" {
-//                self.textView?.text = self.respondJSON
-//            }
-//        }
-        
-        
-//    }
-    
 }
