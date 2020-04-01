@@ -8,20 +8,6 @@ from flask import Flask, request, redirect, url_for, flash, render_template
 from werkzeug.utils import secure_filename #secure file name given file name
 from PIL import Image #package that allows you to give functionality to images
 
-UPLOAD_FOLDER = 'uploads'
-UPLOAD_JSON = 'json'
-UPLOAD_FINAL = 'static'
-app = Flask(__name__) 
-
-#might need a config.py file
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER #configuration on startup
-app.config['UPLOAD_JSON'] = UPLOAD_JSON
-app.config['UPLOAD_FINAL'] = UPLOAD_FINAL
-app.secret_key = os.urandom(24)
-
-client = MongoClient("mongodb://127.0.0.1:27017")
-db = client.COURT_CASES
-cases = db.cases
 
 #allowed_file adapted from http://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'json'}
