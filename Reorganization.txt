@@ -1,0 +1,29 @@
+Followed this guide in reorganization
+https://exploreflask.com/en/latest/organizing.html
+
+Step 1 Reorganization of Top Level: 
+    Reorganzied top level folder structure such that the front end and back end are seperated 
+    Called the folders: Swift and Flask
+
+    Made extra folder since in the beginning it was very hard to find where the code for swift was, so I made an extra folder called swift_code to contrast swift_text. Please insert working code into new folder.
+
+    Unsure of where a few files should be so I left them on the outside for now. 
+    Located folder uploads, saw that it contained a ".keep" file with nothing in it. I deleted this file since it did not appear in any backend code. (If it is in front end please reinstall)
+
+Step 2 Shallow cleanup of backend files:
+    Following the guide created a config.py 
+        "This file contains most of the configuration variables that your app needs."
+        Moved all code that dealt with configuration to this new file. 
+    
+    Created a __init__.py file:
+        "This file initializes your application and brings together all of the various components."
+        Database initialization was moved from app.py to init.py
+    
+    Noticed a file called a standalone test file for arrest_booking that showed the logic for code. In the end, decided to delete that since the logic was shown to be correct and was no longer needed.
+    This makes sense especially since we have an actual test for the arrest_booking form now. 
+    
+    It looks much neater now 
+
+Step 3 Indepth cleanup of app.py code: 
+    
+
