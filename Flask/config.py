@@ -1,7 +1,5 @@
-
-from __init__ import app 
-
-
+import os
+from .__init__ import app
 
 
 UPLOAD_FOLDER = 'uploads'
