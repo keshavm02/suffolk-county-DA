@@ -1,14 +1,15 @@
 import os #allows interaction with operating system and pathing files
 import json #allows python dictionaries to be formatted into JSON and vice versa JSON to string
 from bson import ObjectId #allows MongoDB to format data
-from flask import Flask, request, redirect, url_for, flash, render_template
 from werkzeug.utils import secure_filename #secure file name given file name
 from PIL import Image #package that allows you to give functionality to images
 from config import *
-from views import *
-from __init__ import * 
+from .extract_text.extract_fields import *
+from .extract_text.extract_text import *
+from .__init__ import app, cases, request, flash, redirect, render_template
 
-app = __init___.app
+
+
 
 
 #allowed_file adapted from http://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
@@ -16,8 +17,10 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'json'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
+#http://www.programmersought.com/article/68322218798/
 class JSONEncoder(json.JSONEncoder):
-    def default(self, o):   
+    def default(self, o):                # pylint: disable=E0202 
         if isinstance(o, ObjectId):
             return str(o)
         return json.JSONEncoder.default(self, o)
