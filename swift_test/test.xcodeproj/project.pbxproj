@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6BB136462435926C009A24DA /* SignUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB136452435926C009A24DA /* SignUpButton.swift */; };
 		6BB1364824359C4E009A24DA /* LogInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB1364724359C4D009A24DA /* LogInButton.swift */; };
+		6BB1364A2435A2F7009A24DA /* DocumentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB136492435A2F7009A24DA /* DocumentsTableViewController.swift */; };
 		7837018A23774C2700D7CE9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7837018923774C2700D7CE9E /* AppDelegate.swift */; };
 		7837018C23774C2700D7CE9E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7837018B23774C2700D7CE9E /* SceneDelegate.swift */; };
 		7837018E23774C2700D7CE9E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7837018D23774C2700D7CE9E /* MainViewController.swift */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		6BB136452435926C009A24DA /* SignUpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpButton.swift; sourceTree = "<group>"; };
 		6BB1364724359C4D009A24DA /* LogInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInButton.swift; sourceTree = "<group>"; };
+		6BB136492435A2F7009A24DA /* DocumentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsTableViewController.swift; sourceTree = "<group>"; };
 		7837018623774C2700D7CE9E /* SCDAO OCR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SCDAO OCR.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7837018923774C2700D7CE9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7837018B23774C2700D7CE9E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				7837018923774C2700D7CE9E /* AppDelegate.swift */,
 				7837018B23774C2700D7CE9E /* SceneDelegate.swift */,
 				7837018F23774C2700D7CE9E /* Main.storyboard */,
+				6BB136492435A2F7009A24DA /* DocumentsTableViewController.swift */,
 				6BB136452435926C009A24DA /* SignUpButton.swift */,
 				6BB1364724359C4D009A24DA /* LogInButton.swift */,
 				7837018D23774C2700D7CE9E /* MainViewController.swift */,
@@ -265,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BB1364A2435A2F7009A24DA /* DocumentsTableViewController.swift in Sources */,
 				6BB1364824359C4E009A24DA /* LogInButton.swift in Sources */,
 				7837018E23774C2700D7CE9E /* MainViewController.swift in Sources */,
 				7837018A23774C2700D7CE9E /* AppDelegate.swift in Sources */,
