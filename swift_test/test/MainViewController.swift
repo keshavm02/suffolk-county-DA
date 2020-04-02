@@ -16,10 +16,6 @@ UINavigationControllerDelegate,
     
     @IBOutlet weak var mylabel: UILabel?
     
-    
-//    @IBOutlet weak var textView: UITextView?
-    
-    var pickerData: [String] = [String]()
     var respondJSON : String = "";
     var pickedDocument : String = "";
     var fixedJSON : String = "";
@@ -40,11 +36,6 @@ UINavigationControllerDelegate,
         mylabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
 
         mylabel?.text = "Tap Capture Image or Access Library first, then choose type of document, and Scan Document"
-        
-        // Input the data into the array
-        pickerData = ["-","Application for Criminal Complaint (Court)", "Application for Criminal Complaint (Justice Department)", "Police Department Arrest Booking Form", "Arrest Report", "Offense/Incident Report", "Supplemental Report", "Criminal Complaint", "Incident Report", "Court Activity Record Information"]
-        
-        
         
     }
     
