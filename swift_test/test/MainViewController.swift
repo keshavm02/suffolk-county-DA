@@ -37,6 +37,8 @@ UINavigationControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource,
                // Always adopt a light interface style.
                overrideUserInterfaceStyle = .light
         }
+    
+        documentType?.isHidden = true
         
         mylabel?.numberOfLines = 2
         mylabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
@@ -121,7 +123,6 @@ UINavigationControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource,
         if let pickedImage = info[.originalImage]
             as? UIImage {
             
-            
             // get screen Size
 
 
@@ -152,7 +153,7 @@ UINavigationControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource,
 
         //closing
         imagePicker.dismiss(animated: true, completion: nil)
-        mylabel?.text = "Tap Scan Image once the image is ready!"
+        mylabel?.text = "Tap Upload once the image is ready!"
         
     }
     

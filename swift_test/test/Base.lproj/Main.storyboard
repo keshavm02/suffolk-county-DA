@@ -195,10 +195,11 @@
                                     <action selector="showAlbum:" destination="04Y-kl-RKr" eventType="touchUpInside" id="aE6-RX-KJM"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="waf-pW-W8W">
-                                <rect key="frame" x="111.66666666666669" y="632" width="152" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="waf-pW-W8W" customClass="LogInButton" customModule="SCDAO_OCR" customModuleProvider="target">
+                                <rect key="frame" x="92" y="516" width="196" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="Scan Image">
+                                <state key="normal" title="Upload">
                                     <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 </state>
                                 <connections>
@@ -208,19 +209,8 @@
                                     </segue>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="STJ-ph-bhO">
-                                <rect key="frame" x="27.666666666666657" y="136" width="320" height="240"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="grD-nF-cqQ">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="640"/>
-                                    </constraint>
-                                    <constraint firstAttribute="height" constant="240" id="zXt-2z-Z93">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="480"/>
-                                    </constraint>
-                                </constraints>
-                            </imageView>
-                            <pickerView contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="prL-z5-xT2">
-                                <rect key="frame" x="59.666666666666657" y="481" width="255.99999999999997" height="150"/>
+                            <pickerView contentMode="scaleAspectFit" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="prL-z5-xT2">
+                                <rect key="frame" x="231" y="604" width="255.99999999999997" height="150"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="1024" id="74z-EP-6Kl">
@@ -231,12 +221,13 @@
                                     </constraint>
                                 </constraints>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label shows up here" textAlignment="natural" lineBreakMode="wordWrap" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6x-6d-cua">
-                                <rect key="frame" x="27.666666666666657" y="698.66666666666663" width="320" height="115"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="115" id="9EB-Zc-hXN"/>
-                                    <constraint firstAttribute="width" constant="320" id="gKu-a2-8oY"/>
-                                </constraints>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="STJ-ph-bhO">
+                                <rect key="frame" x="16" y="69" width="343" height="411"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label shows up here" textAlignment="natural" lineBreakMode="wordWrap" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6x-6d-cua">
+                                <rect key="frame" x="117" y="616" width="147" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -247,15 +238,8 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.17092397810000001" blue="0.37457227710000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="waf-pW-W8W" firstAttribute="centerY" secondItem="67K-5Z-BuB" secondAttribute="centerY" constant="400" id="1Lo-Ko-18b">
-                                <variation key="heightClass=regular-widthClass=compact" constant="250"/>
-                            </constraint>
                             <constraint firstItem="1R6-Pu-Dh6" firstAttribute="centerY" secondItem="67K-5Z-BuB" secondAttribute="centerY" constant="200" id="3HR-33-ehs">
                                 <variation key="heightClass=regular-widthClass=compact" constant="50"/>
-                            </constraint>
-                            <constraint firstItem="waf-pW-W8W" firstAttribute="centerX" secondItem="67K-5Z-BuB" secondAttribute="centerX" id="3TC-Vq-SKl"/>
-                            <constraint firstItem="STJ-ph-bhO" firstAttribute="centerY" secondItem="67K-5Z-BuB" secondAttribute="centerY" constant="-150" id="6ro-MZ-O9w">
-                                <variation key="heightClass=regular-widthClass=regular" constant="-150"/>
                             </constraint>
                             <constraint firstItem="prL-z5-xT2" firstAttribute="centerY" secondItem="67K-5Z-BuB" secondAttribute="centerY" constant="300" id="9Rd-PT-A7q">
                                 <variation key="heightClass=regular-widthClass=compact" constant="150"/>
@@ -266,11 +250,6 @@
                             </constraint>
                             <constraint firstItem="1R6-Pu-Dh6" firstAttribute="centerX" secondItem="67K-5Z-BuB" secondAttribute="centerX" id="Sfm-F4-BW2"/>
                             <constraint firstItem="prL-z5-xT2" firstAttribute="centerX" secondItem="67K-5Z-BuB" secondAttribute="centerX" id="Z7i-tx-1kZ"/>
-                            <constraint firstItem="o6x-6d-cua" firstAttribute="centerX" secondItem="67K-5Z-BuB" secondAttribute="centerX" id="dA0-YD-Tq2"/>
-                            <constraint firstItem="o6x-6d-cua" firstAttribute="centerY" secondItem="67K-5Z-BuB" secondAttribute="centerY" constant="500" id="puS-bf-0Jj">
-                                <variation key="heightClass=regular-widthClass=compact" constant="350"/>
-                            </constraint>
-                            <constraint firstItem="STJ-ph-bhO" firstAttribute="centerX" secondItem="67K-5Z-BuB" secondAttribute="centerX" id="zcd-gf-Vey"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dwc-KO-4mP"/>
                     </view>
@@ -284,7 +263,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tjV-dO-ma3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2783" y="-825"/>
+            <point key="canvasLocation" x="2781.5999999999999" y="-825.3694581280788"/>
         </scene>
         <!--Scan-->
         <scene sceneID="qHg-bV-dLr">
@@ -420,7 +399,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ge-U0-EZ6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5031" y="-845"/>
+            <point key="canvasLocation" x="5321" y="-825"/>
         </scene>
     </scenes>
     <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
