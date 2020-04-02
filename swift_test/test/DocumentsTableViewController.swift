@@ -11,6 +11,8 @@ import UIKit
 
 class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    let MainVC = MainViewController()
+    
     let documents: [String] = ["Criminal Complaint Application(Court)", "Criminal Complaint Application(Justice Dept)", "Police Department Arrest Booking Form", "Arrest Report", "Offense/Incident Report", "Supplemental Report", "Criminal Complaint", "Incident Report", "Court Activity Record Information"]
     
     let cellReuseIdentifier = "cell"
@@ -27,6 +29,12 @@ class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITab
         tableView.dataSource = self
         
         tableView.rowHeight = 60
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+
+        self.tabBarController?.navigationItem.title = "Choose Document Type"
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,6 +51,8 @@ class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("You tapped cell number \(indexPath.row).")
+        MainVC.pickedDocument = documents[indexPath.row]
+        print("picked document = \(MainVC.pickedDocument)")
     }
     
 }
