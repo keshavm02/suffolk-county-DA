@@ -15,10 +15,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="Logo-SCDAO" translatesAutoresizingMaskIntoConstraints="NO" id="4D7-bC-YKU">
-                                <rect key="frame" x="87" y="105" width="200" height="200"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ods-Lh-KVn" customClass="SignUpButton" customModule="SCDAO_OCR" customModuleProvider="target">
                                 <rect key="frame" x="57" y="410" width="261" height="86"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -31,6 +27,10 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                 <state key="normal" title="Log In"/>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="Logo-SCDAO" translatesAutoresizingMaskIntoConstraints="NO" id="4D7-bC-YKU">
+                                <rect key="frame" x="87" y="119" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.23216149210000001" blue="0.41214907169999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="q9d-uK-D7u"/>
@@ -117,7 +117,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zSQ-zk-2MC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="500" y="514"/>
+            <point key="canvasLocation" x="-50" y="937"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yLH-mL-0NE">
@@ -165,7 +165,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1K2-yg-fiW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2841" y="-134"/>
+            <point key="canvasLocation" x="924" y="937"/>
         </scene>
         <!--Title-->
         <scene sceneID="Lpy-t9-stX">
@@ -225,6 +225,10 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 </variation>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="Logo-SCDAO" translatesAutoresizingMaskIntoConstraints="NO" id="xSz-KK-miU">
+                                <rect key="frame" x="139" y="44" width="102" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.17092397810000001" blue="0.37457227710000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="dwc-KO-4mP"/>
@@ -233,6 +237,7 @@
                     <navigationItem key="navigationItem" title="Title" id="mhr-oQ-atR"/>
                     <connections>
                         <outlet property="cameraView" destination="STJ-ph-bhO" id="lk8-Fl-cfG"/>
+                        <outlet property="logo" destination="xSz-KK-miU" id="XKm-fL-Jx5"/>
                         <outlet property="mylabel" destination="o6x-6d-cua" id="Msw-n8-K7s"/>
                     </connections>
                 </viewController>
@@ -317,7 +322,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bva-WA-Z8M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1156" y="-2036"/>
+            <point key="canvasLocation" x="689" y="-1926"/>
         </scene>
         <!--Scan-->
         <scene sceneID="KKl-jL-qjx">
@@ -383,6 +388,10 @@
                                     <action selector="okayButtonPressed:" destination="raA-Ru-Uvk" eventType="touchUpInside" id="IDC-ic-w2r"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="Logo-SCDAO" translatesAutoresizingMaskIntoConstraints="NO" id="u4e-Gd-EhJ">
+                                <rect key="frame" x="97" y="83" width="180" height="180"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.17092397810000001" blue="0.37457227710000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
