@@ -11,6 +11,7 @@ import UIKit
 
 class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var searchBar: UISearchBar!
     let MainVC = MainViewController()
     
     let documents: [String] = ["Criminal Complaint Application(Court)", "Criminal Complaint Application(Justice Dept)", "Police Department Arrest Booking Form", "Arrest Report", "Offense/Incident Report", "Supplemental Report", "Criminal Complaint", "Incident Report", "Court Activity Record Information"]
@@ -35,6 +36,7 @@ class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidAppear(_ animated: Bool) {
 
         self.tabBarController?.navigationItem.title = "Choose Document Type"
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
