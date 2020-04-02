@@ -53,6 +53,12 @@ class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITab
         print("You tapped cell number \(indexPath.row).")
         MainVC.pickedDocument = documents[indexPath.row]
         print("picked document = \(MainVC.pickedDocument)")
+        
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
+        nextViewController.modalPresentationStyle = .popover
+        self.present(nextViewController, animated:true, completion:nil)
     }
     
 }

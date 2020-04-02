@@ -170,7 +170,7 @@
         <!--Title-->
         <scene sceneID="Lpy-t9-stX">
             <objects>
-                <viewController id="04Y-kl-RKr" customClass="MainViewController" customModule="SCDAO_OCR" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" id="04Y-kl-RKr" customClass="MainViewController" customModule="SCDAO_OCR" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="67K-5Z-BuB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -284,7 +284,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tjV-dO-ma3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4169" y="-844"/>
+            <point key="canvasLocation" x="2783" y="-825"/>
         </scene>
         <!--Scan-->
         <scene sceneID="qHg-bV-dLr">
