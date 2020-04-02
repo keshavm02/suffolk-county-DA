@@ -42,7 +42,7 @@ class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidAppear(_ animated: Bool) {
 
-        self.tabBarController?.navigationItem.title = "Choose Document Type"
+        self.tabBarController?.navigationItem.title = "Document Types"
         self.navigationController?.navigationBar.isHidden = true
     }
     
@@ -92,5 +92,7 @@ class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITab
         searchBar.text = nil
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.endEditing(true)
+        filteredDocuments = documents
+        tableView.reloadData()
     }
 }
