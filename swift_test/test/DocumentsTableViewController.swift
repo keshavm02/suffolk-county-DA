@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     let MainVC = MainViewController()
@@ -19,6 +19,8 @@ class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITab
     let cellReuseIdentifier = "cell"
     
     @IBOutlet weak var tableView: UITableView!
+    
+    var filteredDocuments: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,8 @@ class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITab
         
         tableView.rowHeight = 60
         
+        searchBar.delegate = self
+        filteredDocuments = documents
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -40,15 +44,24 @@ class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.documents.count
+        return self.filteredDocuments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:UITableViewCell = (self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell?)!
         
-        cell.textLabel?.text = self.documents[indexPath.row]
+        cell.textLabel?.text = self.filteredDocuments[indexPath.row]
         
         return cell
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredDocuments = searchText.isEmpty ? documents : documents.filter { (item: String) -> Bool in
+            // If dataItem matches the searchText, return true to include it
+            return item.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        }
+        
+        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
