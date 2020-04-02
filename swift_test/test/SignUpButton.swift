@@ -29,9 +29,10 @@ class SignUpButton: UIButton {
     }
 
     required init?(coder aDecoder: NSCoder) {
-      self.hue = 0.3
-      self.saturation = 0.4
-      self.brightness = 0.8
+        self.hue = 0.06
+        self.saturation = 1.0
+        self.brightness = 1.3
+        
       
       super.init(coder: aDecoder)
       
