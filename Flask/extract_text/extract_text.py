@@ -64,4 +64,4 @@ if __name__ == "__main__":
     # test_image.show_image()
     text = ExtractText(test_image.image)
     print(text.extract_text())
-    return text
+    
