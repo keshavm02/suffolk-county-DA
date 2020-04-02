@@ -15,18 +15,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" ambiguous="YES" image="Logo-SCDAO" translatesAutoresizingMaskIntoConstraints="NO" id="4D7-bC-YKU">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="Logo-SCDAO" translatesAutoresizingMaskIntoConstraints="NO" id="4D7-bC-YKU">
                                 <rect key="frame" x="87" y="105" width="200" height="200"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="Mgd-nY-pjh"/>
-                                    <constraint firstAttribute="height" constant="200" id="idQ-H1-8bc"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ods-Lh-KVn" customClass="SignUpButton" customModule="SCDAO_OCR" customModuleProvider="target">
-                                <rect key="frame" x="107" y="423" width="160" height="50"/>
+                                <rect key="frame" x="57" y="410" width="261" height="86"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <state key="normal" title="Create Account"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                                <state key="normal" title="Register"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvZ-Gf-tYL" customClass="SignUpButton" customModule="SCDAO_OCR" customModuleProvider="target">
+                                <rect key="frame" x="57" y="560" width="261" height="86"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                                <state key="normal" title="Log In"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.23216149210000001" blue="0.41214907169999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
