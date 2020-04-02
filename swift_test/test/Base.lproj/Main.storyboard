@@ -343,6 +343,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Scan" image="camera.fill" catalog="system" id="ipH-Cw-a1S"/>
                     <connections>
+                        <outlet property="searchBar" destination="hGP-eP-XYI" id="Hm9-7q-6Ow"/>
                         <outlet property="tableView" destination="G4N-rv-M6a" id="TX6-uB-CpK"/>
                     </connections>
                 </viewController>
