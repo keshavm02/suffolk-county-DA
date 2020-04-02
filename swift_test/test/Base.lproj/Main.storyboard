@@ -7,6 +7,30 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="tCr-4U-BoG">
+            <objects>
+                <viewController id="rg5-jD-6K3" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9qB-NH-6Yr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" ambiguous="YES" image="Logo-SCDAO" translatesAutoresizingMaskIntoConstraints="NO" id="4D7-bC-YKU">
+                                <rect key="frame" x="87" y="105" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="Mgd-nY-pjh"/>
+                                    <constraint firstAttribute="height" constant="200" id="idQ-H1-8bc"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="q9d-uK-D7u"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Crv-kE-V1T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-679" y="-1622"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="oPd-N9-hva">
             <objects>
