@@ -44,7 +44,7 @@
         <!--Navigation Controller-->
         <scene sceneID="oPd-N9-hva">
             <objects>
-                <navigationController id="g7E-Zg-7RB" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationController" id="g7E-Zg-7RB" customClass="NavigationController" customModule="SCDAO_OCR" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="USH-11-22Y">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -322,7 +322,7 @@
         <!--Scan-->
         <scene sceneID="KKl-jL-qjx">
             <objects>
-                <viewController id="tIk-SG-aCV" customClass="DocumentsTableViewController" customModule="SCDAO_OCR" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DocumentsTableViewController" id="tIk-SG-aCV" customClass="DocumentsTableViewController" customModule="SCDAO_OCR" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sQB-lR-yJg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -354,7 +354,7 @@
         <!--Title-->
         <scene sceneID="LGY-4t-fSZ">
             <objects>
-                <viewController id="raA-Ru-Uvk" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CompletedViewController" id="raA-Ru-Uvk" customClass="CompletedViewController" customModule="SCDAO_OCR" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Bc4-wF-eYa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -365,6 +365,15 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wbe-kg-PPF" customClass="LogInButton" customModule="SCDAO_OCR" customModuleProvider="target">
+                                <rect key="frame" x="102" y="532" width="170" height="76"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="33"/>
+                                <state key="normal" title="Okay :)"/>
+                                <connections>
+                                    <action selector="okayButtonPressed:" destination="raA-Ru-Uvk" eventType="touchUpInside" id="IDC-ic-w2r"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.17092397810000001" blue="0.37457227710000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -377,10 +386,13 @@
                         <viewLayoutGuide key="safeArea" id="ZBJ-nM-KCU"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="bp3-JU-OWG"/>
+                    <connections>
+                        <outlet property="okayButton" destination="wbe-kg-PPF" id="ybh-4P-Lp1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ge-U0-EZ6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5321" y="-825"/>
+            <point key="canvasLocation" x="5320.8000000000002" y="-825.3694581280788"/>
         </scene>
     </scenes>
     <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
