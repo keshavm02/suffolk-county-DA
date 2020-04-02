@@ -7,7 +7,7 @@ import UIKit
 import SafariServices
 
 class MainViewController: UIViewController, UIImagePickerControllerDelegate,
-UINavigationControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource,
+UINavigationControllerDelegate,
     SFSafariViewControllerDelegate,UITextFieldDelegate
 {
     
@@ -15,13 +15,7 @@ UINavigationControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource,
     @IBOutlet var cameraView : UIImageView!
     
     @IBOutlet weak var mylabel: UILabel?
-    //    Dropdown menu for document types
-    @IBOutlet weak var documentType: UIPickerView?
     
-    
-//    @IBOutlet weak var textView: UITextView?
-    
-    var pickerData: [String] = [String]()
     var respondJSON : String = "";
     var pickedDocument : String = "";
     var fixedJSON : String = "";
@@ -37,44 +31,16 @@ UINavigationControllerDelegate,UIPickerViewDelegate, UIPickerViewDataSource,
                // Always adopt a light interface style.
                overrideUserInterfaceStyle = .light
         }
-    
-        documentType?.isHidden = true
         
         mylabel?.numberOfLines = 2
         mylabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
 
         mylabel?.text = "Tap Capture Image or Access Library first, then choose type of document, and Scan Document"
-        // Connect data:
-        documentType?.delegate = self
-        documentType?.dataSource = self
-        
-        // Input the data into the array
-        pickerData = ["-","Application for Criminal Complaint (Court)", "Application for Criminal Complaint (Justice Department)", "Police Department Arrest Booking Form", "Arrest Report", "Offense/Incident Report", "Supplemental Report", "Criminal Complaint", "Incident Report", "Court Activity Record Information"]
-        
-        
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        
-        return NSAttributedString(string: pickerData[row], attributes: [NSAttributedString.Key.font:UIFont(name: "Georgia", size: 30.0)!,NSAttributedString.Key.foregroundColor:UIColor.white])
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.pickedDocument = pickerData[row]
-        print(self.pickedDocument)
     }
     
     @IBAction func openURL(_ sender: Any) {
