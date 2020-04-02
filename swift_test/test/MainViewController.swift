@@ -13,6 +13,7 @@ UINavigationControllerDelegate,
     
     
     @IBOutlet var cameraView : UIImageView!
+    @IBOutlet weak var logo: UIImageView!
     
     @IBOutlet weak var mylabel: UILabel?
     
@@ -113,7 +114,7 @@ UINavigationControllerDelegate,
             // centering the image
             cameraView.center = CGPoint(x:screenWidth/2, y:screenHeight/3)
             
-
+            logo.isHidden = true
             cameraView.image = pickedImage
         }
 
