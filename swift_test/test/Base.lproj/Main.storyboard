@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rg5-jD-6K3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="g7E-Zg-7RB">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Database-->
         <scene sceneID="tCr-4U-BoG">
             <objects>
                 <viewController id="rg5-jD-6K3" sceneMemberID="viewController">
@@ -35,10 +35,11 @@
                         <color key="backgroundColor" red="0.0" green="0.23216149210000001" blue="0.41214907169999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="q9d-uK-D7u"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Database" image="doc.on.doc.fill" catalog="system" id="0wY-Ht-cOe"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Crv-kE-V1T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-679.20000000000005" y="-1622.6600985221676"/>
+            <point key="canvasLocation" x="1518" y="-134"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="oPd-N9-hva">
@@ -132,7 +133,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="04Y-kl-RKr" kind="relationship" relationship="viewControllers" id="eK3-oX-BfK"/>
-                        <segue destination="Eew-28-31H" kind="relationship" relationship="viewControllers" id="xV9-z2-48m"/>
+                        <segue destination="rg5-jD-6K3" kind="relationship" relationship="viewControllers" id="HJe-wJ-iG1"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bcf-dl-605" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -164,7 +165,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1K2-yg-fiW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1518" y="-129"/>
+            <point key="canvasLocation" x="2834" y="-423"/>
         </scene>
         <!--Title-->
         <scene sceneID="Lpy-t9-stX">
