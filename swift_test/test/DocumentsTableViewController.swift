@@ -35,6 +35,9 @@ class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITab
         
         searchBar.delegate = self
         filteredDocuments = documents
+        
+        tableView.keyboardDismissMode = .interactive
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -76,4 +79,18 @@ class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITab
         self.present(nextViewController, animated:true, completion:nil)
     }
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.searchBar.setShowsCancelButton(true, animated: true)
+        searchBar.tintColor = UIColor.blue
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.endEditing(true)
+    }
 }
