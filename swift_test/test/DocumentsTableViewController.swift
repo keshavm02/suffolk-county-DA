@@ -31,7 +31,7 @@ class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITab
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.rowHeight = 60
+        tableView.rowHeight = 80
         
         searchBar.delegate = self
         filteredDocuments = documents
