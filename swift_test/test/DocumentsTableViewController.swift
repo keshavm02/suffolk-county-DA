@@ -14,7 +14,7 @@ class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var searchBar: UISearchBar!
     let MainVC = MainViewController()
     
-    let documents: [String] = ["Criminal Complaint Form", "Application for Criminal Complaint", "Police Report", "Booking Form", "Miranda Form", "Board of Probation Criminal Record"]
+    let documents: [String] = ["Criminal Complaint Form", "Criminal Complaint Application", "Police Report", "Booking Form", "Miranda Form", "Board of Probation Criminal Record"]
     
     let cellReuseIdentifier = "cell"
     
