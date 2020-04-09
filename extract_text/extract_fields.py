@@ -33,7 +33,7 @@ def find_obtn(document):
 
 
 def find_indicent_report(document):
-    irn = re.search("[0-9]{3}\s[0-9]{3}\s[0-9]{3}", document)
+    irn = re.search("I[0-9]{3}\s[0-9]{3}\s[0-9]{3}", document)
     if (irn != None):
         return irn.group()
     return "Police Incident report number not found"
@@ -116,6 +116,7 @@ def application_for_criminal_complaint(raw_document):
     document = raw_document
     for phrase in header:
         document = document.replace(phrase, '')
+    #print(document)
     block_list = ["Summons", "Hearing Requested", "Court", "Arrest Status of Accused", "Arrest Date", "In Custody", "Officer ID No.",
                   "Agency", "Type", "Name", "Birth Surname", "Address", "Date of Birth", "Place of Birth", "Social Security No.",
                   "PCF No.", "SID", "Marital Status", "Driver's License No.", "Driver's License State", "Driver's License Exp. Year",
@@ -140,4 +141,42 @@ def application_for_criminal_complaint(raw_document):
                 # if no : in the remaining document, end current field with next space or newline
                 value = temp_doc[:re.search('\n', temp_doc).start()]
         fields[field] = value
+    return fields
+
+def probation_form(raw_document):
+    header = ['Commonwealth of Massachusetts', 'Probation Department', 'Court Activity Record Information', 'CSO', 'DNA',
+              'DOR']
+    document = raw_document
+    for phrase in header:
+        document = document.replace(phrase, '')
+    block_list = ["PCF", "DOB", "Age", "Birthplace", "Mother", "Father", "Height", "Weight", "Hair", "Eyes", "Gender",
+                  "Race", "Ethnicity", "DLN",
+                  "CARI", "Records Include"]
+    repeatable = ["DKT#", "DT", "OFFENSE", "DISPOSITION", "STATUS"]
+    fields = {}
+    for counter in range(len(block_list)):
+        field = block_list[counter]
+        if field != 'CARI':
+            find = field + ': '
+        else:
+            find = field
+        value = ''
+        if find in document:
+            temp_doc = document[document.index(find) + len(find):]
+            if ':' in temp_doc:
+                # Must have space after colon in order to work properly
+                # temporarily erase keywords and use the index of : to know when to end the string
+                word = block_list[counter + 1]
+                # temp_doc = temp_doc.replace(word, '', 1)
+
+                value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
+            else:
+                # if no : in the remaining document, end current field with next space or newline
+                value = temp_doc
+        fields[field] = value
+    d = 'CAD'
+    fields['CARI'] = fields['CARI'].split(d)
+    for i in range(len(fields['CARI'])):
+        fields['CARI'][i] = fields['CARI'][i].replace('KT#', 'CA DKT#')
+    fields['CARI'] = fields['CARI'][1:]
     return fields
