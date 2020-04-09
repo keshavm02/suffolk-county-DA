@@ -6,7 +6,8 @@ from PIL import Image #package that allows you to give functionality to images
 from config import *
 from .extract_text.extract_fields import *
 from .extract_text.extract_text import *
-from .__init__ import app, cases, request, flash, redirect, render_template
+from .__init__ import app, cases
+from flask import request, flash, redirect, render_template
 
 
 
