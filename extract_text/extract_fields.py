@@ -184,6 +184,8 @@ def probation_form(raw_document):
     fields['CARI'] = fields['CARI'][1:]
     return fields
 
+
+#Incident Report
 def find_case_number(raw_document):
     case_number = re.search("I[0-9]{9}", raw_document)
     return case_number.group()
