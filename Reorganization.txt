@@ -1,0 +1,59 @@
+Followed this guide in reorganization
+https://exploreflask.com/en/latest/organizing.html
+
+Step 1 Reorganization of Top Level: 
+    Reorganzied top level folder structure such that the front end and back end are seperated 
+    Called the folders: Swift and Flask
+
+    Made extra folder since in the beginning it was very hard to find where the code for swift was, so I made an extra folder called swift_code to contrast swift_text. Please insert working code into new folder.
+
+    Unsure of where a few files should be so I left them on the outside for now. 
+    Located folder uploads, saw that it contained a ".keep" file with nothing in it. I deleted this file since it did not appear in any backend code. (If it is in front end please reinstall)
+
+Step 2 Shallow cleanup of backend files:
+    Following the guide created a config.py 
+        "This file contains most of the configuration variables that your app needs."
+        Moved all code that dealt with configuration to this new file. 
+    
+    Created a __init__.py file:
+        "This file initializes your application and brings together all of the various components."
+        Database initialization was moved from app.py to init.py
+        https://timothybramlett.com/How_to_create_a_Python_Package_with___init__py.html
+    
+    Noticed a file called a standalone test file for arrest_booking that showed the logic for code. In the end, decided to delete that since the logic was shown to be correct and was no longer needed.
+    This makes sense especially since we have an actual test for the arrest_booking form now. 
+    
+    It looks much neater now 
+
+    Stumbled upon this https://flask.palletsprojects.com/en/1.1.x/patterns/packages/ guide
+    Will proceed to follow it. 
+
+    It mentioned a possible error that in order to get it running, setup.py is needed as well as some enviormental variables, so look at article. 
+
+
+Step 3 Indepth cleanup of app.py code: 
+
+    The remaining code in app.py is mainly views. It is all routes. The previous article mentioned a views.py file.
+    After some research, found some documentation on views.py. 
+        https://flask.palletsprojects.com/en/1.1.x/tutorial/views/
+        " Views.py handle the requests and return responses"
+
+    
+        Mentioned blueprints. When I have more time, will look on how to refactor our code into blueprints. 
+
+    Need to add correct import statements to views.py, app.py, config.py, and __init__.py to make sure the app can run. 
+    Some code in app.py uses config.py, so look at that as well. 
+
+    Got confused on the difference on app.py vs views.py. Looked at this article and will try to implement. 
+    https://exploreflask.com/en/latest/views.html 
+    It shows examples of both files. 
+
+    In the end, the project looks much neater overall. 
+
+    
+    Note: When we switch to SQL, we might need a models.py and migrations folder. 
+        "models.py is the place where we are going to store our data models and the entities and relationships between the data will be specified."
+        "Migrations’ folder stores database and it’s specific information as it relates to the models."
+        https://medium.com/datadriveninvestor/python-django-views-templates-models-f0844a00db70
+
+            Some code in app.py uses config.py, so look at that as well. 
