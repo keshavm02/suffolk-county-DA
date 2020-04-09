@@ -112,6 +112,7 @@
 				7837018923774C2700D7CE9E /* AppDelegate.swift */,
 				7837018B23774C2700D7CE9E /* SceneDelegate.swift */,
 				7837018F23774C2700D7CE9E /* Main.storyboard */,
+
 				6BCC0FDF24368BA600915C4C /* CompletedViewController.swift */,
 				6BB136492435A2F7009A24DA /* DocumentsTableViewController.swift */,
 				6BB136452435926C009A24DA /* SignUpButton.swift */,
@@ -274,6 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+
 				6BB1364A2435A2F7009A24DA /* DocumentsTableViewController.swift in Sources */,
 				6BCC0FE224368CF300915C4C /* NavigationController.swift in Sources */,
 				6BB1364824359C4E009A24DA /* LogInButton.swift in Sources */,
