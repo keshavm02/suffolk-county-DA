@@ -33,6 +33,7 @@ def find_obtn(document):
 
 
 def find_indicent_report(document):
+    #OCR currently interprets initial character as a 1, should really be an I
     irn = re.search("I[0-9]{3}\s[0-9]{3}\s[0-9]{3}", document)
     if (irn != None):
         return irn.group()
@@ -48,8 +49,10 @@ def find_addresses(document):
 
 
 def find_codes(document):
-    codes = re.findall('[1-9][0-9]+(/[0-9][0-9][A-Z]*)?(/[A-Z]+)?', document)
-    codes = re.findall('[1-9][0-9]*/[0-9]+[A-Z]*(/[0-9]*[A-Z]*)?',document)
+    temp_doc = document[document.index('DESCRIPTION') + len('DESCRIPTION'):]
+    codes = re.findall('[1-9]+\s[1-9][0-9]+/?[0-9]{2,}?[A-Z]?/?[A-Z]?', temp_doc)
+    for i in range(len(codes)):
+        codes[i] = codes[i][2:]
     return codes
 
 
@@ -60,14 +63,14 @@ def arrest_booking_form(raw_document):
     document = raw_document
     for phrase in header:
         document = document.replace(phrase, '')
-    #weird bug? Why is this changing to PPAddress
-    document = document.replace("Address", "Personal Address")
+    #Two instances of address in document, first changed to PAD
+    document = document.replace("Address", "PAD")
     #print(document)
     # list of keywords
     #First address is simply "Address" on form, changed for ease of use/code
     block_list = ["Report Date", "Booking Status", "Printed By", "District", "UCR Code", "OBTN", "Court of Appearance",
                   "Master Name", "Age", "Location of Arrest",
-                  "Booking Name", "Alias", "Personal Address", "Charges", "Booking #", "Incident #", "CR Number", "Booking Date",
+                  "Booking Name", "Alias", "PAD", "Charges", "Booking #", "Incident #", "CR Number", "Booking Date",
                   "Arrest Date", "RA Number", "Sex", "Height", "Occupation",
                   "Race", "Weight", "Employer/School", "Date of Birth", "Build", "Emp/School Addr", "Place of Birth",
                   "Eyes Color", "Social Sec. Number", "Marital Status",
@@ -116,7 +119,7 @@ def application_for_criminal_complaint(raw_document):
     document = raw_document
     for phrase in header:
         document = document.replace(phrase, '')
-    #print(document)
+    print(document)
     block_list = ["Summons", "Hearing Requested", "Court", "Arrest Status of Accused", "Arrest Date", "In Custody", "Officer ID No.",
                   "Agency", "Type", "Name", "Birth Surname", "Address", "Date of Birth", "Place of Birth", "Social Security No.",
                   "PCF No.", "SID", "Marital Status", "Driver's License No.", "Driver's License State", "Driver's License Exp. Year",
@@ -180,3 +183,18 @@ def probation_form(raw_document):
         fields['CARI'][i] = fields['CARI'][i].replace('KT#', 'CA DKT#')
     fields['CARI'] = fields['CARI'][1:]
     return fields
+
+def find_case_number(raw_document):
+    case_number = re.search("I[0-9]{9}", raw_document)
+    return case_number.group()
+def find_cad_incident_number(raw_document):
+    incident_number = re.search("P[0-9]{9}", raw_document)
+    return incident_number.group()
+def find_report_type(raw_document):
+    return 'Incident Report'
+def find_date_time(raw_document):
+    date_time = re.findall("[0-9]{2}/[0-9]{2}/[0-9]{4}\s[0-9]{2}:[0-9]{2}", raw_document)
+    return date_time
+def find_public_narrative(raw_document):
+    narrative = raw_document[raw_document.index('Public Narrative') + len('Public Narrative'):]
+    return narrative
