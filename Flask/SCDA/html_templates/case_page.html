@@ -1,0 +1,10 @@
+<html>
+    <head>
+        <title>Case Listing</title>
+    </head>
+    <body>
+        {% for case in case_list %}
+        <a href="/{{ case }}">{{ case }}</a>
+        {% endfor %}
+    </body>
+</html>
