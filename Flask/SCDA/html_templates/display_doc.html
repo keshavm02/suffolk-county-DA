@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>
+            {{ docket }}
+        </title>
+    </head>
+    <body>
+        `<h1>Criminal Complaint</h1>
+        {% for key, value in document['CC'].items() %}
+        <h2>{{ key }}</h2>
+        <h3>{{ value}}</h3>
+        {% endfor %}
+        <img src="{{ document['CC']['img'] }}" style="width:25%; height:auto">
+    </body>
+</html>
