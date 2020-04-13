@@ -1,5 +1,5 @@
 import os
-from __init__ import app
+from .__init__ import app
 
 
 UPLOAD_FOLDER = 'uploads'
