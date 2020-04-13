@@ -54,6 +54,43 @@ def find_codes(document):
         codes[i] = codes[i][2:]
     return codes
 
+def criminal_complaint(raw_document):
+    docket_num = find_docket_number(raw_document)
+    subject_name = find_full_name(raw_document)
+    dates = find_dates(raw_document)
+    #the following date variables assume all dates were recorded properly by the scan -- need to fix that assumption
+    if(0<len(dates)):
+        date_of_birth = dates[0]
+    else:
+        date_of_birth = 'Not found'
+    #date of issued complaint
+    if(1<len(dates)):
+        complaint_issued = dates[1]
+    else:
+        complaint_issued = 'Not found'
+    #date of offense
+    if(2<len(dates)):
+        doo = dates[2]
+    else:
+        doo = 'Not found'
+    if(3<len(dates)):
+        arrest_date = dates[3]
+    else:
+        arrest_date = 'Not found'
+    if(4<len(dates)):
+        next_event_date = dates[4]
+    else:
+        next_event_date = 'Not found'
+    #obtn number
+    obtn = find_obtn(doc)
+    #address
+    address = find_addresses(doc)
+    offense_codes = find_codes(doc)
+    #incident report number
+    irn = str(find_indicent_report(doc))
+    fields = {'_id': docket_num,'docket': docket_num, 'name': subject_name, 'dob': date_of_birth,'doc':complaint_issued,'doo':doo, 'doa':arrest_date, 'obtn': obtn, 'text': doc, 'irn': irn,
+            'court_address':address['court'], 'defendant_address':address['defendant'], 'offense_codes':offense_codes}
+
 
 # data extracted from arrest booking form by finding the key words for the fields and adding the corresponding key, value pair to dictionary
 def arrest_booking_form(raw_document):
@@ -199,3 +236,19 @@ def find_date_time(raw_document):
 def find_public_narrative(raw_document):
     narrative = raw_document[raw_document.index('Public Narrative') + len('Public Narrative'):]
     return narrative
+
+def incident_report(raw_document):
+    case_number = find_case_number(raw_document)
+    cad_incident = find_cad_incident_number(raw_document)
+    report_type = find_report_type(raw_document)
+    dates = find_date_time(raw_document)
+    if len(dates)>0:
+        date_time_occurred = dates[0]
+    else:
+        date_time_occurred = 'Not found.'
+    if len(dates)>1:
+        date_time_reported = dates[1]
+    else:
+        date_time_reported = 'Not found.'
+    public_narrative = find_public_narrative(raw_document)
+    fields = {'Case Number': case_number, 'CAD Incident Number': cad_incident, 'Report Type': report_type, 'Date / Time Occurred': date_time_occurred, 'Date / Time Reported': date_time_reported, 'Public Narrative': public_narrative}

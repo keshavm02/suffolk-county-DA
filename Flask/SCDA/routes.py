@@ -3,10 +3,10 @@ import json #allows python dictionaries to be formatted into JSON and vice versa
 from bson import ObjectId #allows MongoDB to format data
 from werkzeug.utils import secure_filename #secure file name given file name
 from PIL import Image #package that allows you to give functionality to images
-from config import *
+from SCDA import config
 from .extract_text.extract_fields import *
 from .extract_text.extract_text import *
-from .__init__ import app, cases
+from SCDA import app
 from flask import request, flash, redirect, render_template
 
 
@@ -26,9 +26,14 @@ class JSONEncoder(json.JSONEncoder):
             return str(o)
         return json.JSONEncoder.default(self, o)
 
+@app.route('/')
+@app.route('/index')
+def index():
+    return "Hello, World!"
+
 #route for criminal complaints
 @app.route('/CC', methods=['POST'])
-def index():
+def Criminal_Complaint_Post():
     if request.method == 'POST':
         print(request.form)
         print(request.headers)
