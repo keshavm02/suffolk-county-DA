@@ -4,7 +4,7 @@ import os
 
 
 class test_application_for_criminal_complaint(unittest.TestCase):
-    doc = open(os.path.expanduser("~/suffolk-county-DA/extract_text/extraction_tests/test_textdumps/Application for Criminal Complaint .txt")).read()
+    doc = open(os.path.expanduser("~/suffolk-county-DA/Flask/SCDA/extract_text/extraction_tests/test_textdumps/Application for Criminal Complaint .txt")).read()
     answers = extract_fields.application_for_criminal_complaint(doc)
 
     def test_summons(self):
