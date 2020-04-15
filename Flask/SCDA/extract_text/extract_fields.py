@@ -90,6 +90,7 @@ def criminal_complaint(raw_document):
     irn = str(find_indicent_report(doc))
     fields = {'_id': docket_num,'docket': docket_num, 'name': subject_name, 'dob': date_of_birth,'doc':complaint_issued,'doo':doo, 'doa':arrest_date, 'obtn': obtn, 'text': doc, 'irn': irn,
             'court_address':address['court'], 'defendant_address':address['defendant'], 'offense_codes':offense_codes}
+    return fields
 
 
 # data extracted from arrest booking form by finding the key words for the fields and adding the corresponding key, value pair to dictionary
@@ -131,14 +132,16 @@ def arrest_booking_form(raw_document):
         value = ''
         if find in document:
             temp_doc = document[document.index(find) + len(find):]
-            if counter < len(block_list)-1:
-                # temporarily erase keywords and use the index of : to know when to end the string
+            if find == 'Visible Injuries: ':
+                value = temp_doc[:temp_doc.index('JUVENILE')].replace('\n', '').strip()
+            elif counter < len(block_list)-1:
+                # use index of next keyword to know when to stop
                 #for word in block_list:
                 word = block_list[counter+1]
                 #temp_doc = temp_doc.replace(word, '', 1)
                 value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
             else:
-                # if no : in the remaining document, end current field with next space or newline
+                # if no keywords in the remaining document, end current field with next space or newline
                 value = temp_doc[:re.search('\s|\n', temp_doc).start()]
         fields[field] = value
     return fields
@@ -155,7 +158,7 @@ def application_for_criminal_complaint(raw_document):
     document = raw_document
     for phrase in header:
         document = document.replace(phrase, '')
-    print(document)
+    #print(document)
     block_list = ["Summons", "Hearing Requested", "Court", "Arrest Status of Accused", "Arrest Date", "In Custody", "Officer ID No.",
                   "Agency", "Type", "Name", "Birth Surname", "Address", "Date of Birth", "Place of Birth", "Social Security No.",
                   "PCF No.", "SID", "Marital Status", "Driver's License No.", "Driver's License State", "Driver's License Exp. Year",
@@ -170,14 +173,15 @@ def application_for_criminal_complaint(raw_document):
         value = ''
         if find in document:
             temp_doc = document[document.index(find) + len(find):]
-            if ':' in temp_doc:
-                #Must have space after colon in order to work properly
-                # temporarily erase keywords and use the index of : to know when to end the string
+            if find == 'Agency:':
+                value = temp_doc[:temp_doc.index('I,')].replace('\n', '').strip()
+            elif counter < len(block_list)-1:
+                # use index of next keyword to know when to stop
                 word = block_list[counter + 1]
                 # temp_doc = temp_doc.replace(word, '', 1)
                 value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
             else:
-                # if no : in the remaining document, end current field with next space or newline
+                # if no keywords in the remaining document, end current field with next space or newline
                 value = temp_doc[:re.search('\n', temp_doc).start()]
         fields[field] = value
     return fields
@@ -202,16 +206,15 @@ def probation_form(raw_document):
         value = ''
         if find in document:
             temp_doc = document[document.index(find) + len(find):]
-            if ':' in temp_doc:
-                # Must have space after colon in order to work properly
-                # temporarily erase keywords and use the index of : to know when to end the string
+            if counter < len(block_list)-1:
+                # use index of next keyword to know when to stop
                 word = block_list[counter + 1]
                 # temp_doc = temp_doc.replace(word, '', 1)
 
                 value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
             else:
-                # if no : in the remaining document, end current field with next space or newline
-                value = temp_doc
+                # if no keywords in the remaining document, end current field with next space or newline
+                value = temp_doc.strip()
         fields[field] = value
     d = 'CAD'
     fields['CARI'] = fields['CARI'].split(d)
@@ -234,7 +237,7 @@ def find_date_time(raw_document):
     date_time = re.findall("[0-9]{2}/[0-9]{2}/[0-9]{4}\s[0-9]{2}:[0-9]{2}", raw_document)
     return date_time
 def find_public_narrative(raw_document):
-    narrative = raw_document[raw_document.index('Public Narrative') + len('Public Narrative'):]
+    narrative = raw_document[raw_document.index('Public Narrative') + len('Public Narrative'):].strip()
     return narrative
 
 def incident_report(raw_document):
@@ -252,3 +255,38 @@ def incident_report(raw_document):
         date_time_reported = 'Not found.'
     public_narrative = find_public_narrative(raw_document)
     fields = {'Case Number': case_number, 'CAD Incident Number': cad_incident, 'Report Type': report_type, 'Date / Time Occurred': date_time_occurred, 'Date / Time Reported': date_time_reported, 'Public Narrative': public_narrative}
+    return fields
+
+def miranda_form(raw_document):
+    header = ['Boston Police Department', 'Prisoner Booking Form']
+    document = raw_document
+    for phrase in header:
+        document = document.replace(phrase, '')
+    block_list = ['Booking Name', 'First', 'Middle', 'Suffix', 'Home Address', 'Report Date', 'Booking Status',
+                  'Printed By', 'Sex', 'Race', 'Date of Birth', 'District', 'Booking Number', 'Arrest Date',
+                  'Incident Number', 'Booking Date', 'Charges', 'Telephone Used', 'Breathalyzer Used',
+                  'Examined at Hospital', 'Examined by EMS', 'Visible Injuries', 'Money', 'Property Storage No',
+                  'Property']
+    fields = {}
+    for counter in range(len(block_list)):
+        field = block_list[counter]
+        find = field + ':'
+        value = ''
+        if find in document:
+            # Assumes all Miranda OCR outputs have the same format
+            temp_doc = document[document.index(find) + len(find):]
+            if find == 'Charges:':
+                value = temp_doc[:temp_doc.index('Miranda Warning')].replace('\n', '').strip()
+            elif find == 'Visible Injuries:':
+                value = temp_doc[:temp_doc.index('Acknowledgement')].replace('\n', '').strip()
+            elif find == 'Property:':
+                value = temp_doc[:temp_doc.index('Signature')].replace('\n', '').strip()
+            elif counter < len(block_list)-1:
+                # use index of next keyword to know when to stop
+                word = block_list[counter + 1]
+                value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
+            else:
+                # if no keywords in the remaining document, end current field with next space or newline
+                value = temp_doc
+        fields[field] = value
+    return fields
