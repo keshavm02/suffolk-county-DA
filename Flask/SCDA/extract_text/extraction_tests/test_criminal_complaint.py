@@ -5,7 +5,7 @@ import extract_fields
 import unittest
 
 class test_criminal_complaints(unittest.TestCase):
-    doc = open(os.path.expanduser("~/suffolk-county-DA/extract_text/extraction_tests/test_textdumps/CC.txt")).read()
+    doc = open(os.path.expanduser("~/suffolk-county-DA/Flask/SCDA/extract_text/extraction_tests/test_textdumps/CC.txt")).read()
     def test_docket_number(self):
         input = extract_fields.find_docket_number(self.doc)
         expected = '1707CR003274'
