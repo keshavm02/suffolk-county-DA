@@ -31,3 +31,4 @@ Flask-Migrate==2.5.3
 Mako==1.1.2
 alembic==1.4.2
 python-editor==1.0.4
+filetype==1.0.6
