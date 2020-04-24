@@ -10,12 +10,10 @@ Base = declarative_base()
 class constituents(db.Model):
     __tablename__ = 'constituents'
 
-    uuid = db.Column(db.Integer, unique =True, nullable = False)
+    uuid = db.Column(db.Integer, unique =True, nullable = False) #Autoincrement, map to people's names, could have lookup table
     name = db.Column(db.String(), primary_key = True, nullable = False)
     SSN = db.Column(db.String(), nullable = False) #we should hash, or only display last 4
     DOB = db.Column(db.String(), nullable = False)
-  
-    
 
     def __init__(self, uuid, name, SSN, DOB):
         self.uuid = uuid
@@ -58,10 +56,10 @@ class forms(db.Model):
    
     
 class IR(db.Model):
-    __tablename__ = 'incident report'
-    constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key = True, unique=True)
+    __tablename__ = 'incident_report'
+    constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key=True, unique=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_upload_date = db.Column(db.String(),ForeignKey('forms.form_upload_date'))
+    form_upload_date = db.Column(db.String(), ForeignKey('forms.form_upload_date'))
 
     case_number = db.Column(db.String())
     CAD_incident_num = db.Column(db.String())
@@ -73,8 +71,8 @@ class IR(db.Model):
 
 
 class ACC(db.Model):
-    __tablename__ = 'application for criminal complaint'
-    constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key = True)
+    __tablename__ = 'application_for_criminal_complaint'
+    constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
     form_upload_date = db.Column(db.String(),ForeignKey('forms.form_upload_date'))
 
@@ -120,8 +118,8 @@ class ACC(db.Model):
 
 
 class CC(db.Model):
-    __tablename__ = 'criminal complaint'
-    constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key = True)
+    __tablename__ = 'criminal_complaint'
+    constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
     form_date = db.Column(db.String(),ForeignKey('forms.form_upload_date'))
 
@@ -140,8 +138,8 @@ class CC(db.Model):
 
 
 class ABF(db.Model):
-    __tablename__ = 'arrest booking form'
-    constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key = True)
+    __tablename__ = 'arrest_booking_form'
+    constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
     form_date = db.Column(db.String(),ForeignKey('forms.form_upload_date'))
 
@@ -220,8 +218,8 @@ class ABF(db.Model):
 
 
 class MF(db.Model):
-    __tablename__ = 'miranda form'
-    constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key = True)
+    __tablename__ = 'miranda_form'
+    constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
     form_date = db.Column(db.String(),ForeignKey('forms.form_upload_date'))
     
@@ -251,11 +249,12 @@ class MF(db.Model):
     property_storage_num = db.Column(db.String())
     property = db.Column(db.String())
 
+
 class PR(db.Model):
-    __tablename__ = 'probation record'
-    constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key = True)
+    __tablename__ = 'probation_record'
+    constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_date = db.Column(db.String(),ForeignKey('forms.form_upload_date'))
+    form_date = db.Column(db.String(), ForeignKey('forms.form_upload_date'))
     
     pcf = db.Column(db.String())
     date_of_birth = db.Column(db.String())
