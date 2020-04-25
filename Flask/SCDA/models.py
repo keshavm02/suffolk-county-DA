@@ -1,22 +1,28 @@
-from SCDA import db
+#from SCDA import db
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
-from sqlalchemy import create_engine, ForeignKey, MetaData
+from sqlalchemy import create_engine, ForeignKey, MetaData, Sequence
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
+app = Flask(__name__) 
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres@localhost/constituents"
+
+db = SQLAlchemy(app)
+database_name = 'constituents'
 Base = declarative_base()
 
 
 class constituents(db.Model):
     __tablename__ = 'constituents'
 
-    uuid = db.Column(db.Integer, unique =True, nullable = False) #Autoincrement, map to people's names, could have lookup table
+    uuid = db.Column(db.Integer, Sequence('id_seq',start=1,increment=1), nullable = False) #Autoincrement, map to people's names, could have lookup table
     name = db.Column(db.String(), primary_key = True, nullable = False)
-    SSN = db.Column(db.String(), nullable = False) #we should hash, or only display last 4
-    DOB = db.Column(db.String(), nullable = False)
+    SSN = db.Column(db.String(), primary_key = True, nullable = False) #we should hash, or only display last 4
+    DOB = db.Column(db.String(), primary_key = True, nullable = False)
 
-    def __init__(self, uuid, name, SSN, DOB):
-        self.uuid = uuid
+    def __init__(self, name, SSN, DOB):
         self.name = name
         self.SSN = SSN
         self.DOB = DOB
@@ -28,7 +34,7 @@ class constituents(db.Model):
 class forms(db.Model):
     __tablename__ = 'forms'
 
-    constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), unique = True)
+    constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'))
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
     form_upload_date = db.Column(db.String(), primary_key= True)
     #The information that should be added here is the date they uploaded, the forms could be null except for the mandatory
@@ -42,7 +48,9 @@ class forms(db.Model):
     MF = db.Column(db.String())
     PR = db.Column(db.String())
 
-    def __init__(self, IR, ACC, CC, ABF, MF, PR):
+    def __init__(self, constituent_id, form_upload_date, IR, ACC, CC, ABF='', MF='', PR=''):
+        self.constituent_id = constituent_id
+        self.form_upload_date = form_upload_date
         self.IR = IR
         self.ACC = ACC
         self.CC = CC
@@ -52,14 +60,11 @@ class forms(db.Model):
 
     
 
-
-   
-    
 class IR(db.Model):
     __tablename__ = 'incident_report'
-    constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key=True, unique=True)
+    constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_upload_date = db.Column(db.String(), ForeignKey('forms.form_upload_date'))
+    form_upload_date = db.Column(db.String(), ForeignKey('forms.form_upload_date'), primary_key=True)
 
     case_number = db.Column(db.String())
     CAD_incident_num = db.Column(db.String())
@@ -74,7 +79,7 @@ class ACC(db.Model):
     __tablename__ = 'application_for_criminal_complaint'
     constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_upload_date = db.Column(db.String(),ForeignKey('forms.form_upload_date'))
+    form_upload_date = db.Column(db.String(),ForeignKey('forms.form_upload_date'), primary_key=True)
 
     summons = db.Column(db.String())
     hearing_requested = db.Column(db.String())
@@ -141,7 +146,7 @@ class ABF(db.Model):
     __tablename__ = 'arrest_booking_form'
     constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_date = db.Column(db.String(),ForeignKey('forms.form_upload_date'))
+    form_date = db.Column(db.String(),ForeignKey('forms.form_upload_date'), primary_key=True)
 
     report_date = db.Column(db.String())
     booking_status = db.Column(db.String())
@@ -221,7 +226,7 @@ class MF(db.Model):
     __tablename__ = 'miranda_form'
     constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_date = db.Column(db.String(),ForeignKey('forms.form_upload_date'))
+    form_date = db.Column(db.String(),ForeignKey('forms.form_upload_date'), primary_key=True)
     
     booking_name = db.Column(db.String())
     first = db.Column(db.String())
@@ -254,7 +259,7 @@ class PR(db.Model):
     __tablename__ = 'probation_record'
     constituent_id = db.Column(db.Integer, ForeignKey('constituents.uuid'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_date = db.Column(db.String(), ForeignKey('forms.form_upload_date'))
+    form_date = db.Column(db.String(), ForeignKey('forms.form_upload_date'), primary_key=True)
     
     pcf = db.Column(db.String())
     date_of_birth = db.Column(db.String())
@@ -272,6 +277,37 @@ class PR(db.Model):
     driver_license_num = db.Column(db.String())
     cari = db.Column(db.String())
     records_include = db.Column(db.String())
+
+
+if __name__ == "__main__":
+    with app.app_context():
+        db.init_app(app)    # this is important!
+        db.create_all()
+    engine = create_engine("postgresql://postgres@localhost/constituents")
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    test_constituent = constituents("Test", '1234', "01/01/2020")
+    session.add(test_constituent)
+    test_constituent_2 = constituents("Test2", '5678', "01/01/2019")
+    session.add(test_constituent_2)
+    session.commit()
+
+    test_uuid = test_constituent.uuid
+
+    test_form = forms(test_uuid, '04/24/2020', '04/24/2020', '04/24/2020', '04/24/2020')
+    test_form_2 = forms(test_constituent_2.uuid, '04/25/2020', '04/25/2020', '04/25/2020', '04/25/2020')
+    test_form_3 = forms(test_constituent_2.uuid, '04/26/2020', '04/26/2020', '04/26/2020', '04/26/2020')
+    session.add(test_form)
+    session.add(test_form_2)
+    session.add(test_form_3)
+    session.commit()
+
+    me = session.query(constituents).get(('Test', '1234', '01/01/2020'))
+    print(test_uuid)
+    print(me.uuid)
+    myforms = session.query(forms).filter_by(constituent_id=me.uuid).all()
+    print(myforms)
     
 """
 if __name__ == "__main__":
