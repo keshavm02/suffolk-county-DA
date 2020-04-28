@@ -8,9 +8,10 @@ from PIL import Image #package that allows you to give functionality to images
 from SCDA import config
 from .extract_text.extract_fields import *
 from .extract_text.extract_text import *
-from SCDA import app
+from SCDA import app, models, db
 from flask import request, flash, redirect, render_template
 from .extract_routes.database_code import *
+from datetime import datetime
 
 
 
@@ -46,10 +47,12 @@ def upload_forms():
             acc_filename = acc_filename[-1]
             # Replace with better security
             if allowed_file(acc_filename):
+                form_upload_date = datetime.now()
                 filename = secure_filename(acc_filename)
                 file = Image.open(acc_file)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                image = ImageReader(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                image = ImageReader(image_path)
                 text = ExtractText(image.image)
                 #does not work well with provided test image
                 #doc = text.extract_text()
@@ -60,7 +63,13 @@ def upload_forms():
                     return "Application for criminal complaint could not be read. Please upload a clearer image."
                 else:
                     uuid = getUser(acc_info["Name"], acc_info["Social Security No."][-4:], acc_info["Date of Birth"])
-                    print(uuid)
+                    #print(uuid)
+                    
+                    # store path or actual image?
+                    acc_insert = models.ACC(uuid, form_upload_date, image_path, acc_info["Summons"], acc_info["Hearing Requested"], acc_info["Court"], acc_info["Arrest Status of Accused"], acc_info["Arrest Date"], acc_info["In Custody"],acc_info["Officer ID No."],acc_info["Agency"],acc_info["Type"],acc_info["Name"],acc_info["Birth Surname"],acc_info["Address"],acc_info["Date of Birth"], acc_info["Place of Birth"], acc_info["Social Security No."], acc_info["PCF No."],acc_info["SID"],acc_info["Marital Status"],acc_info["Driver's License No."],acc_info["Driver's License State"],acc_info["Driver's License Exp. Year"],acc_info["Gender"],acc_info["Race"],acc_info["Height"],acc_info["Weight"],acc_info["Eyes"],acc_info["Hair"],acc_info["Ethnicity"],acc_info["Primary Language"],acc_info["Complexion"],acc_info["Scars/Marks/Tattoos"],acc_info["Employer Name"],acc_info["School Name"],acc_info["Day Phone"],acc_info["Mother Name"],acc_info["Mother Maiden Name"],acc_info["Father Name"],acc_info["Complainant Type"],acc_info["Police Dept."])
+                    db.session.add(acc_insert)
+                    #REMINDER: MUST HAVE FORMS TABLE BEFORE COMMITTING
+                    #db.session.commit()
             else:
                 return redirect('failure')
             return "All good!"
