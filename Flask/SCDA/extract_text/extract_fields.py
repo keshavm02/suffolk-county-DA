@@ -139,7 +139,8 @@ def arrest_booking_form(raw_document):
                 #for word in block_list:
                 word = block_list[counter+1]
                 #temp_doc = temp_doc.replace(word, '', 1)
-                value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
+                if word in temp_doc:
+                    value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
             else:
                 # if no keywords in the remaining document, end current field with next space or newline
                 value = temp_doc[:re.search('\s|\n', temp_doc).start()]
@@ -179,7 +180,8 @@ def application_for_criminal_complaint(raw_document):
                 # use index of next keyword to know when to stop
                 word = block_list[counter + 1]
                 # temp_doc = temp_doc.replace(word, '', 1)
-                value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
+                if word in temp_doc:
+                    value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
             else:
                 # if no keywords in the remaining document, end current field with next space or newline
                 value = temp_doc[:re.search('\n', temp_doc).start()]
@@ -210,8 +212,8 @@ def probation_form(raw_document):
                 # use index of next keyword to know when to stop
                 word = block_list[counter + 1]
                 # temp_doc = temp_doc.replace(word, '', 1)
-
-                value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
+                if word in temp_doc:
+                    value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
             else:
                 # if no keywords in the remaining document, end current field with next space or newline
                 value = temp_doc.strip()
@@ -284,7 +286,8 @@ def miranda_form(raw_document):
             elif counter < len(block_list)-1:
                 # use index of next keyword to know when to stop
                 word = block_list[counter + 1]
-                value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
+                if word in temp_doc:
+                    value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
             else:
                 # if no keywords in the remaining document, end current field with next space or newline
                 value = temp_doc
