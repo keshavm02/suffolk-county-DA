@@ -41,7 +41,7 @@ class forms(db.Model):
 
     constituent_id = db.Column(db.Integer, ForeignKey('constituents.id'))
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_upload_date = db.Column(db.String(), primary_key= True, nullable=False)
+    form_upload_date = db.Column(db.DateTime(), primary_key= True, nullable=False)
     #The information that should be added here is the date they uploaded, the forms could be null except for the mandatory
 
     #Mandatory
@@ -69,7 +69,7 @@ class IR(db.Model):
     __tablename__ = 'incident_report'
     constituent_id = db.Column(db.Integer, ForeignKey('constituents.id'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_upload_date = db.Column(db.String(), ForeignKey('forms.form_upload_date'), primary_key=True)
+    form_upload_date = db.Column(db.DateTime(), ForeignKey('forms.form_upload_date'), primary_key=True)
 
     case_number = db.Column(db.String())
     CAD_incident_num = db.Column(db.String())
@@ -96,7 +96,7 @@ class ACC(db.Model):
     __tablename__ = 'application_for_criminal_complaint'
     constituent_id = db.Column(db.Integer, ForeignKey('constituents.id'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_upload_date = db.Column(db.String(),ForeignKey('forms.form_upload_date'), primary_key=True)
+    form_upload_date = db.Column(db.DateTime(),ForeignKey('forms.form_upload_date'), primary_key=True)
 
     summons = db.Column(db.String())
     hearing_requested = db.Column(db.String())
@@ -190,7 +190,7 @@ class CC(db.Model):
     __tablename__ = 'criminal_complaint'
     constituent_id = db.Column(db.Integer, ForeignKey('constituents.id'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_upload_date = db.Column(db.String(),ForeignKey('forms.form_upload_date'))
+    form_upload_date = db.Column(db.DateTime(),ForeignKey('forms.form_upload_date'))
 
     docket_number = db.Column(db.String())
     full_name = db.Column(db.String())
@@ -228,7 +228,7 @@ class ABF(db.Model):
     __tablename__ = 'arrest_booking_form'
     constituent_id = db.Column(db.Integer, ForeignKey('constituents.id'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_upload_date = db.Column(db.String(),ForeignKey('forms.form_upload_date'))
+    form_upload_date = db.Column(db.DateTime(),ForeignKey('forms.form_upload_date'))
 
     report_date = db.Column(db.String())
     booking_status = db.Column(db.String())
@@ -383,7 +383,7 @@ class MF(db.Model):
     __tablename__ = 'miranda_form'
     constituent_id = db.Column(db.Integer, ForeignKey('constituents.id'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_upload_date = db.Column(db.String(),ForeignKey('forms.form_upload_date'))
+    form_upload_date = db.Column(db.DateTime(),ForeignKey('forms.form_upload_date'))
     
     booking_name = db.Column(db.String())
     first = db.Column(db.String())
@@ -442,7 +442,7 @@ class PR(db.Model):
     __tablename__ = 'probation_record'
     constituent_id = db.Column(db.Integer, ForeignKey('constituents.id'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_upload_date = db.Column(db.String(),ForeignKey('forms.form_upload_date'))
+    form_upload_date = db.Column(db.DateTime(),ForeignKey('forms.form_upload_date'))
     image = db.Column(db.String())
     
     pcf = db.Column(db.String())
