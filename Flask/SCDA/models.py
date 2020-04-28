@@ -175,7 +175,7 @@ class ACC(db.Model):
         self.school_name = school_name
         self.day_phone
         self.mother_name = mother_name
-        self.mother_maiden_name = mother
+        self.mother_maiden_name = mother_maiden_name
         self.father_name = father_name
         self.complainant_type = complainant_type
         self.police_department = police_department
