@@ -3,9 +3,9 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 from SCDA import app
 
 
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = '/Users/eloisanitorreda/suffolk-county-DA/Flask/SCDA/uploads'
 UPLOAD_JSON = 'json'
-UPLOAD_FINAL = 'static'
+UPLOAD_FINAL = '/Users/eloisanitorreda/suffolk-county-DA/Flask/SCDA/static'
 app.config['DEBUG'] = True
 
 #https://docs.sqlalchemy.org/en/13/core/engines.html

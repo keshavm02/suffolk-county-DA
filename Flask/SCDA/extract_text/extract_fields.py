@@ -136,19 +136,20 @@ def arrest_booking_form(raw_document):
                 #for word in block_list:
                 word = block_list[counter+1]
                 #temp_doc = temp_doc.replace(word, '', 1)
-                value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
+                if word in temp_doc:
+                    value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
             else:
                 # if no : in the remaining document, end current field with next space or newline
                 value = temp_doc[:re.search('\s|\n', temp_doc).start()]
         fields[field] = value
     return fields
 
-
+"""
 # application for criminal complaint
 def find_name_ACC(document):
     name = re.search("[a-z]*\s[A-Z][a-z]*[,]\s[A-Z][a-z]*", document)
     return name
-
+"""
 def application_for_criminal_complaint(raw_document):
     #Remove Headers
     header = ['Application Details', 'Accused Details', 'Complainant Details']
@@ -175,7 +176,8 @@ def application_for_criminal_complaint(raw_document):
                 # temporarily erase keywords and use the index of : to know when to end the string
                 word = block_list[counter + 1]
                 # temp_doc = temp_doc.replace(word, '', 1)
-                value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
+                if word in temp_doc:
+                    value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
             else:
                 # if no : in the remaining document, end current field with next space or newline
                 value = temp_doc[:re.search('\n', temp_doc).start()]
@@ -207,8 +209,8 @@ def probation_form(raw_document):
                 # temporarily erase keywords and use the index of : to know when to end the string
                 word = block_list[counter + 1]
                 # temp_doc = temp_doc.replace(word, '', 1)
-
-                value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
+                if word in temp_doc:
+                    value = temp_doc[:temp_doc.index(word)].replace('\n', '').strip()
             else:
                 # if no : in the remaining document, end current field with next space or newline
                 value = temp_doc

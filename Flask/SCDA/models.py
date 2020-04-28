@@ -1,4 +1,4 @@
-#from SCDA import db
+from SCDA import db
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
@@ -20,7 +20,7 @@ class constituents(db.Model):
 
     id = db.Column(db.Integer, Sequence('id',start=1,increment=1), unique = True, nullable = False) #Autoincrement, map to people's names, could have lookup table
     name = db.Column(db.String(), primary_key = True, nullable = False)
-    SSN = db.Column(db.String(), primary_key = True, nullable = False) #we should hash, or only display last 4
+    SSN = db.Column(db.String(), primary_key = True, nullable = False) #only display last 4
     DOB = db.Column(db.String(), primary_key = True, nullable = False)
     #allForms = db.relationship("forms", back_populates="form_upload_date")
 
@@ -39,7 +39,7 @@ class forms(db.Model):
 
     constituent_id = db.Column(db.Integer, ForeignKey('constituents.id'))
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_upload_date = db.Column(db.String(), primary_key= True)
+    form_upload_date = db.Column(db.String(), primary_key= True, nullable=False)
     #The information that should be added here is the date they uploaded, the forms could be null except for the mandatory
 
     #Mandatory

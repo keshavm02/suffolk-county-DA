@@ -1,0 +1,16 @@
+{
+	"_id": "1707CR003274",
+	"docket": "1707CR003274", 
+	"name": "Bepie J Louis", 
+	"dob": "02/10/1981",
+	"doc":"09/05/2017",
+	"doo":"09/05/2017", 
+	"doa":"09/05/2017", 
+	"obtn": "TBOS170088503", 
+	"text": "test", 
+	"irn": "I172 072 717",
+    "court_address":"510 Washington Street Dorchester, MA 02124", 
+    "defendant_address":"28 Abbot St Boston, MA 02124", 
+    "offense_codes":"'90/23/E', '90/23/H', '90/23/G', '90/34J', '666666'"
+	
+}
