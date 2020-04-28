@@ -139,7 +139,7 @@ class ACC(db.Model):
     police_department = db.Column(db.String())
     image = db.Column(db.String())
 
-    def __init__(self,constituent_id,form_upload_date, image, summons='',hearing_requested='',court='',arrest_status_of_accused='',arrest_date='',in_custody='',officer_id_num='',agency='',type='',name='',birth_surname='',address='',date_of_birth='', place_of_birth='',ssn='',pcs_num='',sid='',marital_status='',driver_license_num='',driver_license_exp='',gender='',race='',height='',weight='',eyes='',hair='',ethnicity='',primary_language='',complexion='',scars_marks_tattoos='', employer_name='',school_name='',day_phone='',mother_name='',mother_maiden_name='',father_name='',complainant_type='',police_department=''):
+    def __init__(self,constituent_id,form_upload_date, image, summons='',hearing_requested='',court='',arrest_status_of_accused='',arrest_date='',in_custody='',officer_id_num='',agency='',type='',name='',birth_surname='',address='',date_of_birth='', place_of_birth='',ssn='',pcs_num='',sid='',marital_status='',driver_license_num='',driver_license_state='',driver_license_exp='',gender='',race='',height='',weight='',eyes='',hair='',ethnicity='',primary_language='',complexion='',scars_marks_tattoos='', employer_name='',school_name='',day_phone='',mother_name='',mother_maiden_name='',father_name='',complainant_type='',police_department=''):
         self.form_upload_date = form_upload_date
         self.hearing_requested = hearing_requested
         self.court = court
