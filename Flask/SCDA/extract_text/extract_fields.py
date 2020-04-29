@@ -3,6 +3,7 @@ import os
 
 
 # criminal complaint
+
 def find_docket_number(document):
     docket = re.search("[0-9]{4}[A-Z]{2}[0-9]{6}", document)
     if (docket != None):
@@ -82,12 +83,12 @@ def criminal_complaint(raw_document):
     else:
         next_event_date = 'Not found'
     #obtn number
-    obtn = find_obtn(doc)
+    obtn = find_obtn(raw_document)
     #address
-    address = find_addresses(doc)
-    offense_codes = find_codes(doc)
+    address = find_addresses(raw_document)
+    offense_codes = find_codes(raw_document)
     #incident report number
-    irn = str(find_indicent_report(doc))
+    irn = str(find_indicent_report(raw_document))
     fields = {'_id': docket_num,'docket': docket_num, 'name': subject_name, 'dob': date_of_birth,'doc':complaint_issued,'doo':doo, 'doa':arrest_date, 'obtn': obtn, 'text': doc, 'irn': irn,
             'court_address':address['court'], 'defendant_address':address['defendant'], 'offense_codes':offense_codes}
     return fields
