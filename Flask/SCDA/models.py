@@ -193,7 +193,7 @@ class CC(db.Model):
     __tablename__ = 'criminal_complaint'
     constituent_id = db.Column(db.Integer, ForeignKey('constituents.id'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_upload_date = db.Column(db.DateTime(),ForeignKey('forms.form_upload_date'))
+    form_upload_date = db.Column(db.DateTime(),ForeignKey('forms.form_upload_date'),primary_key=True)
 
     docket_number = db.Column(db.String())
     full_name = db.Column(db.String())
@@ -221,7 +221,7 @@ class CC(db.Model):
         self.next_event_date = next_event_date
         self.obtn_num = obtn_num
         self.incident_report_num = incident_report_num
-        self.court_address = constituents
+        self.court_address = court_address
         self.defendant_address = defendant_address
         self.offense_code = offense_code
         self.image = image
@@ -231,7 +231,7 @@ class ABF(db.Model):
     __tablename__ = 'arrest_booking_form'
     constituent_id = db.Column(db.Integer, ForeignKey('constituents.id'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_upload_date = db.Column(db.DateTime(),ForeignKey('forms.form_upload_date'))
+    form_upload_date = db.Column(db.DateTime(),ForeignKey('forms.form_upload_date'),primary_key=True)
 
     report_date = db.Column(db.String())
     booking_status = db.Column(db.String())
@@ -389,7 +389,7 @@ class MF(db.Model):
     __tablename__ = 'miranda_form'
     constituent_id = db.Column(db.Integer, ForeignKey('constituents.id'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_upload_date = db.Column(db.DateTime(),ForeignKey('forms.form_upload_date'))
+    form_upload_date = db.Column(db.DateTime(),ForeignKey('forms.form_upload_date'),primary_key=True)
     
     booking_name = db.Column(db.String())
     first = db.Column(db.String())
@@ -448,7 +448,7 @@ class PR(db.Model):
     __tablename__ = 'probation_record'
     constituent_id = db.Column(db.Integer, ForeignKey('constituents.id'), primary_key=True)
     #constituent_name = db.Column(db.String(), ForeignKey('constituents.name'))
-    form_upload_date = db.Column(db.DateTime(),ForeignKey('forms.form_upload_date'))
+    form_upload_date = db.Column(db.DateTime(),ForeignKey('forms.form_upload_date'),primary_key=True)
     image = db.Column(db.String())
     
     pcf = db.Column(db.String())
