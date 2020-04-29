@@ -470,6 +470,9 @@ class PR(db.Model):
     image = db.Column(db.String())
 
     def __init__(self,constituent_id,form_upload_date, image,pcf="",date_of_birth="",age="", birthplace="",mother="",father="",height="", weight="", hair="", eyes="", gender="", race="", ethnicity="", driver_license_num="", cari="",records_include=""):
+        self.constituent_id = constituent_id
+        self.form_upload_date = form_upload_date
+        self.image = image
         self.pcf=pcf
         self.date_of_birth=date_of_birth
         self.age=age
