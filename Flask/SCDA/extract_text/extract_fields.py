@@ -56,6 +56,7 @@ def find_codes(document):
     return codes
 
 def criminal_complaint(raw_document):
+    #print(raw_document)
     docket_num = find_docket_number(raw_document)
     subject_name = find_full_name(raw_document)
     dates = find_dates(raw_document)
@@ -89,7 +90,8 @@ def criminal_complaint(raw_document):
     offense_codes = find_codes(raw_document)
     #incident report number
     irn = str(find_indicent_report(raw_document))
-    fields = {'_id': docket_num,'docket': docket_num, 'name': subject_name, 'dob': date_of_birth,'doc':complaint_issued,'doo':doo, 'doa':arrest_date, 'obtn': obtn, 'text': doc, 'irn': irn,
+    print(address['court'])
+    fields = {'_id': docket_num,'docket': docket_num, 'name': subject_name, 'dob': date_of_birth,'doc':complaint_issued,'doo':doo, 'doa':arrest_date, 'ned': next_event_date, 'obtn': obtn, 'text': raw_document, 'irn': irn,
             'court_address':address['court'], 'defendant_address':address['defendant'], 'offense_codes':offense_codes}
     return fields
 
