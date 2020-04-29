@@ -34,28 +34,27 @@ class JSONEncoder(json.JSONEncoder):
 @app.route('/index')
 def index():
     return "Hello, World!"
+    
 @app.route('/upload', methods=['POST'])
 def upload_forms():
     if request.method == 'POST':
         print(request.data)
         form_data = request.get_json()
-        if 'acc' not in form_data:
-            return "Please upload all required document(s): missing ACC"
+        form_upload_date = datetime.now()
+        uuid = -1
+        checkRequiredForms = checkAllRequiredForms(form_data)
+        if (not checkRequiredForms[0]):
+            return checkRequiredForms[1]
         else:
             acc_file = form_data['acc']
             acc_filename = acc_file.split('/')
             acc_filename = acc_filename[-1]
             # Replace with better security
             if allowed_file(acc_filename):
-                form_upload_date = datetime.now()
-                filename = secure_filename(acc_filename)
-                file = Image.open(acc_file)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                image = ImageReader(image_path)
-                text = ExtractText(image.image)
-                #does not work well with provided test image
-                #doc = text.extract_text()
+                acc_filename = secure_filename(acc_filename)
+                acc_file = Image.open(acc_file)
+                doc, image_path = localUploadAndExtraction(acc_filename, acc_file)
+                #FOR TESTING
                 doc = open(os.path.expanduser("~/suffolk-county-DA/Flask/SCDA/extract_text/extraction_tests/test_textdumps/Application for Criminal Complaint .txt")).read()
                 acc_info = application_for_criminal_complaint(doc)
                 #print(acc_info)
@@ -63,19 +62,129 @@ def upload_forms():
                     return "Application for criminal complaint could not be read. Please upload a clearer image."
                 else:
                     uuid = getUser(acc_info["Name"], acc_info["Social Security No."][-4:], acc_info["Date of Birth"])
-                    #print(uuid)
-                    
+                    # print(uuid)
                     # store path or actual image?
+                    formTable = models.forms(uuid, form_upload_date, form_upload_date, form_upload_date, form_upload_date)
                     acc_insert = models.ACC(uuid, form_upload_date, image_path, acc_info["Summons"], acc_info["Hearing Requested"], acc_info["Court"], acc_info["Arrest Status of Accused"], acc_info["Arrest Date"], acc_info["In Custody"],acc_info["Officer ID No."],acc_info["Agency"],acc_info["Type"],acc_info["Name"],acc_info["Birth Surname"],acc_info["Address"],acc_info["Date of Birth"], acc_info["Place of Birth"], acc_info["Social Security No."], acc_info["PCF No."],acc_info["SID"],acc_info["Marital Status"],acc_info["Driver's License No."],acc_info["Driver's License State"],acc_info["Driver's License Exp. Year"],acc_info["Gender"],acc_info["Race"],acc_info["Height"],acc_info["Weight"],acc_info["Eyes"],acc_info["Hair"],acc_info["Ethnicity"],acc_info["Primary Language"],acc_info["Complexion"],acc_info["Scars/Marks/Tattoos"],acc_info["Employer Name"],acc_info["School Name"],acc_info["Day Phone"],acc_info["Mother Name"],acc_info["Mother Maiden Name"],acc_info["Father Name"],acc_info["Complainant Type"],acc_info["Police Dept."])
+                    db.session.add(formTable)
+                    db.session.commit()
                     db.session.add(acc_insert)
+                    db.session.commit()
                     #REMINDER: MUST HAVE FORMS TABLE BEFORE COMMITTING
                     #db.session.commit()
+            cc_file = form_data['cc']
+            cc_filename = cc_file.split('/')
+            cc_filename = cc_filename[-1]
+            if allowed_file(cc_filename):
+                cc_filename = secure_filename(cc_filename)
+                cc_file = Image.open(cc_file)
+                doc, image_path = localUploadAndExtraction(cc_filename, cc_file)
+                cc_info = criminal_complaint(doc)
+                print(cc_info["court_address"])
+                cc_insert = models.CC(uuid, form_upload_date, image_path, cc_info["docket"], cc_info["name"], cc_info["dob"], cc_info["doc"], 
+                         cc_info["doo"], cc_info["doa"], cc_info["ned"], cc_info["obtn"], cc_info["irn"], cc_info["court_address"], 
+                         cc_info["defendant_address"], cc_info["offense_codes"])
+                db.session.add(cc_insert)
+                db.session.commit()
+            ir_file = form_data['ir']
+            ir_filename = ir_file.split('/')
+            ir_filename = ir_filename[-1]
+            if allowed_file(ir_filename):
+                ir_filename = secure_filename(ir_filename)
+                ir_file = Image.open(ir_file)
+                doc, image_path = localUploadAndExtraction(ir_filename, ir_file)
+                ir_info = incident_report(doc)
+                ir_insert = models.IR(uuid, form_upload_date, image_path, ir_info["Case Number"],ir_info["CAD Incident Number"],ir_info["Report Type"],ir_info["Date / Time Occurred"],ir_info["Date / Time Reported"],ir_info["Public Narrative"])
             else:
                 return redirect('failure')
+        #Adding the forms table and individual forms
+            #add forms table
+            
+            """
+            #add required forms --> Criminal Complaint
+            cc_file = form_data['cc']
+            cc_filename = cc_file.split('/')
+            cc_filename = cc_filename[-1]
+            cc_filename = secure_filename(cc_filename)
+            cc_file = Image.open(cc_file)
+            doc, image_path = localUploadAndExtraction(cc_filename, cc_file)
+            cc_info = criminal_complaint(doc)
+            cc_insert = models.CC(uuid, form_upload_date, image_path, cc_info["docket"], cc_info["name"], cc_info["dob"], cc_info["doc], 
+                         cc_info["doo"], cc_info["doa"], cc_info["obtn"], cc_info["text"], cc_info["irn"], cc_info["court_address"], 
+                         cc_info["defendant_address"], cc_info["offense_codes"])
+
+            #add required forms --> Incident Report
+            ir_file = form_data['ir']
+            ir_filename = ir_file.split('/')
+            ir_filename = ir_filename[-1]
+            ir_filename = secure_filename(ir_filename)
+            ir_file = Image.open(ir_file)
+            doc, image_path = localUploadAndExtraction(ir_filename, ir_file)
+            ir_info = incident_report(doc)
+            ir_insert = models.IR(uuid, form_upload_date, image_path, ir_info["Case Number"],ir_info["CAD Incident Number"],ir_info["Report Type"],ir_info["Date / Time Occured"],ir_info["Date / Time Reported"],ir_info["Public Narrative"])
+
+
+            
+            """
+            """
+
+            #add optional forms
+            #miranda form 
+            mf_file = form_data['ir']
+            mf_filename = mf_file.split('/')
+            mf_filename = mf_filename[-1]
+            mf_filename = secure_filename(mf_filename)
+            mf_file = Image.open(mf_file)
+            doc, image_path = localUploadAndExtraction(mf_filename, mf_file)
+            mf_info = incident_report(doc)
+            mf_insert = models.MF(uuid, form_upload_date, image_path, mf_info["Booking Name"], mf_info["First"], mf_info["Middle"], mf_info["Suffix"], mf_info["Home Address"], mf_info["Report Date"], 
+                                                                    mf_info["Booking Status"], mf_info["Printed By"], mf_info["Sex"], mf_info["Race"], mf_info["Date of Birth"], mf_info["District"], mf_info["Booking Number"], 
+                                                                    mf_info["Arrest Date"], mf_info["Incident Number"], mf_info["Booking Date"], mf_info["Charges"], mf_info["Telephone Used"], mf_info["Breathalyzer Used"], mf_info["Examined at Hospital"], 
+                                                                    mf_info["Examined by EMS"], mf_info["Visibile Injuries"], mf_info["Money"], mf_info["Property Storage No"], mf_info["Property"])
+
+            #probation record
+            pr_file = form_data['pr']
+            pr_filename = pr_file.split('/')
+            pr_filename = pr_filename[-1]
+            pr_filename = secure_filename(pr_filename)
+            pr_file = Image.open(pr_file)
+            doc, image_path = localUploadAndExtraction(pr_filename, pr_file)
+            pr_info = incident_report(doc)
+            pr_insert = models.PR(uuid, form_upload_date, image_path, pr_info["PCF"],pr_info["DOB"],pr_info["Age"],pr_info["Birthplace"],pr_info["Mother"],pr_info["Father"],pr_info["Height"],pr_info["Weight"],
+                                                                    pr_info["Hair"],pr_info["Eyes"],pr_info["Gender"],pr_info["Race"],pr_info["Ethnicity"],
+                                                                    pr_info["DLN"],pr_info["CARI"],pr_info["Records Include"])
+            
+            
+
+            #abf
+            abf_file = form_data['abf']
+            abf_filename = abf_file.split('/')
+            abf_filename = abf_filename[-1]
+            abf_filename = secure_filename(abf_filename)
+            abf_file = Image.open(abf_file)
+            doc, image_path = localUploadAndExtraction(abf_filename, abf_file)
+            abf_info = arrest_booking_form(doc)
+            abf_insert = models.PR(uuid, form_upload_date, image_path, abf_info["Report Date"],abf_info["Booking Status"],abf_info["Printed By"],abf_info["District"],abf_info["UCR Code"],abf_info["OBTN"],abf_info["Court of Appearance"],
+                                                                       abf_info["Master Name"],abf_info["Age"],abf_info["Location of Arrest"],abf_info["Booking Name"],abf_info["Alias"],abf_info["PAD"],abf_info["Charges"],abf_info["Booking #"],abf_info["Incident #"],
+                                                                       abf_info["CR Number"],abf_info["Booking Date"],abf_info["Arrest Date"],abf_info["RA Number"],abf_info["Sex"],abf_info["Height"],abf_info["Occupation"],abf_info["Race"],abf_info["Weight"],
+                                                                       abf_info["Employer/School"],abf_info["Date of Birth"],abf_info["Build"],abf_info["Emp/School Addr"],abf_info["Place of Birth"],abf_info["Eyes Color"],abf_info["Social Sec. Number"],abf_info["Marital Status"],abf_info["Hair Color"],
+                                                                       abf_info["Operators License"],abf_info["Mother's Name"],abf_info["Complexion"],abf_info["State"],abf_info["Father's Name"],abf_info["Phone Used"],abf_info["Scars/Marks/Tattoos"],abf_info["Examiend at Hospital"],abf_info["Clothing Desc"],
+                                                                       abf_info[""Breathalyzer Used],abf_info["Examined by EMS"],abf_info["Arresting Officer"],abf_info["Cell Number"],abf_info["Booking Officer"],abf_info["Parther's #"],abf_info["Informaed of Rights"],abf_info["Unit #"],abf_info["Placed in Cell by"],
+                                                                       abf_info["Trans Unit #"],abf_info["Searched by"],abf_info["Cautions"],abf_info["Booking Comments"],abf_info["Visibile Injuries"],abf_info["Person Notified"],abf_info["Relationship"],abf_info["Phone"],abf_info["Address"],abf_info["Juv. Prob. Officer"],
+                                                                       abf_info["Notified By"],abf_info["Notified Date/Time"],abf_info["Bail Set By"],abf_info["I selected the Bail Comm."],abf_info["Bailed By"],abf_info["Amount"],abf_info["BOP Check"],abf_info["Suicide Check"],abf_info["BOP Warrant"],
+                                                                       abf_info["BOP Court"])
+                                                                       
+           
+            #test = 3               
+            #addOptional = addOptionalForms(form_data, uuid, formTable, form_upload_date)
+
+"""
+            #test = 1
+            addOptional = addOptionalForms(form_data, uuid, formTable, form_upload_date)
             return "All good!"
+
+
     #recieve the json object and possibily convert it
-
-
     #the upload should be in json format by this point, see format in database code.py 
     #also at this point, the json should hold a key called forms which contains a list of objects where each object is keyed by their form title
     #extract forms such that there is a variable call it forms that is equal to the list of objects
