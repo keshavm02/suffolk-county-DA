@@ -419,6 +419,9 @@ class MF(db.Model):
     image = db.Column(db.String())
     
     def __init__(self,constituent_id,form_upload_date, image, booking_name="",first="",middle="",suffix="",home_address="",report_date="",booking_status="",printed_by="",sex="",race="",date_of_birth="",district="",booking_num="",charges="",telephone_used="",breathalyzer_used="", examined_at_hospital="",examined_by_ems="",visibile_injuries="",money="",property_storage_num="",property=""):    
+         self.constituent_id = constituent_id
+         self.form_upload_date = form_upload_date
+         self.image = image
          self.booking_name =  booking_name
          self.first = first
          self.middle=middle
