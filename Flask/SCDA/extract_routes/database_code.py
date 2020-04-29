@@ -9,7 +9,6 @@ from SCDA.models import constituents, forms, ABF, PR, MF
 #extract_text = __import__('suffolk-county-DA/Flask/SCDA/extract_text')
 from SCDA.extract_text import *
 from werkzeug.utils import secure_filename
-from SCDA.routes import ALLOWED_EXTENSIONS
 
 
 """
@@ -38,6 +37,11 @@ Methods that need to implemented
 5.routeFunctions(6 of them) --> example can be found in example_extraction
 6.convertRawToText --> similar to their code where they extract text
 """
+
+#allowed_file adapted from http://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'json'}
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 def getUser(name, SSN, DOB):
@@ -125,12 +129,42 @@ def addOptionalForms(form_data, uuid, formTable, form_upload_date):
                             abf_info["BOP Check"],abf_info["Suicide Check"],abf_info["BOP Warrant"],abf_info["BOP Court"])
             db.session.add(abf_insert)
         else:
-            return redirect('failure')
+            return False
     if 'pr' in form_data:
         db.session.query(forms).filter(forms.form_upload_date==form_upload_date).update({'PR': form_upload_date})
+        pr_file = form_data['pr']
+        pr_filename = pr_file.split('/')
+        pr_filename = pr_filename[-1]
+        if allowed_file(pr_filename):
+            pr_filename = secure_filename(pr_filename)
+            pr_file = Image.open(pr_file)
+            doc, image_path = localUploadAndExtraction(pr_filename, pr_file)
+            pr_info = probation_form(doc)
+            pr_insert = PR(uuid, form_upload_date, image_path, pr_info["PCF"],pr_info["DOB"],pr_info["Age"],pr_info["Birthplace"],pr_info["Mother"],pr_info["Father"],pr_info["Height"],pr_info["Weight"],
+                                                                    pr_info["Hair"],pr_info["Eyes"],pr_info["Gender"],pr_info["Race"],pr_info["Ethnicity"],
+                                                                    pr_info["DLN"],pr_info["CARI"],pr_info["Records Include"])
+            db.session.add(pr_insert)
+        else:
+            return False
     if 'mf' in form_data:
         db.session.query(forms).filter(forms.form_upload_date==form_upload_date).update({'MF': form_upload_date})
+        mf_file = form_data['mf']
+        mf_filename = mf_file.split('/')
+        mf_filename = mf_filename[-1]
+        if allowed_file(mf_filename):
+            mf_filename = secure_filename(mf_filename)
+            mf_file = Image.open(mf_file)
+            doc, image_path = localUploadAndExtraction(mf_filename, mf_file)
+            mf_info = miranda_form(doc)
+            mf_insert = MF(uuid, form_upload_date, image_path, mf_info["Booking Name"], mf_info["First"], mf_info["Middle"], mf_info["Suffix"], mf_info["Home Address"], mf_info["Report Date"], 
+                                                                    mf_info["Booking Status"], mf_info["Printed By"], mf_info["Sex"], mf_info["Race"], mf_info["Date of Birth"], mf_info["District"], mf_info["Booking Number"], 
+                                                                    mf_info["Arrest Date"], mf_info["Incident Number"], mf_info["Booking Date"], mf_info["Charges"], mf_info["Telephone Used"], mf_info["Breathalyzer Used"], mf_info["Examined at Hospital"], 
+                                                                    mf_info["Examined by EMS"], mf_info["Visible Injuries"], mf_info["Money"], mf_info["Property Storage No"], mf_info["Property"])
+            db.session.add(mf_insert)
+        else:
+            return False    
     db.session.commit()
+    return True
 
 
 if __name__ == "__main__":
