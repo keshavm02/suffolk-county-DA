@@ -418,7 +418,7 @@ class MF(db.Model):
     property = db.Column(db.String())
     image = db.Column(db.String())
     
-    def __init__(self,constituent_id,form_upload_date, image, booking_name="",first="",middle="",suffix="",home_address="",report_date="",booking_status="",printed_by="",sex="",race="",date_of_birth="",district="",booking_num="",charges="",telephone_used="",breathalyzer_used="", examined_at_hospital="",examined_by_ems="",visibile_injuries="",money="",property_storage_num="",property=""):    
+    def __init__(self,constituent_id,form_upload_date, image, booking_name="",first="",middle="",suffix="",home_address="",report_date="",booking_status="",printed_by="",sex="",race="",date_of_birth="",district="",booking_num="",arrest_date="",incident_num="",charges="",booking_date="",telephone_used="",breathalyzer_used="", examined_at_hospital="",examined_by_ems="",visibile_injuries="",money="",property_storage_num="",property=""):    
          self.constituent_id = constituent_id
          self.form_upload_date = form_upload_date
          self.image = image
@@ -435,6 +435,9 @@ class MF(db.Model):
          self.date_of_birth=date_of_birth
          self.district=district
          self.booking_num=booking_num
+         self.arrest_date = arrest_date
+         self.incident_num = incident_num
+         self.booking_date = booking_date
          self.charges=charges
          self.telephone_used=telephone_used
          self.breathalyzer_used=breathalyzer_used
