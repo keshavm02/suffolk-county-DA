@@ -4,9 +4,10 @@ from SCDA import db
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
-from sqlalchemy import create_engine, ForeignKey, MetaData, Sequence
+from sqlalchemy import create_engine, ForeignKey, MetaData, Sequence, func
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from datetime import datetime
 
 #app = Flask(__name__) 
 #app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres@localhost/constituents"
@@ -45,15 +46,16 @@ class forms(db.Model):
     #The information that should be added here is the date they uploaded, the forms could be null except for the mandatory
 
     #Mandatory
-    IR = db.Column(db.String(), nullable = False)
-    ACC = db.Column(db.String(), nullable = False)
-    CC = db.Column(db.String(), nullable = False)
+    IR = db.Column(db.DateTime(), nullable = False)
+    ACC = db.Column(db.DateTime(), nullable = False)
+    CC = db.Column(db.DateTime(), nullable = False)
     #Optional
-    ABF = db.Column(db.String())
-    MF = db.Column(db.String())
-    PR = db.Column(db.String())
+    ABF = db.Column(db.DateTime(), nullable=True)
+    MF = db.Column(db.DateTime(), nullable=True)
+    PR = db.Column(db.DateTime(), nullable=True)
 
-    def __init__(self, constituent_id, form_upload_date, IR, ACC, CC, ABF='', MF='', PR=''):
+    
+    def __init__(self, constituent_id, form_upload_date, IR, ACC, CC, ABF=ABF.default, MF=MF.default, PR=PR.default):
         self.constituent_id = constituent_id
         self.form_upload_date = form_upload_date
         self.IR = IR
@@ -62,7 +64,7 @@ class forms(db.Model):
         self.ABF = ABF
         self.MF = MF
         self.PR = PR
-
+    
     
 
 class IR(db.Model):
@@ -306,6 +308,9 @@ class ABF(db.Model):
     image = db.Column(db.String())
 
     def __init__(self,constituent_id,form_upload_date, image,report_date='',booking_status='',printed_by='',district='',ucr_code='',obtn='',court_of_appearance='',master_name='',age='',location_of_arrest='',booking_name='',alias='',pad='',charges='',booking_num='',incident_report_num='',cr_num='',booking_date='',arrest_date='',ra_num='',sex='',height='',occupation='',race='',weight='', employer_school='', date_of_birth='',build='',employer_school_address='',place_of_birth='',eye_color='',ssn='',marital_status='',hair_color='',operators_license='',mother_name='',complexion='',state='',fathers_name='',phone_used='',scars_marks_tattoos='',examined_at_hospital='',clothing_description='',breathalyzer_used='',examined_by_ems='',arresting_officer='',cell_number='',booking_officer='',partners_number='',informed_of_rights='',unit_number='',placed_in_cell_by='',trans_unit_num='',searched_by='',cautions='',booking_comments='',visibile_injuries='',person_notified='',relationship='',phone='',address='',juv_prob_officer='',notified_by='',notified_date_time='',bail_set_by='',i_selected_the_bail_comm='',bailed_by='',amount='',bop_check='',suicide_check='',bop_warrant='',bop_court=''):
+        self.constituent_id = constituent_id
+        self.form_upload_date = form_upload_date
+        self.image = image
         self.report_date = report_date
         self.booking_status = booking_status
         self.printed_by = printed_by
@@ -358,7 +363,7 @@ class ABF(db.Model):
         self.informed_of_rights = informed_of_rights
         self.unit_number = unit_number
         self.placed_in_cell_by = placed_in_cell_by
-        self.trans_unit_num = trans_uni
+        self.trans_unit_num = trans_unit_num
         self.searched_by = searched_by
         self.cautions = cautions
         self.booking_comments = booking_comments
@@ -513,12 +518,12 @@ if __name__ == "__main__":
 
     test_id = test_constituent.id
 
-    test_form = forms(test_id, '04/24/2020', '04/24/2020', '04/24/2020', '04/24/2020')
-    test_form_2 = forms(test_constituent_2.id, '04/25/2020', '04/25/2020', '04/25/2020', '04/25/2020')
-    test_form_3 = forms(test_constituent_2.id, '04/26/2020', '04/26/2020', '04/26/2020', '04/26/2020')
+    test_form = forms(test_id, datetime.now(), datetime.now(), datetime.now(), datetime.now())
+    #test_form_2 = forms(test_constituent_2.id, '04/25/2020', '04/25/2020', '04/25/2020', '04/25/2020')
+    #test_form_3 = forms(test_constituent_2.id, '04/26/2020', '04/26/2020', '04/26/2020', '04/26/2020')
     session.add(test_form)
-    session.add(test_form_2)
-    session.add(test_form_3)
+    #session.add(test_form_2)
+    #session.add(test_form_3)
     session.commit()
 
     me = session.query(constituents).get(('Test', '1234', '01/01/2020'))
@@ -531,7 +536,7 @@ if __name__ == "__main__":
     print(myforms)
     print(yourforms)
 
-    test_ir = IR(me.id, myforms[0].IR, 'A', 'A', 'A', 'A', 'A', 'A')
+    test_ir = IR(me.id, myforms[0].form_upload_date, 'A', 'A', 'A', 'A', 'A', 'A')
     session.add(test_ir)
     session.commit()
     myir = session.query(IR).filter_by(constituent_id=me.id).all()
