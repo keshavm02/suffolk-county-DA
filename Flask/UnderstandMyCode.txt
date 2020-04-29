@@ -1,0 +1,96 @@
+This is documentation for the next group, so that you can understand what we were trying to do and where we left off. 
+Let's go over the current code in the SCDA folder.
+
+Starting with the "extract_text" folder:
+    There are two important files in the extract_text folder. 
+        1. extract_text.py 
+            This python file is responsible for taking the image and converting it into a text document. 
+            The functions in this file are self explanatory. 
+        2. extract_fields.py
+            This python file is responsible for taking the text document and extracting out the required information from the respective document.
+            This file covers all 6 documents. 
+
+            There are two types of coding styles that we used to extract forms. 
+                1. We used re which is regular expressions and used re functions to search through the text looking for a specific format.
+                   An example of this would be criminal complaint
+                2. The second type of coding style that was used can be seen in arrest booking form, where we had a block list of key words to search for. 
+                   The general format for most forms is a title followed by a colon. 
+                         Example ( Name: ________).
+                    This is how we chose the words in the block list. Likewise this format makes it easy to extract information after the colon.
+                    You can look at the code to understand, but its basically we make a temporary document from the original document for each block_list[i] 
+                    and capture the data past the colon. We prevent getting extra information by deleteing all words from the document starting from block_list[i+1]. 
+                    This leaves only the data we want.
+                        Example (Name: SCDA  Age: 21 School: BU) --> Name and Age and School are in the block list, if i = Name, everything starting from Age is deleted to leave only SCDA
+                
+            The other things in this folder is the test folder which is used to test extract_fields.py as well as the image folder that holds the documents. 
+
+The next file that you should look at is "models.py":
+    This is how the Postgres database is set up. We have three tables. 
+        1. Constituents 
+        2. Forms 
+        3. Specific Form Table 
+    
+    Starting with the Constituents table, this table is mainly used to find the unique identifying number (id) of the constituent we are finding the form for. 
+    We find our constituent by searching through the database with their name, date of birth, and last four digit of their social security. 
+    Once their unique id is found, we can start getting information about our consitutuent or add information by querying by their id, 
+
+    The second table, Forms, maps back to each constituent to see what forms they have available. These forms are ordered by their upload date for now. The reason this 
+    was chosen was because a person can be arrested multiple times, so we wanted to be able to differentiate during which time period the forms are talking about. 
+    In the forms table, there are several columns that can be seen in the code. 
+        id and form_upload_date have been explained. 
+        The 6 other columns are named for their forms. When the user initially uploads the batch of forms, if the specific form you are searching for is available, you will see
+            under that specific form column the upload date. If the form was not uploaded (because some forms are optional), it will be null. 
+
+    The third table, technically 6 other tables one for each form, is where we store each form information that we get from extract_fields. These tables as well are mapped back
+    to their respective constituents. These tables can be quieried by consitutuent id as well as the form_upload_date. These tables have an extra column called image where we store the 
+    actual scanned image. 
+
+    This is how our database was made and the logic behind it. 
+
+
+The last main file for the backend is routes.py and database_code. Routes is where the logic for what happens when you upload happens. There is only one main route at the moment which is "uploads". This is where
+all the forms should be uploaded in one object. Database_code is in the extract_routes folder, so that uploads wasn't too big.  
+
+How we built the route is due to this assumption --> 
+
+Assumptions taken for recieving information from the front end : 
+     There are three required documents. In the front end, the user will select a required document from the table given, scan the document that was selected. The user will do this for three documents.
+     If there are extra optional documents, the user will proceed to scan those as well. When all documents are scanned, user will press the upload button that will send all documents scanned to the backend. 
+     One of the required documents that should always be scanned is the ACC which contains Name, DOB, SSN. This will identify the user that we will store the information for. 
+     IDEA: The backend will recieve data in a json object format. It will be a list of objects where the key will be the document name. Example:
+                
+
+
+                {
+                    ACC: Scanned Image, 
+                    CC: Scanned Image,
+                    IR: Scanned Image,
+                    Optional Document: Scanned Image
+                }
+
+        This will allow us to account for the optional documents by going through the list, when we go through the list, we look at the key and match the key to a route that will handle extracting the information out of that 
+        specific document. 
+
+Going over the actual upload route. We recieve the POST request with the information in the format that was specified above. We first check if all required forms are there (checkAllRequiredForms). Most functions that arn't defined in routes.py can be found in database_code.py.
+If all required forms are there, we move on the find the first required form which is Application for Criminal Complaint, ACC. This file was chosen to be parsed first because it is the only file out of the three files required that contains all three identifying information in the constitutents tables (name,dob,ssn).
+We first do a security check on ACC before we even parse the file (allowed_file), if safe, we take in the photo from the POST request and send it off to be uploaded locally (left over code from the previous group before us. The image is uploaded locally into uploads. It also requires the static and cc folder, so try not to delete those. When we did it gave us errors.)
+At the same time it is uploaded locally, we extract the image into a text document to be parsed and upload the raw image into the postgres database as well (localUploadAndExtraction). With the return from localUploadAndExtraction, we send that document into the respective document extraction function from extra_fields.py.
+
+We then add the Forms Table and potentially, the 5 other documents. 
+
+Note: We added ACC before the forms table was initiated, this did not produce an error that we could see, and it still worked as expected.
+This was done out of order to prevent doing extra work (reparse ACC again.)
+
+If everything is successful, you should be redirected to the success route if it failed, the failure route (both left over from the previous team ). 
+  
+
+Potential Problems with the APP:
+    1. The OCR does not work well. The OCR turns the image into gibberish for some of the documents. We made perfect text translations by hand. 
+    2. One of the form uses symbols. The OCR is not equipped to handle this. Nassar advised us to skip this section for now. 
+    3. One bug in the colon code is that it only takes information in if they are in the same line, if the information appears on the next line, the code will not run as expected
+    4. The upload route itself works, but it is slower than wanted. It takes about 20 seconds for 3 files when we are used to instant. 
+    
+
+
+
+HOW TO RUN OUR APPLICATION (gaby)
