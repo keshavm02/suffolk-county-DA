@@ -9,7 +9,7 @@ from SCDA import config
 from .extract_text.extract_fields import *
 from .extract_text.extract_text import *
 from SCDA import app, models, db
-from flask import request, flash, redirect, render_template
+from flask import request, flash, redirect, render_template, send_from_directory
 from .extract_routes.database_code import *
 from datetime import datetime
 
@@ -17,10 +17,7 @@ from datetime import datetime
 
 
 
-#allowed_file adapted from http://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'json'}
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 
 #http://www.programmersought.com/article/68322218798/
@@ -72,6 +69,8 @@ def upload_forms():
                     db.session.commit()
                     #REMINDER: MUST HAVE FORMS TABLE BEFORE COMMITTING
                     #db.session.commit()
+            else:
+                return redirect('failure')
             cc_file = form_data['cc']
             cc_filename = cc_file.split('/')
             cc_filename = cc_filename[-1]
@@ -95,8 +94,11 @@ def upload_forms():
                 doc, image_path = localUploadAndExtraction(ir_filename, ir_file)
                 ir_info = incident_report(doc)
                 ir_insert = models.IR(uuid, form_upload_date, image_path, ir_info["Case Number"],ir_info["CAD Incident Number"],ir_info["Report Type"],ir_info["Date / Time Occurred"],ir_info["Date / Time Reported"],ir_info["Public Narrative"])
+                db.session.add(ir_insert)
+                db.session.commit()
             else:
                 return redirect('failure')
+            
         #Adding the forms table and individual forms
             #add forms table
             
@@ -181,7 +183,14 @@ def upload_forms():
 """
             #test = 1
             addOptional = addOptionalForms(form_data, uuid, formTable, form_upload_date)
+            if not addOptional:
+                return redirect('failure')
             return "All good!"
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'],
+                                filename)
 
 
     #recieve the json object and possibily convert it
