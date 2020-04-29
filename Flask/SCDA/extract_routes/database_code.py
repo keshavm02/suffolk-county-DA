@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect
 from flask_sqlalchemy import SQLAlchemy
 #from sqlalchemy import update
 import sys
@@ -9,6 +9,7 @@ from SCDA.models import constituents, forms, ABF, PR, MF
 #extract_text = __import__('suffolk-county-DA/Flask/SCDA/extract_text')
 from SCDA.extract_text import *
 from werkzeug.utils import secure_filename
+from SCDA.routes import ALLOWED_EXTENSIONS
 
 
 """
@@ -97,31 +98,34 @@ def addOptionalForms(form_data, uuid, formTable, form_upload_date):
         abf_file = form_data['abf']
         abf_filename = abf_file.split('/')
         abf_filename = abf_filename[-1]
-        abf_filename = secure_filename(abf_filename)
-        abf_file = Image.open(abf_file)
-        doc, image_path = localUploadAndExtraction(abf_filename, abf_file)
-        abf_info = arrest_booking_form(doc)
-        abf_insert = ABF(uuid, form_upload_date, image_path, abf_info["Report Date"],abf_info["Booking Status"],
-                        abf_info["Printed By"],abf_info["District"],abf_info["UCR Code"],abf_info["OBTN"],
-                        abf_info["Court of Appearance"],abf_info["Master Name"],abf_info["Age"],abf_info["Location of Arrest"],
-                        abf_info["Booking Name"],abf_info["Alias"],abf_info["PAD"],abf_info["Charges"],abf_info["Booking #"],
-                        abf_info["Incident #"],abf_info["CR Number"],abf_info["Booking Date"],abf_info["Arrest Date"],
-                        abf_info["RA Number"],abf_info["Sex"],abf_info["Height"],abf_info["Occupation"],abf_info["Race"],
-                        abf_info["Weight"],abf_info["Employer/School"],abf_info["Date of Birth"],abf_info["Build"],
-                        abf_info["Emp/School Addr"],abf_info["Place of Birth"],abf_info["Eyes Color"],
-                        abf_info["Social Sec. Number"],abf_info["Marital Status"],abf_info["Hair Color"],
-                        abf_info["Operators License"],abf_info["Mother's Name"],abf_info["Complexion"],
-                        abf_info["State"],abf_info["Father's Name"],abf_info["Phone Used"],abf_info["Scars/Marks/Tattoos"],
-                        abf_info["Examined at Hospital"],abf_info["Clothing Desc"],abf_info["Breathalyzer Used"],
-                        abf_info["Examined by EMS"],abf_info["Arresting Officer"],abf_info["Cell Number"],
-                        abf_info["Booking Officer"],abf_info["Partner's #"],abf_info["Informed of Rights"],
-                        abf_info["Unit #"],abf_info["Placed in Cell By"],abf_info["Trans Unit #"],abf_info["Searched By"],
-                        abf_info["Cautions"],abf_info["Booking Comments"],abf_info["Visible Injuries"],
-                        abf_info["Person Notified"],abf_info["Relationship"],abf_info["Phone"],abf_info["Address"],
-                        abf_info["Juv. Prob. Officer"],abf_info["Notified By"],abf_info["Notified Date/Time"],
-                        abf_info["Bail Set By"],abf_info["I Selected the Bail Comm."],abf_info["Bailed By"],abf_info["Amount"],
-                        abf_info["BOP Check"],abf_info["Suicide Check"],abf_info["BOP Warrant"],abf_info["BOP Court"])
-        db.session.add(abf_insert)
+        if allowed_file(abf_filename):
+            abf_filename = secure_filename(abf_filename)
+            abf_file = Image.open(abf_file)
+            doc, image_path = localUploadAndExtraction(abf_filename, abf_file)
+            abf_info = arrest_booking_form(doc)
+            abf_insert = ABF(uuid, form_upload_date, image_path, abf_info["Report Date"],abf_info["Booking Status"],
+                            abf_info["Printed By"],abf_info["District"],abf_info["UCR Code"],abf_info["OBTN"],
+                            abf_info["Court of Appearance"],abf_info["Master Name"],abf_info["Age"],abf_info["Location of Arrest"],
+                            abf_info["Booking Name"],abf_info["Alias"],abf_info["PAD"],abf_info["Charges"],abf_info["Booking #"],
+                            abf_info["Incident #"],abf_info["CR Number"],abf_info["Booking Date"],abf_info["Arrest Date"],
+                            abf_info["RA Number"],abf_info["Sex"],abf_info["Height"],abf_info["Occupation"],abf_info["Race"],
+                            abf_info["Weight"],abf_info["Employer/School"],abf_info["Date of Birth"],abf_info["Build"],
+                            abf_info["Emp/School Addr"],abf_info["Place of Birth"],abf_info["Eyes Color"],
+                            abf_info["Social Sec. Number"],abf_info["Marital Status"],abf_info["Hair Color"],
+                            abf_info["Operators License"],abf_info["Mother's Name"],abf_info["Complexion"],
+                            abf_info["State"],abf_info["Father's Name"],abf_info["Phone Used"],abf_info["Scars/Marks/Tattoos"],
+                            abf_info["Examined at Hospital"],abf_info["Clothing Desc"],abf_info["Breathalyzer Used"],
+                            abf_info["Examined by EMS"],abf_info["Arresting Officer"],abf_info["Cell Number"],
+                            abf_info["Booking Officer"],abf_info["Partner's #"],abf_info["Informed of Rights"],
+                            abf_info["Unit #"],abf_info["Placed in Cell By"],abf_info["Trans Unit #"],abf_info["Searched By"],
+                            abf_info["Cautions"],abf_info["Booking Comments"],abf_info["Visible Injuries"],
+                            abf_info["Person Notified"],abf_info["Relationship"],abf_info["Phone"],abf_info["Address"],
+                            abf_info["Juv. Prob. Officer"],abf_info["Notified By"],abf_info["Notified Date/Time"],
+                            abf_info["Bail Set By"],abf_info["I Selected the Bail Comm."],abf_info["Bailed By"],abf_info["Amount"],
+                            abf_info["BOP Check"],abf_info["Suicide Check"],abf_info["BOP Warrant"],abf_info["BOP Court"])
+            db.session.add(abf_insert)
+        else:
+            return redirect('failure')
     if 'pr' in form_data:
         db.session.query(forms).filter(forms.form_upload_date==form_upload_date).update({'PR': form_upload_date})
     if 'mf' in form_data:
