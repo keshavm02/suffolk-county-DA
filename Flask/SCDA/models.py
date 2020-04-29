@@ -443,7 +443,7 @@ class MF(db.Model):
          self.breathalyzer_used=breathalyzer_used
          self.examined_at_hospital=examined_at_hospital
          self.examined_by_ems=examined_by_ems
-         self.visibile_injuries=  isibile_injuries
+         self.visibile_injuries=visibile_injuries
          self.money=money
          self.property_storage_num=property_storage_num
          self.property=property
