@@ -232,10 +232,16 @@ def probation_form(raw_document):
 #Incident Report
 def find_case_number(raw_document):
     case_number = re.search("I[0-9]{9}", raw_document)
-    return case_number.group()
+    if case_number is not None:
+        return case_number.group()
+    else:
+        return "Not found"
 def find_cad_incident_number(raw_document):
     incident_number = re.search("P[0-9]{9}", raw_document)
-    return incident_number.group()
+    if incident_number is not None:
+        return incident_number.group()
+    else:
+        return "Not found"
 def find_report_type(raw_document):
     return 'Incident Report'
 def find_date_time(raw_document):
