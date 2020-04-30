@@ -12,7 +12,6 @@ import UIKit
 class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
-    let MainVC = MainViewController()
     
     let documents: [String] = ["Criminal Complaint Form", "Criminal Complaint Application", "Incident Report", "Arrest Booking Form", "Miranda Form", "Board of Probation Criminal Record"]
     
@@ -69,14 +68,14 @@ class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("You tapped cell number \(indexPath.row).")
-        MainVC.pickedDocument = documents[indexPath.row]
-        print("picked document = \(MainVC.pickedDocument)")
         
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
 
-        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
-        nextViewController.modalPresentationStyle = .popover
-        self.present(nextViewController, animated:true, completion:nil)
+        let mainVC = storyBoard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
+        mainVC.modalPresentationStyle = .popover
+        mainVC.pickedDocument = documents[indexPath.row]
+        print("picked document = \(mainVC.pickedDocument)")
+        self.present(mainVC, animated:true, completion:nil)
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
