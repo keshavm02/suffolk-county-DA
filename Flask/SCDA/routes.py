@@ -8,6 +8,7 @@ from .extract_text.extract_fields import *
 from .extract_text.extract_text import *
 from SCDA import app
 from flask import request, flash, redirect, render_template
+import filetype
 
 
 
