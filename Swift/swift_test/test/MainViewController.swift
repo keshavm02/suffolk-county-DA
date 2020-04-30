@@ -189,11 +189,13 @@ UINavigationControllerDelegate,
     
     func routing() -> String{
         let picked = self.pickedDocument
-        let iproute = "http://localhost:5000:5000"
-        if picked == "Criminal Complaint" {
+        let iproute = "http://localhost:5000"
+        if picked == "Criminal Complaint Form" {
             return "\(iproute)/CC"
-        } else if picked == "Police Department Arrest Booking Form"{
+        } else if picked == "Arrest Booking Form" {
             return "\(iproute)/ABF"
+        } else if picked == "Incident Report" {
+            return "\(iproute)/IR"
         } else {
             return "\(iproute)"
 
