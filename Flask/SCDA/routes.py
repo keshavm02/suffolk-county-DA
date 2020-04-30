@@ -60,7 +60,7 @@ def upload_forms():
             acc_filename = acc_file.split('/')
             acc_filename = acc_filename[-1]
             # Replace with better security
-            if allowed_file(acc_filename):
+            if isFileAllowed(acc_file):
                 acc_filename = secure_filename(acc_filename)
                 acc_file = Image.open(acc_file)
                 doc, image_path = localUploadAndExtraction(acc_filename, acc_file)
@@ -87,7 +87,7 @@ def upload_forms():
             cc_file = form_data['cc']
             cc_filename = cc_file.split('/')
             cc_filename = cc_filename[-1]
-            if allowed_file(cc_filename):
+            if isFileAllowed(cc_file):
                 cc_filename = secure_filename(cc_filename)
                 cc_file = Image.open(cc_file)
                 doc, image_path = localUploadAndExtraction(cc_filename, cc_file)
@@ -101,7 +101,7 @@ def upload_forms():
             ir_file = form_data['ir']
             ir_filename = ir_file.split('/')
             ir_filename = ir_filename[-1]
-            if allowed_file(ir_filename):
+            if isFileAllowed(ir_file):
                 ir_filename = secure_filename(ir_filename)
                 ir_file = Image.open(ir_file)
                 doc, image_path = localUploadAndExtraction(ir_filename, ir_file)

@@ -38,10 +38,21 @@ Methods that need to implemented
 6.convertRawToText --> similar to their code where they extract text
 """
 
-#allowed_file adapted from http://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'json'}
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+ALLOWED_MIMES = {"image/gif", "image/png", "image/jpg", "image/jpeg", "application/pdf"}
+ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+def isFileAllowed(file):
+    try:
+        kind = filetype.guess(file)
+        print('File extension: %s' % kind.extension)
+        print('File MIME type: %s' % kind.mime)
+        if kind is None:
+            return False
+        if kind.mime in ALLOWED_MIMES and kind.extension in ALLOWED_EXTENSIONS:
+            return True
+        else:
+            return False
+    except:
+        return False
 
 
 def getUser(name, SSN, DOB):
@@ -102,7 +113,7 @@ def addOptionalForms(form_data, uuid, formTable, form_upload_date):
         abf_file = form_data['abf']
         abf_filename = abf_file.split('/')
         abf_filename = abf_filename[-1]
-        if allowed_file(abf_filename):
+        if isFileAllowed(abf_file):
             abf_filename = secure_filename(abf_filename)
             abf_file = Image.open(abf_file)
             doc, image_path = localUploadAndExtraction(abf_filename, abf_file)
@@ -135,7 +146,7 @@ def addOptionalForms(form_data, uuid, formTable, form_upload_date):
         pr_file = form_data['pr']
         pr_filename = pr_file.split('/')
         pr_filename = pr_filename[-1]
-        if allowed_file(pr_filename):
+        if isFileAllowed(pr_file):
             pr_filename = secure_filename(pr_filename)
             pr_file = Image.open(pr_file)
             doc, image_path = localUploadAndExtraction(pr_filename, pr_file)
@@ -151,7 +162,7 @@ def addOptionalForms(form_data, uuid, formTable, form_upload_date):
         mf_file = form_data['mf']
         mf_filename = mf_file.split('/')
         mf_filename = mf_filename[-1]
-        if allowed_file(mf_filename):
+        if isFileAllowed(mf_file):
             mf_filename = secure_filename(mf_filename)
             mf_file = Image.open(mf_file)
             doc, image_path = localUploadAndExtraction(mf_filename, mf_file)
