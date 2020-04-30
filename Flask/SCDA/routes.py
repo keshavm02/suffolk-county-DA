@@ -46,13 +46,14 @@ class JSONEncoder(json.JSONEncoder):
 def index():
     return render_template('index.html')
 
-@app.route('/admin')
+@app.route('/admin', methods=['GET'])
 def admin():
     return render_template('admin.html')
     
-@app.route('/upload', methods=['POST'])
+@app.route('/upload', methods=['POST', 'GET'])
 def upload_forms():
     if request.method == 'POST':
+        print("POST REQUEST RECEIVED")
         print(request.files)
         form_data = request.files
         form_upload_date = datetime.now()
@@ -417,4 +418,4 @@ def fail():
 
 if __name__ == '__main__':
     #app.run(host='0.0.0.0', ssl_context=('/home/eric/cert.pem', '/home/eric/key.pem'))
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug=True)
