@@ -123,7 +123,10 @@ def upload_forms():
             if not addOptional:
                 return redirect('failure')
             return redirect('success')
-    return 'Please send a post request with at least the following forms: Application for Criminal Complaint, Criminal Complaint, Incident Report.'
+    elif request.method == 'GET':
+        print('GET request received.')
+        return render_template('admin.html')
+        #return 'Please send a post request with at least the following forms: Application for Criminal Complaint, Criminal Complaint, Incident Report.'
             
 
 @app.route('/uploads/<filename>')
@@ -410,7 +413,7 @@ def display_doc(docket_number):
 
 @app.route('/success')
 def uploaded():
-    return 'File successfully uploaded'
+    return 'File(s) successfully uploaded'
 
 @app.route('/failure')
 def fail():
