@@ -1,5 +1,5 @@
 import sys
-sys.path.append('/Users/eloisanitorreda/suffolk-county-DA/Flask/')
+sys.path.append('/.././suffolk-county-DA/Flask/')
 import os #allows interaction with operating system and pathing files
 import json #allows python dictionaries to be formatted into JSON and vice versa JSON to string
 from bson import ObjectId #allows MongoDB to format data
@@ -71,7 +71,9 @@ def upload_forms():
                 acc_file = Image.open(acc_file)
                 doc, image_path = localUploadAndExtraction(acc_filename, acc_file)
                 #FOR TESTING
-                doc = open(os.path.expanduser("~/suffolk-county-DA/Flask/SCDA/extract_text/extraction_tests/test_textdumps/Application for Criminal Complaint .txt")).read()
+                path = os.path.abspath("../SCDA/extract_text/extraction_tests/test_textdumps/Application for Criminal Complaint .txt")
+                print(path)
+                doc = open(path).read()
                 acc_info = extract_application_for_criminal_complaint(doc)
                 #print(acc_info)
                 if acc_info["Name"] == '' or acc_info["Date of Birth"] == '' or acc_info["Social Security No."] == '':
