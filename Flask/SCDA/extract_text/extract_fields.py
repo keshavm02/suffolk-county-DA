@@ -49,11 +49,16 @@ def find_addresses(document):
 
 
 def find_codes(document):
-    temp_doc = document[document.index('DESCRIPTION') + len('DESCRIPTION'):]
-    codes = re.findall('[1-9]+\s[1-9][0-9]+/?[0-9]{2,}?[A-Z]?/?[A-Z]?', temp_doc)
-    for i in range(len(codes)):
-        codes[i] = codes[i][2:]
-    return codes
+    try:
+        temp_doc = document[document.index('DESCRIPTION') + len('DESCRIPTION'):]
+        codes = re.findall('[1-9]+\s[1-9][0-9]+/?[0-9]{2,}?[A-Z]?/?[A-Z]?', temp_doc)
+        print(codes)
+        for i in range(len(codes)):
+            codes[i] = codes[i][2:]
+        return codes
+    except:
+        return []
+    
 
 def criminal_complaint(raw_document):
     #print(raw_document)
