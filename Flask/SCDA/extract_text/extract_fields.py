@@ -52,7 +52,7 @@ def find_codes(document):
     try:
         temp_doc = document[document.index('DESCRIPTION') + len('DESCRIPTION'):]
         codes = re.findall('[1-9]+\s[1-9][0-9]+/?[0-9]{2,}?[A-Z]?/?[A-Z]?', temp_doc)
-        print(codes)
+        #print(codes)
         for i in range(len(codes)):
             codes[i] = codes[i][2:]
         return codes
@@ -95,7 +95,7 @@ def criminal_complaint(raw_document):
     offense_codes = find_codes(raw_document)
     #incident report number
     irn = str(find_indicent_report(raw_document))
-    print(address['court'])
+    #print(address['court'])
     fields = {'_id': docket_num,'docket': docket_num, 'name': subject_name, 'dob': date_of_birth,'doc':complaint_issued,'doo':doo, 'doa':arrest_date, 'ned': next_event_date, 'obtn': obtn, 'text': raw_document, 'irn': irn,
             'court_address':address['court'], 'defendant_address':address['defendant'], 'offense_codes':offense_codes}
     return fields

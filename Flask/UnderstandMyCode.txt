@@ -94,3 +94,4 @@ Potential Problems with the APP:
 
 
 HOW TO RUN OUR APPLICATION (gaby)
+Must be in directory FLask/SCDA.
