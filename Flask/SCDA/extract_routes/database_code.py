@@ -9,6 +9,7 @@ from SCDA.models import constituents, forms, ABF, PR, MF
 #extract_text = __import__('suffolk-county-DA/Flask/SCDA/extract_text')
 from SCDA.extract_text import *
 from werkzeug.utils import secure_filename
+import filetype
 
 
 """
@@ -54,14 +55,17 @@ def isFileAllowed(file):
     except:
         return False
 
+def isUserInDatabase(uuid):
+    # Queries the database given name, social security, and date of birth.
+    # Returns False if query returns None and True otherwise.
+    user = db.session.query(constituents).get(uuid)
+    if user is not None:
+        return True
+    return False
 
-def getUser(name, SSN, DOB):
-    #User scans document
-    #This function will look through the document and try to find name, date of birth, Last 4 digits of SSN
-    #Ultimately return the user
-    #If one or is missing ask the user to manually enter it, and then seaarch again and return user. 
-    #If user is not in database add user
-    # Search database for user, if not found add user
+def getUserID(name, SSN, DOB):
+    # Attempts to find a user and return their ID given their name, social security number, and bata of birth.
+    # If user does not exist, creates a new user with this information and returns their ID.
     user = db.session.query(constituents).get((name, SSN, DOB))
     if user is not None:
         return user.id
@@ -72,6 +76,7 @@ def getUser(name, SSN, DOB):
         return user.id
 
 def checkAllRequiredForms(form_data):
+    # Checks to see if the mandatory forms Criminal Complainr, Application for CC, and Incident Report are in the request.
         if 'acc' not in form_data:
             return [False,"Please upload all required document(s): missing ACC"]
         elif 'cc' not in form_data:
@@ -85,6 +90,7 @@ def checkAllRequiredForms(form_data):
 
 
 def localUploadAndExtraction(filename, file):
+    # Saves file to a local database and extracts the text from it. Returns the path to the image for storage purposes.
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     image = ImageReader(image_path)
@@ -100,10 +106,7 @@ def localUploadAndExtraction(filename, file):
 
 
 def addOptionalForms(form_data, uuid, formTable, form_upload_date):
-    #print(uuid)
-    #print(form_upload_date)
-    #print(str(form_upload_date))
-    #print(str(forms.form_upload_date))
+    # Adds optional forms (Arrest Booking Form, Miranda Form, and Probation Record) to database if they are present in the request.
     if 'abf' in form_data:
         #update the forms table
         #add abf table itself
@@ -111,8 +114,9 @@ def addOptionalForms(form_data, uuid, formTable, form_upload_date):
         #upload = db.session.query(forms).get(form_upload_date)
         #print(upload)
         abf_file = form_data['abf']
-        abf_filename = abf_file.split('/')
-        abf_filename = abf_filename[-1]
+        abf_filename = abf_file.filename
+        if abf_filename == "":
+                return False
         if isFileAllowed(abf_file):
             abf_filename = secure_filename(abf_filename)
             abf_file = Image.open(abf_file)
@@ -139,13 +143,16 @@ def addOptionalForms(form_data, uuid, formTable, form_upload_date):
                             abf_info["Bail Set By"],abf_info["I Selected the Bail Comm."],abf_info["Bailed By"],abf_info["Amount"],
                             abf_info["BOP Check"],abf_info["Suicide Check"],abf_info["BOP Warrant"],abf_info["BOP Court"])
             db.session.add(abf_insert)
+            db.session.commit()
         else:
+            print("not allowed!")
             return False
     if 'pr' in form_data:
         db.session.query(forms).filter(forms.form_upload_date==form_upload_date).update({'PR': form_upload_date})
         pr_file = form_data['pr']
-        pr_filename = pr_file.split('/')
-        pr_filename = pr_filename[-1]
+        pr_filename = pr_file.filename
+        if pr_filename == "":
+                return False
         if isFileAllowed(pr_file):
             pr_filename = secure_filename(pr_filename)
             pr_file = Image.open(pr_file)
@@ -155,13 +162,15 @@ def addOptionalForms(form_data, uuid, formTable, form_upload_date):
                                                                     pr_info["Hair"],pr_info["Eyes"],pr_info["Gender"],pr_info["Race"],pr_info["Ethnicity"],
                                                                     pr_info["DLN"],pr_info["CARI"],pr_info["Records Include"])
             db.session.add(pr_insert)
+            db.session.commit()
         else:
             return False
     if 'mf' in form_data:
         db.session.query(forms).filter(forms.form_upload_date==form_upload_date).update({'MF': form_upload_date})
         mf_file = form_data['mf']
-        mf_filename = mf_file.split('/')
-        mf_filename = mf_filename[-1]
+        mf_filename = mf_file.filename
+        if mf_filename == "":
+                return False
         if isFileAllowed(mf_file):
             mf_filename = secure_filename(mf_filename)
             mf_file = Image.open(mf_file)
@@ -172,9 +181,9 @@ def addOptionalForms(form_data, uuid, formTable, form_upload_date):
                                                                     mf_info["Arrest Date"], mf_info["Incident Number"], mf_info["Booking Date"], mf_info["Charges"], mf_info["Telephone Used"], mf_info["Breathalyzer Used"], mf_info["Examined at Hospital"], 
                                                                     mf_info["Examined by EMS"], mf_info["Visible Injuries"], mf_info["Money"], mf_info["Property Storage No"], mf_info["Property"])
             db.session.add(mf_insert)
+            db.session.commit()
         else:
             return False    
-    db.session.commit()
     return True
 
 
