@@ -15,9 +15,21 @@ import filetype
 
 
 #allowed_file adapted from http://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'json'}
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+ALLOWED_MIMES = {"image/gif", "image/png", "image/jpg", "image/jpeg", "application/pdf"}
+ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+def isFileAllowed(file):
+    try:
+        kind = filetype.guess(file)
+        print('File extension: %s' % kind.extension)
+        print('File MIME type: %s' % kind.mime)
+        if kind is None:
+            return False
+        if kind.mime in ALLOWED_MIMES and kind.extension in ALLOWED_EXTENSIONS:
+            return True
+        else:
+            return False
+    except:
+        return False
 
 
 #http://www.programmersought.com/article/68322218798/
