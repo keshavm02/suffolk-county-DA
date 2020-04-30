@@ -16,22 +16,22 @@ from datetime import datetime
 
 
 
-ALLOWED_MIMES = {"image/gif", "image/png", "image/jpg", "image/jpeg", "application/pdf"}
-ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-def isFileAllowed(file):
-    #print(file)
-    try:
-        kind = filetype.guess(file)
-        print('File extension: %s' % kind.extension)
-        print('File MIME type: %s' % kind.mime)
-        if kind is None:
-            return False
-        if kind.mime in ALLOWED_MIMES and kind.extension in ALLOWED_EXTENSIONS:
-            return True
-        else:
-            return False
-    except:
-        return False
+# ALLOWED_MIMES = {"image/gif", "image/png", "image/jpg", "image/jpeg", "application/pdf"}
+# ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+# def isFileAllowed(file):
+#     #print(file)
+#     try:
+#         kind = filetype.guess(file)
+#         print('File extension: %s' % kind.extension)
+#         print('File MIME type: %s' % kind.mime)
+#         if kind is None:
+#             return False
+#         if kind.mime in ALLOWED_MIMES and kind.extension in ALLOWED_EXTENSIONS:
+#             return True
+#         else:
+#             return False
+#     except:
+#         return False
 
 
 #http://www.programmersought.com/article/68322218798/
