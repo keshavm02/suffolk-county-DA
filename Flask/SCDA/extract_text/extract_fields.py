@@ -182,7 +182,7 @@ def application_for_criminal_complaint(raw_document):
         value = ''
         if find in document:
             temp_doc = document[document.index(find) + len(find):]
-            if find == 'Agency:':
+            if find == 'Agency: ':
                 value = temp_doc[:temp_doc.index('I,')].replace('\n', '').strip()
             elif counter < len(block_list)-1:
                 # use index of next keyword to know when to stop
