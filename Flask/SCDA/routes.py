@@ -277,7 +277,7 @@ def acc():
 
 #route for incident reports
 @app.route('/IR', methods=['POST'])
-def acc():
+def ir():
     if request.method == 'POST':
         if 'file' not in request.files:
             flash('No file part')
@@ -308,7 +308,7 @@ def acc():
 
 #route for probation record
 @app.route('/PR', methods=['POST'])
-def acc():
+def pr():
     if request.method == 'POST':
         if 'file' not in request.files:
             flash('No file part')
@@ -339,7 +339,7 @@ def acc():
 
 #route for miranda form
 @app.route('/MF', methods=['POST'])
-def acc():
+def mf():
     if request.method == 'POST':
         if 'file' not in request.files:
             flash('No file part')
