@@ -4,10 +4,10 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 from SCDA import app
 
 
-UPLOAD_FOLDER = os.path.abspath('uploads')
+UPLOAD_FOLDER = os.path.abspath('Flask/SCDA/uploads')
 #print(UPLOAD_FOLDER)
 UPLOAD_JSON = 'json'
-UPLOAD_FINAL = os.path.abspath('static')
+UPLOAD_FINAL = os.path.abspath('Flask/SCDA/static')
 #print(UPLOAD_FINAL)
 
 app.config['DEBUG'] = True
