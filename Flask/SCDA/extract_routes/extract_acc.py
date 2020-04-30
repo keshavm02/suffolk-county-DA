@@ -34,7 +34,7 @@ def acc():
             flash('/failure')
             print('no file name')
             return redirect(request.url)        
-        if file and allowed_file(file.filename):
+        if file and isFileAllowed(file):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             test_image = ImageReader(os.path.join(app.config['UPLOAD_FOLDER'], filename))
