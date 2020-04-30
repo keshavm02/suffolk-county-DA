@@ -72,7 +72,7 @@ def upload_forms():
                 doc, image_path = localUploadAndExtraction(acc_filename, acc_file)
                 #FOR TESTING
                 doc = open(os.path.expanduser("~/suffolk-county-DA/Flask/SCDA/extract_text/extraction_tests/test_textdumps/Application for Criminal Complaint .txt")).read()
-                acc_info = application_for_criminal_complaint(doc)
+                acc_info = extract_application_for_criminal_complaint(doc)
                 #print(acc_info)
                 if acc_info["Name"] == '' or acc_info["Date of Birth"] == '' or acc_info["Social Security No."] == '':
                     return "Application for criminal complaint could not be read. Please upload a clearer image."
@@ -96,7 +96,7 @@ def upload_forms():
                 cc_filename = secure_filename(cc_filename)
                 cc_file = Image.open(cc_file)
                 doc, image_path = localUploadAndExtraction(cc_filename, cc_file)
-                cc_info = criminal_complaint(doc)
+                cc_info = extract_criminal_complaint(doc)
                 #print(cc_info["court_address"])
                 cc_insert = models.CC(uuid, form_upload_date, image_path, cc_info["docket"], cc_info["name"], cc_info["dob"], cc_info["doc"], 
                          cc_info["doo"], cc_info["doa"], cc_info["ned"], cc_info["obtn"], cc_info["irn"], cc_info["court_address"], 
@@ -111,7 +111,7 @@ def upload_forms():
                 ir_filename = secure_filename(ir_filename)
                 ir_file = Image.open(ir_file)
                 doc, image_path = localUploadAndExtraction(ir_filename, ir_file)
-                ir_info = incident_report(doc)
+                ir_info = extract_incident_report(doc)
                 ir_insert = models.IR(uuid, form_upload_date, image_path, ir_info["Case Number"],ir_info["CAD Incident Number"],ir_info["Report Type"],ir_info["Date / Time Occurred"],ir_info["Date / Time Reported"],ir_info["Public Narrative"])
                 db.session.add(ir_insert)
                 db.session.commit()
@@ -169,7 +169,7 @@ def Criminal_Complaint_Post():
             text = ExtractText(final_image.image)
             doc = text.extract_text()
             #print(doc)
-            cc_insert = criminal_complaint(doc)
+            cc_insert = extract_criminal_complaint(doc)
             #save the image
             img_filename = os.path.join(app.config['UPLOAD_FINAL'], 'CC', cc_insert['docket']+'_CC.jpg')
             image = image.transpose(Image.ROTATE_90)
@@ -235,7 +235,7 @@ def abf():
             final_image = ImageReader(os.path.join(app.config['UPLOAD_FOLDER'],'file_rotated.png'))
             text = ExtractText(final_image.image)
             doc = text.extract_text()
-            data = arrest_booking_form(doc)
+            data = extract_arrest_booking_form(doc)
             #Want to input into database
             #Way to do this without SSN?
             return data
@@ -264,7 +264,7 @@ def acc():
             text = ExtractText(test_image.image)
             doc = text.extract_text()
             #docket number sent in the posted form since it is not on the document itself
-            acc_info = application_for_criminal_complaint(doc)
+            acc_info = extract_application_for_criminal_complaint(doc)
             #check if there is an already existing record, and simply update with the new info
             uuid = getUserID(acc_info["Name"], acc_info["Social Security No."][-4:], acc_info["Date of Birth"])
             formTable = models.forms(uuid, form_upload_date, form_upload_date, form_upload_date, form_upload_date)
@@ -279,6 +279,7 @@ def acc():
             return redirect('failure')
     return 'Please send a post request with your document picture'
 
+"""
 #route for incident reports
 @app.route('/IR', methods=['POST'])
 def ir():
@@ -300,7 +301,7 @@ def ir():
             text = ExtractText(test_image.image)
             doc = text.extract_text()
             #docket number sent in the posted form since it is not on the document itself
-            acc_info = incident_report(doc)
+            acc_info = extract_incident_report(doc)
             #Want to input into database
             #Way to do this without SSN?
             return acc_info
@@ -308,7 +309,7 @@ def ir():
             print('File not valid')
             return redirect('failure')
     return 'Please send a post request with your document picture'
-
+"""
 
 #route for probation record
 @app.route('/PR', methods=['POST'])
@@ -331,7 +332,7 @@ def pr():
             text = ExtractText(test_image.image)
             doc = text.extract_text()
             #docket number sent in the posted form since it is not on the document itself
-            acc_info = probation_form(doc)
+            acc_info = extract_probation_form(doc)
             #Want to input into database
             #Way to do this without SSN?
             return acc_info
@@ -362,7 +363,7 @@ def mf():
             text = ExtractText(test_image.image)
             doc = text.extract_text()
             #docket number sent in the posted form since it is not on the document itself
-            acc_info = miranda_form(doc)
+            acc_info = extract_miranda_form(doc)
             #Want to input into database
             #Way to do this without SSN?
             return acc_info
@@ -371,18 +372,43 @@ def mf():
             return redirect('failure')
     return 'Please send a post request with your document picture'
 
-#FINISH THIS
+#Web page to display all constituents
 @app.route('/constituents', methods=['GET'])
-def constituents():
-    sql = "SELECT * FROM constituents;"
-    """
-    case_list = constituents.find({})
-    dockets = []
-    for case in case_list:
-        print(case)
-        dockets.append(case['docket'])
-    return json.dumps({'dockets': dockets})
-    """
+def view_constituents():
+    constituent_list = models.constituents.query.all()
+    return render_template('constituents.html',constituent_list=constituent_list)
+
+#web page to display all forms
+@app.route('/<id_number>')
+def display_forms(id_number):
+    id = id_number 
+    constituent_forms = db.session.query(forms).filter_by(constituent_id=id_number).all()
+    #print(constituent_forms)
+    return render_template('forms.html',id_number=id,form_list=constituent_forms)
+
+#web page to display requested incident report form
+@app.route('/<id_number>/IR/<upload_date>')
+def display_IR(id_number, upload_date):
+    IR_form = db.session.query(models.IR).filter_by(constituent_id=id_number,form_upload_date=upload_date).first()
+    #IR_form = models.IR.query.filter_by(constituent_id=id_number,form_upload_date=upload_date).all()
+    #print(upload_date)
+    return render_template('IR.html',id_number=id_number,upload_date=upload_date,form=IR_form)
+
+#web page to display requested application for criminal complaint
+@app.route('/<id_number>/ACC/<upload_date>')
+def display_ACC(id_number, upload_date):
+    ACC_form = db.session.query(models.ACC).filter_by(constituent_id=id_number,form_upload_date=upload_date).first()
+    #IR_form = models.IR.query.filter_by(constituent_id=id_number,form_upload_date=upload_date).all()
+    #print(upload_date)
+    return render_template('ACC.html',id_number=id_number,upload_date=upload_date,form=ACC_form)
+
+#web page to display requested criminal complaint
+@app.route('/<id_number>/CC/<upload_date>')
+def display_CC(id_number, upload_date):
+    CC_form = db.session.query(models.CC).filter_by(constituent_id=id_number,form_upload_date=upload_date).first()
+    #IR_form = models.IR.query.filter_by(constituent_id=id_number,form_upload_date=upload_date).all()
+    #print(upload_date)
+    return render_template('CC.html',id_number=id_number,upload_date=upload_date,form=CC_form)
 
 #returns a 'master json' which contains all cases keyed by docket number and within each case has all documents
 @app.route('/master')
@@ -402,13 +428,14 @@ def case_page():
         case_list[case['docket']] = case
     return render_template('case_page.html',case_list=case_list)
 
+"""
 #web page to display documents for a specific case
 @app.route('/<docket_number>')
 def display_doc(docket_number):
     docket = docket_number 
     document = dict(cases.find_one({'docket':docket}))
     return render_template('display_doc.html',document=document,docket=docket)
-    
+"""
 
 
 @app.route('/success')

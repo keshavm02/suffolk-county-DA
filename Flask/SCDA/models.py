@@ -65,8 +65,6 @@ class forms(db.Model):
         self.MF = MF
         self.PR = PR
     
-    
-
 class IR(db.Model):
     __tablename__ = 'incident_report'
     constituent_id = db.Column(db.Integer, ForeignKey('constituents.id'), primary_key=True)

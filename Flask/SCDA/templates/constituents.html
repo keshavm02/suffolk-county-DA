@@ -1,0 +1,9 @@
+<html>
+   <body>
+      <h3>All Constituents</h3>
+      <h5>ID; name; social security number; date of birth</h5>
+      {% for constituent in constituent_list %}
+      <a href="/{{ constituent.id }}">{{constituent.id}}; {{constituent.name}}; {{constituent.SSN}}; {{constituent.DOB}}</a>
+      {% endfor %}
+   </body>
+</html>
