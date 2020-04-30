@@ -1,0 +1,26 @@
+<html>
+   <body>
+      <h3>Constituent {{id_number}} forms</h3>
+      <table style="width:100%">
+        <tr>
+          <th>Incident Report</th>
+          <th>Application for Criminal Complaint</th>
+          <th>Criminal Complaint</th>
+          <th>Arrest Booking Form</th>
+          <th>Miranda Form</th>
+          <th>Probation Record</th>
+        </tr>
+        {% for form in form_list %}
+        <tr>
+          <td><a href="/{{id_number}}/IR/{{form.IR}}">{{form.IR}}</a></td>
+          <td><a href="/{{id_number}}/ACC/{{form.ACC}}">{{form.ACC}}</a></td>
+          <td><a href="/{{id_number}}/CC/{{form.CC}}">{{form.CC}}</a></td>
+          <td><a href="/{{id_number}}/ABF/{{form.ABF}}">{{form.ABF}}</a></td>
+          <td><a href="/{{id_number}}/MF/{{form.MF}}">{{form.MF}}</a></td>
+          <td><a href="/{{id_number}}/PR/{{form.PR}}">{{form.PR}}</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+      
+   </body>
+</html>

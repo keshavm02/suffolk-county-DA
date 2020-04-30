@@ -1,0 +1,24 @@
+<html>
+   <body>
+      <h3>Constituent {{id_number}} IR form uploaded on {{upload_date}} </h3>
+      <table style="width:100%">
+        <tr>
+          <th>Case Number</th>
+          <th>CAD Incident #</th>
+          <th>Report Type</th>
+          <th>Date / Time Occurred</th>
+          <th>Date / Time Reported</th>
+          <th>Public Narrative</th>
+        </tr>
+        <tr>
+          <td>{{form.case_number}}</td>
+          <td>{{form.CAD_incident_num}}</td>
+          <td>{{form.report_type}}</td>
+          <td>{{form.date_time_occured}}</td>
+          <td>{{form.date_time_reported}}</td>
+          <td>{{form.public_narrative}}</td>
+        </tr>
+      </table>
+      
+   </body>
+</html>
