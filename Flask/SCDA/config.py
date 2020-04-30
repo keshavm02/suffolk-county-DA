@@ -1,7 +1,7 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
-print(basedir)
-#from SCDA import app
+#print(basedir)
+from SCDA import app
 
 
 UPLOAD_FOLDER = os.path.abspath(os.path.dirname('uploads'))
