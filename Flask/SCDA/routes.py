@@ -8,6 +8,7 @@ from PIL import Image #package that allows you to give functionality to images
 from SCDA import config
 from .extract_text.extract_fields import *
 from .extract_text.extract_text import *
+import filetype
 from SCDA import app, models, db
 from flask import request, flash, redirect, render_template, send_from_directory
 from .extract_routes.database_code import *
@@ -15,9 +16,21 @@ from datetime import datetime
 
 
 
-
-
-
+ALLOWED_MIMES = {"image/gif", "image/png", "image/jpg", "image/jpeg", "application/pdf"}
+ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+def isFileAllowed(file):
+    try:
+        kind = filetype.guess(file)
+        print('File extension: %s' % kind.extension)
+        print('File MIME type: %s' % kind.mime)
+        if kind is None:
+            return False
+        if kind.mime in ALLOWED_MIMES and kind.extension in ALLOWED_EXTENSIONS:
+            return True
+        else:
+            return False
+    except:
+        return False
 
 
 #http://www.programmersought.com/article/68322218798/
@@ -251,8 +264,8 @@ def Criminal_Complaint_Post():
             print('no file name')
             print('HIT REDIRECT LINK 2')
             return redirect(request.url)
-        if file and allowed_file(file.filename):
-            print("RECIEVING IMAGE")
+        if file and isFileAllowed(file):
+            print("RECEIVING IMAGE")
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))     
             test_image = ImageReader(os.path.join(app.config['UPLOAD_FOLDER'], filename)) #this allows you to see image
@@ -372,7 +385,7 @@ def abf():
             flash('/failure')
             print('no file name')
             return redirect(request.url)
-        if file and allowed_file(file.filename):
+        if file and isFileAllowed(file):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             test_image = ImageReader(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -405,7 +418,7 @@ def acc():
             flash('/failure')
             print('no file name')
             return redirect(request.url)        
-        if file and allowed_file(file.filename):
+        if file and isFileAllowed(file):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             test_image = ImageReader(os.path.join(app.config['UPLOAD_FOLDER'], filename))
