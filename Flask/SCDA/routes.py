@@ -44,7 +44,11 @@ class JSONEncoder(json.JSONEncoder):
 @app.route('/')
 @app.route('/index')
 def index():
-    return "Hello, World!"
+    return render_template('index.html')
+
+@app.route('/admin')
+def admin():
+    return render_template('admin.html')
     
 @app.route('/upload', methods=['POST'])
 def upload_forms():
