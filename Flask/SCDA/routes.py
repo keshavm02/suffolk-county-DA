@@ -29,7 +29,10 @@ class JSONEncoder(json.JSONEncoder):
 @app.route('/')
 @app.route('/index')
 def index():
-    return "Hello, World!"
+    return render_template('index.html')
+
+def admin():
+    return render_template('admin.html')
 
 #route for criminal complaints
 @app.route('/CC', methods=['POST'])
