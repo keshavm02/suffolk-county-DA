@@ -14,7 +14,6 @@ import filetype
 
 
 
-#allowed_file adapted from http://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
 ALLOWED_MIMES = {"image/gif", "image/png", "image/jpg", "image/jpeg", "application/pdf"}
 ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 def isFileAllowed(file):
@@ -61,7 +60,7 @@ def Criminal_Complaint_Post():
             flash('/failure')
             print('no file name')
             return redirect(request.url)
-        if file and allowed_file(file.filename):
+        if file and isFileAllowed(file):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             test_image = ImageReader(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -177,7 +176,7 @@ def abf():
             flash('/failure')
             print('no file name')
             return redirect(request.url)
-        if file and allowed_file(file.filename):
+        if file and isFileAllowed(file):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             test_image = ImageReader(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -210,7 +209,7 @@ def acc():
             flash('/failure')
             print('no file name')
             return redirect(request.url)        
-        if file and allowed_file(file.filename):
+        if file and isFileAllowed(file):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             test_image = ImageReader(os.path.join(app.config['UPLOAD_FOLDER'], filename))
