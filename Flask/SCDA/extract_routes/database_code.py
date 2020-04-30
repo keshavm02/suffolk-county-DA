@@ -121,7 +121,7 @@ def addOptionalForms(form_data, uuid, formTable, form_upload_date):
             abf_filename = secure_filename(abf_filename)
             abf_file = Image.open(abf_file)
             doc, image_path = localUploadAndExtraction(abf_filename, abf_file)
-            abf_info = arrest_booking_form(doc)
+            abf_info = extract_arrest_booking_form(doc)
             abf_insert = ABF(uuid, form_upload_date, image_path, abf_info["Report Date"],abf_info["Booking Status"],
                             abf_info["Printed By"],abf_info["District"],abf_info["UCR Code"],abf_info["OBTN"],
                             abf_info["Court of Appearance"],abf_info["Master Name"],abf_info["Age"],abf_info["Location of Arrest"],
@@ -157,7 +157,7 @@ def addOptionalForms(form_data, uuid, formTable, form_upload_date):
             pr_filename = secure_filename(pr_filename)
             pr_file = Image.open(pr_file)
             doc, image_path = localUploadAndExtraction(pr_filename, pr_file)
-            pr_info = probation_form(doc)
+            pr_info = extract_probation_form(doc)
             pr_insert = PR(uuid, form_upload_date, image_path, pr_info["PCF"],pr_info["DOB"],pr_info["Age"],pr_info["Birthplace"],pr_info["Mother"],pr_info["Father"],pr_info["Height"],pr_info["Weight"],
                                                                     pr_info["Hair"],pr_info["Eyes"],pr_info["Gender"],pr_info["Race"],pr_info["Ethnicity"],
                                                                     pr_info["DLN"],pr_info["CARI"],pr_info["Records Include"])
@@ -175,7 +175,7 @@ def addOptionalForms(form_data, uuid, formTable, form_upload_date):
             mf_filename = secure_filename(mf_filename)
             mf_file = Image.open(mf_file)
             doc, image_path = localUploadAndExtraction(mf_filename, mf_file)
-            mf_info = miranda_form(doc)
+            mf_info = extract_miranda_form(doc)
             mf_insert = MF(uuid, form_upload_date, image_path, mf_info["Booking Name"], mf_info["First"], mf_info["Middle"], mf_info["Suffix"], mf_info["Home Address"], mf_info["Report Date"], 
                                                                     mf_info["Booking Status"], mf_info["Printed By"], mf_info["Sex"], mf_info["Race"], mf_info["Date of Birth"], mf_info["District"], mf_info["Booking Number"], 
                                                                     mf_info["Arrest Date"], mf_info["Incident Number"], mf_info["Booking Date"], mf_info["Charges"], mf_info["Telephone Used"], mf_info["Breathalyzer Used"], mf_info["Examined at Hospital"], 

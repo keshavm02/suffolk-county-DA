@@ -60,7 +60,7 @@ def find_codes(document):
         return []
     
 
-def criminal_complaint(raw_document):
+def extract_criminal_complaint(raw_document):
     #print(raw_document)
     docket_num = find_docket_number(raw_document)
     subject_name = find_full_name(raw_document)
@@ -96,13 +96,13 @@ def criminal_complaint(raw_document):
     #incident report number
     irn = str(find_indicent_report(raw_document))
     #print(address['court'])
-    fields = {'_id': docket_num,'docket': docket_num, 'name': subject_name, 'dob': date_of_birth,'doc':complaint_issued,'doo':doo, 'doa':arrest_date, 'ned': next_event_date, 'obtn': obtn, 'text': raw_document, 'irn': irn,
+    fields = {'docket': docket_num, 'name': subject_name, 'dob': date_of_birth,'doc':complaint_issued,'doo':doo, 'doa':arrest_date, 'ned': next_event_date, 'obtn': obtn, 'text': raw_document, 'irn': irn,
             'court_address':address['court'], 'defendant_address':address['defendant'], 'offense_codes':offense_codes}
     return fields
 
 
 # data extracted from arrest booking form by finding the key words for the fields and adding the corresponding key, value pair to dictionary
-def arrest_booking_form(raw_document):
+def extract_arrest_booking_form(raw_document):
     #print("We are in Extract_Fields")
     header = ['Boston Police Department', 'Arrest Booking Form']
     document = raw_document
@@ -161,7 +161,7 @@ def find_name_ACC(document):
     name = re.search("[a-z]*\s[A-Z][a-z]*[,]\s[A-Z][a-z]*", document)
     return name
 
-def application_for_criminal_complaint(raw_document):
+def extract_application_for_criminal_complaint(raw_document):
     #Remove Headers
     header = ['Application Details', 'Accused Details', 'Complainant Details']
     document = raw_document
@@ -196,7 +196,7 @@ def application_for_criminal_complaint(raw_document):
         fields[field] = value
     return fields
 
-def probation_form(raw_document):
+def extract_probation_form(raw_document):
     header = ['Commonwealth of Massachusetts', 'Probation Department', 'Court Activity Record Information', 'CSO', 'DNA',
               'DOR']
     document = raw_document
@@ -256,7 +256,7 @@ def find_public_narrative(raw_document):
     narrative = raw_document[raw_document.index('Public Narrative') + len('Public Narrative'):].strip()
     return narrative
 
-def incident_report(raw_document):
+def extract_incident_report(raw_document):
     case_number = find_case_number(raw_document)
     cad_incident = find_cad_incident_number(raw_document)
     report_type = find_report_type(raw_document)
@@ -273,7 +273,7 @@ def incident_report(raw_document):
     fields = {'Case Number': case_number, 'CAD Incident Number': cad_incident, 'Report Type': report_type, 'Date / Time Occurred': date_time_occurred, 'Date / Time Reported': date_time_reported, 'Public Narrative': public_narrative}
     return fields
 
-def miranda_form(raw_document):
+def extract_miranda_form(raw_document):
     header = ['Boston Police Department', 'Prisoner Booking Form']
     document = raw_document
     for phrase in header:
