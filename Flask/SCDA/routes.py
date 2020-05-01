@@ -408,15 +408,6 @@ def display_CC(id_number, upload_date):
     #print(upload_date)
     return render_template('CC.html',id_number=id_number,upload_date=upload_date,form=CC_form)
 
-#returns a 'master json' which contains all cases keyed by docket number and within each case has all documents
-@app.route('/master')
-def get_master():
-    master_list = list(cases.find({}))
-    case_list = {}
-    for case in master_list:
-        case_list[case['docket']] = case
-    return JSONEncoder().encode(case_list)
-
 #web page to display all documents
 @app.route('/all_cases')
 def case_page():
