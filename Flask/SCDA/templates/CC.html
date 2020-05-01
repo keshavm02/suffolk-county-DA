@@ -1,0 +1,36 @@
+<html>
+   <body>
+      <h3>Constituent {{id_number}} ACC form uploaded on {{upload_date}} </h3>
+      <table style="width:100%">
+        <tr>
+          <th>Docket Number</th>
+          <th>Defendant Name</th>
+          <th>Defendant Address</th>
+          <th>Court Address</th>
+          <th>Defendant DOB</th>
+          <th>Complaint Issued</th>
+          <th>Date of Offense</th>
+          <th>Arrest Date</th>
+          <th>Next Event Date</th>
+          <th>OBTN</th>
+          <th>Incident Report Number</th>
+          <th>Offense Codes</th>
+        </tr>
+        <tr>
+          <td>{{form.docket_number}}</td>
+          <td>{{form.full_name}}</td>
+          <td>{{form.defendant_address}}</td>
+          <td>{{form.court_address}}</td>
+          <td>{{form.date_of_birth}}</td>
+          <td>{{form.date_of_issued_complaint}}</td>
+          <td>{{form.date_of_offense}}</td>
+          <td>{{form.date_of_arrest}}</td>
+          <td>{{form.next_event_date}}</td>
+          <td>{{form.obtn_num}}</td>
+          <td>{{form.incident_report_num}}</td>
+          <td>{{form.offense_code}}</td>
+        </tr>
+      </table>
+      
+   </body>
+</html>
