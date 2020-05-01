@@ -1,10 +1,12 @@
-import extract_fields
+import sys
+sys.path.append('.././suffolk-county-DA/Flask/SCDA/')
 import unittest
 import os
+from extract_text import extract_fields
 
 class test_arrest_booking_form(unittest.TestCase):
     doc = open(os.path.expanduser("~/suffolk-county-DA/Flask/SCDA/extract_text/extraction_tests/test_textdumps/Arrest Booking Form Dump.txt")).read()
-    answers = extract_fields.arrest_booking_form(doc)
+    answers = extract_fields.extract_arrest_booking_form(doc)
 
     def test_report_date(self):
         input = self.answers['Report Date']

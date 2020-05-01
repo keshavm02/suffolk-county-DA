@@ -1,11 +1,13 @@
-import extract_fields
+import sys
+sys.path.append('.././suffolk-county-DA/Flask/SCDA/')
 import unittest
 import os
+from extract_text import extract_fields
 
 
 class test_application_for_criminal_complaint(unittest.TestCase):
     doc = open(os.path.expanduser("~/suffolk-county-DA/Flask/SCDA/extract_text/extraction_tests/test_textdumps/Application for Criminal Complaint .txt")).read()
-    answers = extract_fields.application_for_criminal_complaint(doc)
+    answers = extract_fields.extract_application_for_criminal_complaint(doc)
 
     def test_summons(self):
         input = self.answers["Summons"]

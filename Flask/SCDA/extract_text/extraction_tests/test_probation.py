@@ -1,10 +1,13 @@
-import os
-import extract_fields
+import sys
+sys.path.append('.././suffolk-county-DA/Flask/SCDA/')
 import unittest
+import os
+from extract_text import extract_fields
+
 
 class test_criminal_complaints(unittest.TestCase):
-    doc = open(os.path.expanduser('~/suffolk-county-DA/extract_text/extraction_tests/test_textdumps/Probation Textdump.txt')).read()
-    answers = extract_fields.probation_form(doc)
+    doc = open(os.path.expanduser('~/suffolk-county-DA/Flask/SCDA/extract_text/extraction_tests/test_textdumps/Probation Textdump.txt')).read()
+    answers = extract_fields.extract_probation_form(doc)
 
 
     def test_PCF(self):
@@ -93,7 +96,7 @@ class test_criminal_complaints(unittest.TestCase):
 
     def test_cari(self):
         input = self.answers['CARI']
-        expected = ['CA DKT#: TESTDT: TEST Boston PD - 754 CRT: SUFFOLK SUPERIOR (84)OFFENSE: '
+        expected = str(['CA DKT#: TESTDT: TEST Boston PD - 754 CRT: SUFFOLK SUPERIOR (84)OFFENSE: '
  'POSS FIREARM W/O PERMIT (FIR POSS WO PERM)DISPOSITION: C [Redacted]G 3-4YR '
  'CMTD CONCSTATUS: CLOSED',
  'CA DKT#: TESTDT: TEST Boston PD - 754 CRT: SUFFOLK SUPERIOR (84)OFFENSE: '
@@ -112,7 +115,7 @@ class test_criminal_complaints(unittest.TestCase):
  'CARRY FIR W/ AMMUNITION (FIR CARRY W/AMM)DISPOSITION: C [Redacted] G PROB '
  '3YR F&A CONCSTATUS: OPEN',
  'CA DKT#: TESTDT: TEST Suffolk County Sheriff CRT: BOSTON BMC CENTRAL '
- 'DISTRICT (1)']
+ 'DISTRICT (1)'])
         self.assertEqual(input, expected)
 
 

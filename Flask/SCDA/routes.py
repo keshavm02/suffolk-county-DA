@@ -1,5 +1,5 @@
 import sys
-sys.path.append('/.././suffolk-county-DA/Flask/')
+sys.path.append('.././suffolk-county-DA/Flask/')
 import os #allows interaction with operating system and pathing files
 import json #allows python dictionaries to be formatted into JSON and vice versa JSON to string
 from bson import ObjectId #allows MongoDB to format data

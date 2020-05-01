@@ -1,11 +1,12 @@
-import os
-from extract_fields import *
+import sys
+sys.path.append('.././suffolk-county-DA/Flask/SCDA/')
 import unittest
-
+import os
+from extract_text import extract_fields
 
 class test_miranda(unittest.TestCase):
     doc = open(os.path.expanduser("~/suffolk-county-DA/Flask/SCDA/extract_text/extraction_tests/test_textdumps/Miranda Text Dump.txt")).read()
-    answers = miranda_form(doc)
+    answers = extract_fields.extract_miranda_form(doc)
 
     def test_booking_name(self):
         input = self.answers['Booking Name']

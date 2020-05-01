@@ -10,7 +10,7 @@ EFENDANT DOB COMPLAINT ISSUED DATE OF OFFENSE ARREST DATE
 OFFENSE CITY / TOWN OFFENSE ADDRESS NEXT EVENT DATE & TIME
 Boston Columbia Rd. Seaver st. 09/05/2017 09:00 AM
 POLICE DEPARTMENT POLICE INCIDENT NUMBER NEXT SCHEDULED EVENT '
-Boston PD Area B-3 1172 072 717 Arraignment
+Boston PD Area B-3 I172 072 717 Arraignment
 OBTN PCF NUMBER DEFENDANT XREF ID ROOM / SESSION
 TBOS170088503 2732853 7099595 Arraignment (1st) Session
 The undersigned complainant, on behalf of the Commonwealth, on oath complains that on the date(s) indicated below the
