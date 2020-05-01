@@ -1,3 +1,3 @@
-import sys
-sys.path.append('..')
-import extract_text
+#import sys
+#sys.path.append('..')
+#import extract_text
