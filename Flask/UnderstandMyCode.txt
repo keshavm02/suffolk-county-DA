@@ -73,14 +73,7 @@ This was done out of order to prevent doing extra work (reparse ACC again.)
 If everything is successful, you should be redirected to the /success route. If it failed, you will be redirected to the /failure route (both left over from the previous team ). 
   
 
-Potential Problems with the APP:
+Potential Problems with the app:
     1. The OCR does not work well. The OCR turns the image into gibberish for some of the documents. We made perfect text translations by hand. 
-    2. One of the form uses symbols. The OCR is not equipped to handle this. Nassar advised us to skip this section for now. 
-    3. One bug in the colon code is that it only takes information in if they are in the same line, if the information appears on the next line, the code will not run as expected
-    4. The upload route itself works, but it is slower than wanted. It takes about 20 seconds for 3 files when we are used to instant. 
-    
-
-
-
-HOW TO RUN OUR APPLICATION (gaby)
-Must be in directory FLask/SCDA.
+    2. One of the form uses symbols. The OCR is not equipped to handle this. Nasser advised us to skip this section for now. 
+    3. The upload route itself works, but it is slower than desired. It takes about 20 seconds for 3 files.
