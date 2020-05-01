@@ -186,34 +186,6 @@ def Criminal_Complaint_Post():
             return redirect('failure')
     return 'Please send a post request with your document picture'
 
-#route for criminal complaint confirmation
-@app.route('/confirm_CC', methods=['POST'])
-def confirm_CC():
-    if request.method == 'POST':
-        data = request.form['data']
-        print(data)
-        img = request.files['image']
-        json_name = 'data'
-        img_name = secure_filename(img.filename)
-        data.save(os.path.join(app.config['UPLOAD_JSON'],json_name))
-        with open(os.path.join(app.config['UPLOAD_JSON'], json_name)) as f:
-            fields = json.loads(f.read())
-            img_filename = os.path.join(app.config['UPLOAD_FINAL'], 'CC', fields['docket']+'_CC.jpg')
-            #set unique case incident report number, and obtn to the scanned values and embed all scanned fields into new document under the case with this docket #
-            fields['image'] = img_filename
-            img.save(img_filename)
-            cases.update_one({'docket':fields['docket']},{'$set':{'irn':fields['irn'],'obtn':fields['obtn'],'CC':fields}}, upsert=True)
-        os.remove(os.path.join(app.config['UPLOAD_JSON'],json_name))
-        #fields = json.loads(data)
-        #img_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'CC', fields['docket']+'_CC.jpg')
-        #set unique case incident report number, and obtn to the scanned values and embed all scanned fields into new document under the case with this docket #
-        #fields['image'] = img_filename
-        #img.save(img_filename)
-        #cases.update_one({'docket':fields['docket']},{'$set':{'irn':fields['irn'],'obtn':fields['obtn'],'CC':fields}}, upsert=True)
-        return json.dumps({'status':'success'})
-
-
-
 @app.route('/ABF', methods=['POST'])
 def abf():
     if request.method == 'POST':
