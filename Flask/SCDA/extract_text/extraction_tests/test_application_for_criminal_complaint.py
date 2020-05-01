@@ -43,11 +43,6 @@ class test_application_for_criminal_complaint(unittest.TestCase):
         self.assertEqual(input, expected)
 
 
-    def test_in_custody(self):
-        input = self.answers["In Custody"]
-        expected = "Yes"
-        self.assertEqual(input, expected)
-
 
     def test_officer_id(self):
         input = self.answers["Officer ID No."]
