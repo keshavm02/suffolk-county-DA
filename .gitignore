@@ -5,3 +5,7 @@ __pycache__
 .DS_Store
 venv/
 mypython/
+constituents
+constituents.db
+Flask/SCDA/uploads/*
+Flask/migrations/
