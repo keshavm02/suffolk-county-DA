@@ -7,5 +7,4 @@ venv/
 mypython/
 constituents
 constituents.db
-Flask/SCDA/uploads/*
 Flask/migrations/
