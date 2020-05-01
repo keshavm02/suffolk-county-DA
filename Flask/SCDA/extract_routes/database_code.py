@@ -66,7 +66,7 @@ def isUserInDatabase(uuid):
 def getUserID(name, SSN, DOB):
     # Attempts to find a user and return their ID given their name, social security number, and bata of birth.
     # If user does not exist, creates a new user with this information and returns their ID.
-    user = db.session.query(constituents).get((name, SSN, DOB))
+    user = db.session.query(constituents).filter_by(name=name,SSN=SSN,DOB=DOB).first()
     if user is not None:
         return user.id
     else:
