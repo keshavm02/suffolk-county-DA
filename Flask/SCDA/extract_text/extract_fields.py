@@ -253,9 +253,12 @@ def find_date_time(raw_document):
     date_time = re.findall("[0-9]{2}/[0-9]{2}/[0-9]{4}\s[0-9]{2}:[0-9]{2}", raw_document)
     return date_time
 def find_public_narrative(raw_document):
-    narrative = raw_document[raw_document.index('Public Narrative') + len('Public Narrative'):].strip()
-    return narrative
-
+    try:
+        narrative = raw_document[raw_document.index('Public Narrative') + len('Public Narrative'):].strip()
+        return narrative
+    except:
+        return "Not found"
+        
 def extract_incident_report(raw_document):
     case_number = find_case_number(raw_document)
     cad_incident = find_cad_incident_number(raw_document)
