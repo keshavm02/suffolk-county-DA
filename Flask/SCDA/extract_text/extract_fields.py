@@ -55,7 +55,7 @@ def find_codes(document):
         #print(codes)
         for i in range(len(codes)):
             codes[i] = codes[i][2:]
-        return codes
+        return str(codes)
     except:
         return []
     
