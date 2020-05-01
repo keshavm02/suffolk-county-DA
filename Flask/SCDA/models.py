@@ -20,8 +20,10 @@ Base = declarative_base()
 
 class constituents(db.Model):
     __tablename__ = 'constituents'
+    __table_args__ = {'sqlite_autoincrement': True}
 
-    id = db.Column(db.Integer, Sequence('id',start=1,increment=1), unique = True, nullable = False) #Autoincrement, map to people's names, could have lookup table
+    #id = db.Column(db.Integer, Sequence('id',start=1,increment=1), unique = True, nullable = False) #Autoincrement, map to people's names, could have lookup table
+    id = db.Column(db.Integer, autoincrement=True, unique = True, nullable = False)
     name = db.Column(db.String(), primary_key = True, nullable = False)
     SSN = db.Column(db.String(), primary_key = True, nullable = False) #only display last 4
     DOB = db.Column(db.String(), primary_key = True, nullable = False)
