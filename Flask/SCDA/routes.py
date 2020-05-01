@@ -376,11 +376,6 @@ def view_constituents():
     constituent_list = models.constituents.query.all()
     return render_template('constituents.html',constituent_list=constituent_list)
 
-"""
-@app.route('/favicon.ico')
-def favicon():
-"""
-
 #web page to display all forms
 @app.route('/<id_number>')
 def display_forms(id_number):
