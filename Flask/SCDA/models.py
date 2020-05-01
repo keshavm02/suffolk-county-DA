@@ -20,11 +20,13 @@ Base = declarative_base()
 
 class constituents(db.Model):
     __tablename__ = 'constituents'
+    __table_args__ = {'sqlite_autoincrement': True}
 
-    id = db.Column(db.Integer, Sequence('id',start=1,increment=1), unique = True, nullable = False) #Autoincrement, map to people's names, could have lookup table
-    name = db.Column(db.String(), primary_key = True, nullable = False)
-    SSN = db.Column(db.String(), primary_key = True, nullable = False) #only display last 4
-    DOB = db.Column(db.String(), primary_key = True, nullable = False)
+    #id = db.Column(db.Integer, Sequence('id',start=1,increment=1), unique = True, nullable = False) #Autoincrement, map to people's names, could have lookup table
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(), nullable = False)
+    SSN = db.Column(db.String(), nullable = False) #only display last 4
+    DOB = db.Column(db.String(), nullable = False)
     #allForms = db.relationship("forms", back_populates="form_upload_date")
 
 
@@ -508,7 +510,7 @@ class PR(db.Model):
         
         
 
-
+"""
 if __name__ == "__main__":
     with app.app_context():
         db.init_app(app)    # this is important!
@@ -550,7 +552,7 @@ if __name__ == "__main__":
     print(myir)
 
     
-"""
+
 if __name__ == "__main__":
     app.url_map.strict_slashes = False
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'

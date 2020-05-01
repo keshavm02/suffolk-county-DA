@@ -72,7 +72,7 @@ def upload_forms():
                 doc, image_path = localUploadAndExtraction(acc_filename, acc_file)
                 #FOR TESTING
                 path = os.path.abspath("../SCDA/extract_text/extraction_tests/test_textdumps/Application for Criminal Complaint .txt")
-                print(path)
+                #print(path)
                 doc = open(path).read()
                 acc_info = extract_application_for_criminal_complaint(doc)
                 #print(acc_info)
