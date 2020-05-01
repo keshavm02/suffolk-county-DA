@@ -55,7 +55,7 @@ def find_codes(document):
         #print(codes)
         for i in range(len(codes)):
             codes[i] = codes[i][2:]
-        return codes
+        return str(codes)
     except:
         return []
     
@@ -231,6 +231,7 @@ def extract_probation_form(raw_document):
     for i in range(len(fields['CARI'])):
         fields['CARI'][i] = fields['CARI'][i].replace('KT#', 'CA DKT#')
     fields['CARI'] = fields['CARI'][1:]
+    fields['CARI'] = str(fields['CARI'])
     return fields
 
 
