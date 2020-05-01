@@ -237,9 +237,33 @@ def abf():
             final_image = ImageReader(os.path.join(app.config['UPLOAD_FOLDER'],'file_rotated.png'))
             text = ExtractText(final_image.image)
             doc = text.extract_text()
-            data = extract_arrest_booking_form(doc)
-            #Want to input into database
-            #Way to do this without SSN?
+            abf_info = extract_arrest_booking_form(doc)
+            uuid = getUserID(abf_info["Name"], abf_info["Social Security No."][-4:], abf_info["Date of Birth"])
+            formTable = models.forms(uuid, form_upload_date, form_upload_date, form_upload_date, form_upload_date)
+            abf_insert = models.ABF(uuid, form_upload_date, image_path, abf_info["Report Date"],abf_info["Booking Status"],
+                            abf_info["Printed By"],abf_info["District"],abf_info["UCR Code"],abf_info["OBTN"],
+                            abf_info["Court of Appearance"],abf_info["Master Name"],abf_info["Age"],abf_info["Location of Arrest"],
+                            abf_info["Booking Name"],abf_info["Alias"],abf_info["PAD"],abf_info["Charges"],abf_info["Booking #"],
+                            abf_info["Incident #"],abf_info["CR Number"],abf_info["Booking Date"],abf_info["Arrest Date"],
+                            abf_info["RA Number"],abf_info["Sex"],abf_info["Height"],abf_info["Occupation"],abf_info["Race"],
+                            abf_info["Weight"],abf_info["Employer/School"],abf_info["Date of Birth"],abf_info["Build"],
+                            abf_info["Emp/School Addr"],abf_info["Place of Birth"],abf_info["Eyes Color"],
+                            abf_info["Social Sec. Number"],abf_info["Marital Status"],abf_info["Hair Color"],
+                            abf_info["Operators License"],abf_info["Mother's Name"],abf_info["Complexion"],
+                            abf_info["State"],abf_info["Father's Name"],abf_info["Phone Used"],abf_info["Scars/Marks/Tattoos"],
+                            abf_info["Examined at Hospital"],abf_info["Clothing Desc"],abf_info["Breathalyzer Used"],
+                            abf_info["Examined by EMS"],abf_info["Arresting Officer"],abf_info["Cell Number"],
+                            abf_info["Booking Officer"],abf_info["Partner's #"],abf_info["Informed of Rights"],
+                            abf_info["Unit #"],abf_info["Placed in Cell By"],abf_info["Trans Unit #"],abf_info["Searched By"],
+                            abf_info["Cautions"],abf_info["Booking Comments"],abf_info["Visible Injuries"],
+                            abf_info["Person Notified"],abf_info["Relationship"],abf_info["Phone"],abf_info["Address"],
+                            abf_info["Juv. Prob. Officer"],abf_info["Notified By"],abf_info["Notified Date/Time"],
+                            abf_info["Bail Set By"],abf_info["I Selected the Bail Comm."],abf_info["Bailed By"],abf_info["Amount"],
+                            abf_info["BOP Check"],abf_info["Suicide Check"],abf_info["BOP Warrant"],abf_info["BOP Court"])
+            db.session.add(formTable)
+            db.session.commit()
+            db.session.add(abf_insert)
+            db.session.commit()
             return data
         else:
             print('File not valid')
@@ -281,7 +305,7 @@ def acc():
             return redirect('failure')
     return 'Please send a post request with your document picture'
 
-"""
+
 #route for incident reports
 @app.route('/IR', methods=['POST'])
 def ir():
@@ -311,7 +335,7 @@ def ir():
             print('File not valid')
             return redirect('failure')
     return 'Please send a post request with your document picture'
-"""
+
 
 #route for probation record
 @app.route('/PR', methods=['POST'])
@@ -379,6 +403,11 @@ def mf():
 def view_constituents():
     constituent_list = models.constituents.query.all()
     return render_template('constituents.html',constituent_list=constituent_list)
+
+"""
+@app.route('/favicon.ico')
+def favicon():
+"""
 
 #web page to display all forms
 @app.route('/<id_number>')

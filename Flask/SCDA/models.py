@@ -1,5 +1,5 @@
 import sys
-sys.path.append('/Users/eloisanitorreda/suffolk-county-DA/Flask/')
+sys.path.append('/.././suffolk-county-DA/Flask/')
 from SCDA import db
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
