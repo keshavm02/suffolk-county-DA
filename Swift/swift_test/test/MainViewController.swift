@@ -192,13 +192,16 @@ UINavigationControllerDelegate,
         let iproute = "http://localhost:5000"
         if picked == "Criminal Complaint Form" {
             return "\(iproute)/CC"
-        } else if picked == "Arrest Booking Form" {
-            return "\(iproute)/ABF"
+        } else if picked == "Application for Criminal Complaint" {
+            return "\(iproute)/ACC"
         } else if picked == "Incident Report" {
             return "\(iproute)/IR"
+        } else if picked == "Arrest Booking Form" {
+            return "\(iproute)/ABF"
+        } else if picked == "Miranda Form" {
+            return "\(iproute)/MF"
         } else {
-            return "\(iproute)"
-
+            return "\(iproute)/PR"
         }
     }
     
