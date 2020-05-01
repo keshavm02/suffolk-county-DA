@@ -2,7 +2,7 @@ from flask import Flask, redirect
 from flask_sqlalchemy import SQLAlchemy
 #from sqlalchemy import update
 import sys
-sys.path.append('/Users/eloisanitorreda/suffolk-county-DA/Flask/')
+sys.path.append('.././suffolk-county-DA/Flask/')
 #SCDA = __import__('SCDA')
 from SCDA import db, app
 from SCDA.models import constituents, forms, ABF, PR, MF
