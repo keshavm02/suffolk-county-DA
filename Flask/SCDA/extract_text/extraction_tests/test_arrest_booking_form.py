@@ -5,7 +5,7 @@ import os
 import extract_fields
 
 class test_arrest_booking_form(unittest.TestCase):
-    doc = open(os.path.expanduser("~/suffolk-county-DA/Flask/SCDA/extract_text/extraction_tests/test_textdumps/Arrest Booking Form Dump.txt")).read()
+    doc = open(os.path.abspath("test_textdumps/Arrest Booking Form Dump.txt")).read()
     answers = extract_fields.extract_arrest_booking_form(doc)
 
     def test_report_date(self):
@@ -69,11 +69,9 @@ class test_arrest_booking_form(unittest.TestCase):
         expected = ''
         self.assertEqual(input, expected)
 
-    #Not working, need to fix
     def test_address(self):
-        input = self.answers['Personal Address']
+        input = self.answers['PAD']
         expected = '2 Savin Street, ROXBURY MA 02119 US'
-        #print(input)
         self.assertEqual(input, expected)
 
     def test_charges(self):
@@ -281,6 +279,7 @@ class test_arrest_booking_form(unittest.TestCase):
         expected = 'BPD 102191 BANKS, Madeline'
         self.assertEqual(input, expected)
 
+    #Not working, ask Nasser about format
     def test_cautions(self):
         input = self.answers['Cautions']
         expected = ''

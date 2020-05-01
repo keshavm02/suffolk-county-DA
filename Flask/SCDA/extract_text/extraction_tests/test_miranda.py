@@ -1,11 +1,11 @@
 import sys
-sys.path.append('.././suffolk-county-DA/Flask/SCDA/')
+sys.path.append('..')
 import unittest
 import os
-from extract_text import extract_fields
+import extract_fields
 
 class test_miranda(unittest.TestCase):
-    doc = open(os.path.expanduser("~/suffolk-county-DA/Flask/SCDA/extract_text/extraction_tests/test_textdumps/Miranda Text Dump.txt")).read()
+    doc = open(os.path.abspath("test_textdumps/Miranda Text Dump.txt")).read()
     answers = extract_fields.extract_miranda_form(doc)
 
     def test_booking_name(self):

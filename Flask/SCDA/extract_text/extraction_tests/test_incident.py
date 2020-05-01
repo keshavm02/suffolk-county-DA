@@ -1,11 +1,11 @@
 import sys
-sys.path.append('.././suffolk-county-DA/Flask/SCDA/')
+sys.path.append('..')
 import unittest
 import os
-from extract_text import extract_fields
+import extract_fields
 
 class test_incident_report(unittest.TestCase):
-    doc = open(os.path.expanduser("~/suffolk-county-DA/Flask/SCDA/extract_text/extraction_tests/test_textdumps/Incident Report Dump.txt")).read()
+    doc = open(os.path.abspath("test_textdumps/Incident Report Dump.txt")).read()
 
     def test_case_number(self):
         input = extract_fields.find_case_number(self.doc)
