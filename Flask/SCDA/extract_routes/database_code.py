@@ -77,11 +77,11 @@ def getUserID(name, SSN, DOB):
 
 def checkAllRequiredForms(form_data):
     # Checks to see if the mandatory forms Criminal Complainr, Application for CC, and Incident Report are in the request.
-        if 'acc' not in form_data:
+        if 'acc' not in form_data or form_data['acc'].filename == '':
             return [False,"Please upload all required document(s): missing ACC"]
-        elif 'cc' not in form_data:
+        elif 'cc' not in form_data or form_data['cc'].filename == '':
             return [False,"Please upload all required document(s): missing CC"]
-        elif 'ir' not in form_data:
+        elif 'ir' not in form_data or form_data['ir'].filename == '':
             return [False,"Please upload all required document(s): missing IR"]
         else:
             return [True]
@@ -100,14 +100,9 @@ def localUploadAndExtraction(filename, file):
     #doc = open(os.path.expanduser("~/suffolk-county-DA/Flask/SCDA/extract_text/extraction_tests/test_textdumps/Application for Criminal Complaint .txt")).read() #THIS IS FOR TESTING PURPOSES
     return doc, image_path
 
-
-
-
-
-
 def addOptionalForms(form_data, uuid, formTable, form_upload_date):
     # Adds optional forms (Arrest Booking Form, Miranda Form, and Probation Record) to database if they are present in the request.
-    if 'abf' in form_data:
+    if 'abf' in form_data and form_data['abf'].filename != "":
         #update the forms table
         #add abf table itself
         db.session.query(forms).filter(forms.form_upload_date==form_upload_date).update({'ABF': form_upload_date})
@@ -115,8 +110,6 @@ def addOptionalForms(form_data, uuid, formTable, form_upload_date):
         #print(upload)
         abf_file = form_data['abf']
         abf_filename = abf_file.filename
-        if abf_filename == "":
-                return False
         if isFileAllowed(abf_file):
             abf_filename = secure_filename(abf_filename)
             abf_file = Image.open(abf_file)
@@ -147,12 +140,10 @@ def addOptionalForms(form_data, uuid, formTable, form_upload_date):
         else:
             print("not allowed!")
             return False
-    if 'pr' in form_data:
+    if 'pr' in form_data and form_data['pr'].filename != "":
         db.session.query(forms).filter(forms.form_upload_date==form_upload_date).update({'PR': form_upload_date})
         pr_file = form_data['pr']
         pr_filename = pr_file.filename
-        if pr_filename == "":
-                return False
         if isFileAllowed(pr_file):
             pr_filename = secure_filename(pr_filename)
             pr_file = Image.open(pr_file)
@@ -165,12 +156,10 @@ def addOptionalForms(form_data, uuid, formTable, form_upload_date):
             db.session.commit()
         else:
             return False
-    if 'mf' in form_data:
+    if 'mf' in form_data and form_data['mf'].filename != "":
         db.session.query(forms).filter(forms.form_upload_date==form_upload_date).update({'MF': form_upload_date})
         mf_file = form_data['mf']
         mf_filename = mf_file.filename
-        if mf_filename == "":
-                return False
         if isFileAllowed(mf_file):
             mf_filename = secure_filename(mf_filename)
             mf_file = Image.open(mf_file)
