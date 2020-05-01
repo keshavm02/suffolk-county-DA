@@ -13,7 +13,7 @@ class DocumentsTableViewController: UIViewController, UITableViewDelegate, UITab
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    let documents: [String] = ["Criminal Complaint Form", "Criminal Complaint Application", "Incident Report", "Arrest Booking Form", "Miranda Form", "Board of Probation Criminal Record"]
+    let documents: [String] = ["Criminal Complaint Form", "Application for Criminal Complaint", "Incident Report", "Arrest Booking Form", "Miranda Form", "Probation Record"]
     
     let cellReuseIdentifier = "cell"
     
