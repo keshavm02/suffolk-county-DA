@@ -408,25 +408,6 @@ def display_CC(id_number, upload_date):
     #print(upload_date)
     return render_template('CC.html',id_number=id_number,upload_date=upload_date,form=CC_form)
 
-#web page to display all documents
-@app.route('/all_cases')
-def case_page():
-    master_list = list(cases.find({}))
-    case_list = {}
-    for case in master_list:
-        case_list[case['docket']] = case
-    return render_template('case_page.html',case_list=case_list)
-
-"""
-#web page to display documents for a specific case
-@app.route('/<docket_number>')
-def display_doc(docket_number):
-    docket = docket_number 
-    document = dict(cases.find_one({'docket':docket}))
-    return render_template('display_doc.html',document=document,docket=docket)
-"""
-
-
 @app.route('/success')
 def uploaded():
     return 'File(s) successfully uploaded'
