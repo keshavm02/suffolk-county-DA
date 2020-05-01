@@ -15,25 +15,6 @@ from .extract_routes.database_code import *
 from datetime import datetime
 
 
-
-# ALLOWED_MIMES = {"image/gif", "image/png", "image/jpg", "image/jpeg", "application/pdf"}
-# ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-# def isFileAllowed(file):
-#     #print(file)
-#     try:
-#         kind = filetype.guess(file)
-#         print('File extension: %s' % kind.extension)
-#         print('File MIME type: %s' % kind.mime)
-#         if kind is None:
-#             return False
-#         if kind.mime in ALLOWED_MIMES and kind.extension in ALLOWED_EXTENSIONS:
-#             return True
-#         else:
-#             return False
-#     except:
-#         return False
-
-
 #http://www.programmersought.com/article/68322218798/
 class JSONEncoder(json.JSONEncoder):
     def default(self, o):                # pylint: disable=E0202 
@@ -72,24 +53,18 @@ def upload_forms():
                 doc, image_path = localUploadAndExtraction(acc_filename, acc_file)
                 #FOR TESTING
                 path = os.path.abspath("../SCDA/extract_text/extraction_tests/test_textdumps/Application for Criminal Complaint .txt")
-                #print(path)
                 doc = open(path).read()
                 acc_info = extract_application_for_criminal_complaint(doc)
-                #print(acc_info)
                 if acc_info["Name"] == '' or acc_info["Date of Birth"] == '' or acc_info["Social Security No."] == '':
                     return "Application for criminal complaint could not be read. Please upload a clearer image."
                 else:
                     uuid = getUserID(acc_info["Name"], acc_info["Social Security No."][-4:], acc_info["Date of Birth"])
-                    # print(uuid)
-                    # store path or actual image?
                     formTable = models.forms(uuid, form_upload_date, form_upload_date, form_upload_date, form_upload_date)
                     acc_insert = models.ACC(uuid, form_upload_date, image_path, acc_info["Summons"], acc_info["Hearing Requested"], acc_info["Court"], acc_info["Arrest Status of Accused"], acc_info["Arrest Date"], acc_info["In Custody"],acc_info["Officer ID No."],acc_info["Agency"],acc_info["Type"],acc_info["Name"],acc_info["Birth Surname"],acc_info["Address"],acc_info["Date of Birth"], acc_info["Place of Birth"], acc_info["Social Security No."], acc_info["PCF No."],acc_info["SID"],acc_info["Marital Status"],acc_info["Driver's License No."],acc_info["Driver's License State"],acc_info["Driver's License Exp. Year"],acc_info["Gender"],acc_info["Race"],acc_info["Height"],acc_info["Weight"],acc_info["Eyes"],acc_info["Hair"],acc_info["Ethnicity"],acc_info["Primary Language"],acc_info["Complexion"],acc_info["Scars/Marks/Tattoos"],acc_info["Employer Name"],acc_info["School Name"],acc_info["Day Phone"],acc_info["Mother Name"],acc_info["Mother Maiden Name"],acc_info["Father Name"],acc_info["Complainant Type"],acc_info["Police Dept."])
                     db.session.add(formTable)
                     db.session.commit()
                     db.session.add(acc_insert)
                     db.session.commit()
-                    #REMINDER: MUST HAVE FORMS TABLE BEFORE COMMITTING
-                    #db.session.commit()
             cc_file = form_data['cc']
             cc_filename = cc_file.filename
             if cc_filename == "":
@@ -99,7 +74,6 @@ def upload_forms():
                 cc_file = Image.open(cc_file)
                 doc, image_path = localUploadAndExtraction(cc_filename, cc_file)
                 cc_info = extract_criminal_complaint(doc)
-                #print(cc_info["court_address"])
                 cc_insert = models.CC(uuid, form_upload_date, image_path, cc_info["docket"], cc_info["name"], cc_info["dob"], cc_info["doc"], 
                          cc_info["doo"], cc_info["doa"], cc_info["ned"], cc_info["obtn"], cc_info["irn"], cc_info["court_address"], 
                          cc_info["defendant_address"], cc_info["offense_codes"])
@@ -119,7 +93,6 @@ def upload_forms():
                 db.session.commit()
             else:
                 return redirect('failure')
-            #test = 1
             addOptional = addOptionalForms(form_data, uuid, formTable, form_upload_date)
             print(addOptional)
             if not addOptional:
@@ -130,7 +103,6 @@ def upload_forms():
         return render_template('admin.html')
         #return 'Please send a post request with at least the following forms: Application for Criminal Complaint, Criminal Complaint, Incident Report.'
             
-
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
@@ -141,9 +113,6 @@ def uploaded_file(filename):
 def Criminal_Complaint_Post():
     print("RECIEVING REQUEST 1")
     if request.method == 'POST':
-        #print(request)
-        #print(request.form)
-        #print(request.headers)
         print(request.files)
         print(request.data)
         if 'file' not in request.files:
@@ -170,13 +139,11 @@ def Criminal_Complaint_Post():
             final_image = ImageReader(os.path.join(app.config['UPLOAD_FOLDER'],'file_rotated.png'))
             text = ExtractText(final_image.image)
             doc = text.extract_text()
-            #print(doc)
             cc_insert = extract_criminal_complaint(doc)
             #save the image
             img_filename = os.path.join(app.config['UPLOAD_FINAL'], 'CC', cc_insert['docket']+'_CC.jpg')
             image = image.transpose(Image.ROTATE_90)
             image.save(img_filename)
-            #print(fields_package)            
             #Want to input into database
             #Way to do this without SSN?
             return cc_insert
@@ -241,6 +208,7 @@ def abf():
             print('File not valid')
             return redirect('failure')
     return 'Please send a post request with your document picture'
+
 #route for application for criminal complaints
 @app.route('/ACC', methods=['POST'])
 def acc():
@@ -250,7 +218,6 @@ def acc():
             print('file not in request.files')
             return redirect('/failure')
         file = request.files['file']
-        #print(file)        
         if file.filename == '':
             flash('/failure')
             print('no file name')
@@ -349,7 +316,6 @@ def mf():
             print('file not in request.files')
             return redirect('/failure')
         file = request.files['file']
-        #print(file)        
         if file.filename == '':
             flash('/failure')
             print('no file name')
@@ -381,31 +347,24 @@ def view_constituents():
 def display_forms(id_number):
     id = id_number 
     constituent_forms = db.session.query(forms).filter_by(constituent_id=id_number).all()
-    #print(constituent_forms)
     return render_template('forms.html',id_number=id,form_list=constituent_forms)
 
 #web page to display requested incident report form
 @app.route('/<id_number>/IR/<upload_date>')
 def display_IR(id_number, upload_date):
     IR_form = db.session.query(models.IR).filter_by(constituent_id=id_number,form_upload_date=upload_date).first()
-    #IR_form = models.IR.query.filter_by(constituent_id=id_number,form_upload_date=upload_date).all()
-    #print(upload_date)
     return render_template('IR.html',id_number=id_number,upload_date=upload_date,form=IR_form)
 
 #web page to display requested application for criminal complaint
 @app.route('/<id_number>/ACC/<upload_date>')
 def display_ACC(id_number, upload_date):
     ACC_form = db.session.query(models.ACC).filter_by(constituent_id=id_number,form_upload_date=upload_date).first()
-    #IR_form = models.IR.query.filter_by(constituent_id=id_number,form_upload_date=upload_date).all()
-    #print(upload_date)
     return render_template('ACC.html',id_number=id_number,upload_date=upload_date,form=ACC_form)
 
 #web page to display requested criminal complaint
 @app.route('/<id_number>/CC/<upload_date>')
 def display_CC(id_number, upload_date):
     CC_form = db.session.query(models.CC).filter_by(constituent_id=id_number,form_upload_date=upload_date).first()
-    #IR_form = models.IR.query.filter_by(constituent_id=id_number,form_upload_date=upload_date).all()
-    #print(upload_date)
     return render_template('CC.html',id_number=id_number,upload_date=upload_date,form=CC_form)
 
 @app.route('/success')
@@ -417,5 +376,4 @@ def fail():
     return 'File not uploaded successfully'
 
 if __name__ == '__main__':
-    #app.run(host='0.0.0.0', ssl_context=('/home/eric/cert.pem', '/home/eric/key.pem'))
     app.run(host='0.0.0.0', debug=True)
