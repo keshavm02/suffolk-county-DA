@@ -25,7 +25,7 @@ Starting with the "extract_text" folder:
             The other things in this folder is the test folder which is used to test extract_fields.py as well as the image folder that holds the documents. 
 
 The next file that you should look at is "models.py":
-    This is how the Postgres database is set up. We have three tables. 
+    This is how the SQLite database is set up. We have three tables. 
         1. Constituents 
         2. Forms 
         3. Specific Form Table 
@@ -57,31 +57,20 @@ Assumptions taken for recieving information from the front end :
      There are three required documents. In the front end, the user will select a required document from the table given, scan the document that was selected. The user will do this for three documents.
      If there are extra optional documents, the user will proceed to scan those as well. When all documents are scanned, user will press the upload button that will send all documents scanned to the backend. 
      One of the required documents that should always be scanned is the ACC which contains Name, DOB, SSN. This will identify the user that we will store the information for. 
-     IDEA: The backend will recieve data in a json object format. It will be a list of objects where the key will be the document name. Example:
-                
+     The backend will recieve data in a POST request where each file is tagged appropriately sent from an HTML form. It will be a list of objects where the key will be the document name.
 
-
-                {
-                    ACC: Scanned Image, 
-                    CC: Scanned Image,
-                    IR: Scanned Image,
-                    Optional Document: Scanned Image
-                }
-
-        This will allow us to account for the optional documents by going through the list, when we go through the list, we look at the key and match the key to a route that will handle extracting the information out of that 
-        specific document. 
 
 Going over the actual upload route. We recieve the POST request with the information in the format that was specified above. We first check if all required forms are there (checkAllRequiredForms). Most functions that arn't defined in routes.py can be found in database_code.py.
-If all required forms are there, we move on the find the first required form which is Application for Criminal Complaint, ACC. This file was chosen to be parsed first because it is the only file out of the three files required that contains all three identifying information in the constitutents tables (name,dob,ssn).
+If all required forms are there, we move on to find the first required form which is Application for Criminal Complaint, ACC. This file was chosen to be parsed first because it is the only file out of the three files required that contains all three identifying information in the constitutents tables (name,dob,ssn).
 We first do a security check on ACC before we even parse the file (isFileAllowed), if safe, we take in the photo from the POST request and send it off to be uploaded locally (left over code from the previous group before us. The image is uploaded locally into uploads. It also requires the static and cc folder, so try not to delete those. When we did it gave us errors.)
-At the same time it is uploaded locally, we extract the image into a text document to be parsed and upload the raw image into the postgres database as well (localUploadAndExtraction). With the return from localUploadAndExtraction, we send that document into the respective document extraction function from extra_fields.py.
+At the same time it is uploaded locally, we extract the image into a text document to be parsed and upload the raw image into the SQLite database as well (localUploadAndExtraction). With the return from localUploadAndExtraction, we send that document into the respective document extraction function from extra_fields.py.
 
 We then add the Forms Table and potentially, the 5 other documents. 
 
 Note: We added ACC before the forms table was initiated, this did not produce an error that we could see, and it still worked as expected.
 This was done out of order to prevent doing extra work (reparse ACC again.)
 
-If everything is successful, you should be redirected to the success route if it failed, the failure route (both left over from the previous team ). 
+If everything is successful, you should be redirected to the /success route. If it failed, you will be redirected to the /failure route (both left over from the previous team ). 
   
 
 Potential Problems with the APP:
